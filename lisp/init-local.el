@@ -99,8 +99,12 @@
 
 (set-variable 'debug-var "before font")
 
-;; 这行应该在最下面
-(require 'init-local-font)
+;; 解决 daemon 中设置 font 的问题
+(if (daemonp)
+    (add-hook 'after-make-window-system-frame-hooks
+              (lambda ()
+                (require 'init-local-font)))
+  (require 'init-local-font))
 
 (set-variable 'debug-var "after font")
 
