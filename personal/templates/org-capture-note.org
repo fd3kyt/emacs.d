@@ -1,0 +1,7 @@
+* note on %K
+** :Date:%U
+** Source
+#+BEGIN_CENTER
+
+#+END_CENTER
+** context

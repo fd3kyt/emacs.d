@@ -1,0 +1,4 @@
+* %^{prompt}
+#+BEGIN_SRC python%?
+%i
+#+END_SRC
