@@ -56,7 +56,7 @@
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 (require 'init-local-autoinsert)
-(require 'init-local-ycmd)
+;;(require 'init-local-ycmd)
 
 
 ;; temp c
