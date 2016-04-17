@@ -15,18 +15,14 @@
 
 (add-hook 'org-mode-hook 'org-mode-startup-settings)
 
-;;(setq org-startup-indented t);indent
-;; 还是在 customize 里改吧
+(setq org-startup-indented t);indent
 
 (defun org-mode-startup-settings ()
   "Set up org mode after it start."
   (add-hook 'auto-save-hook 'org-save-all-org-buffers) ; autosave
 
   ;;(setq org-startup-indented t) ;indent
-  (org-hide-starting-star)
-  )
-
-
+  (org-hide-starting-star))
 
 (setq org-directory "~/Documents")
 
@@ -71,23 +67,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/local/kyt-org/")
 (require 'org-screenshot)
-
-
-
-;; ;; for LaTex
-;; ;;(require 'org-latex)
-;; (setq org-export-latex-listings t)
-;; (add-to-list 'org-latex-classes
-;;              '("org-article"
-;;                "\\documentclass{org-article}
-;;                  [NO-DEFAULT-PACKAGES]
-;;                  [EXTRA]"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
 
 (provide 'init-local-org)
 
