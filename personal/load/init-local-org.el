@@ -35,7 +35,7 @@
 
 ;(global-set-key (kbd "C-c k") 'org-capture)
 
-(defvar org-capture-local-template-dir "~/.emacs.d/templates/"
+(defvar org-capture-local-template-dir "~/.emacs.d/personal/templates/"
   "Path to 'org-capture' local templates dir.")
 (setq org-capture-templates nil)
 
@@ -43,15 +43,15 @@
       (append '(("d" "Django")
                 ("ds" "tourial.org selection" entry
                  (file "~/Dev/tour1.7.org")
-                 (file "~/.emacs.d/templates/org-capture-django-tourial.org")
+                 (file "~/.emacs.d/personal/templates/org-capture-django-tourial.org")
                  :empty-lines 1)
                 ("dc" "tourial.org kill ring" entry
                  (file "~/Dev/tour1.7.org")
-                 (file "~/.emacs.d/templates/org-capture-django-tourial-killring.org")
+                 (file "~/.emacs.d/personal/templates/org-capture-django-tourial-killring.org")
                  :empty-lines 1 :unnarrowed)
                 ("e" "emacs-lisp code" entry
                  (file "~/Documents/emacs_learn/emacs_lisp.org")
-                 (file "~/.emacs.d/templates/org-capture-elisp.org")))
+                 (file "~/.emacs.d/personal/templates/org-capture-elisp.org")))
               org-capture-templates))
 
 (define-key org-mode-map

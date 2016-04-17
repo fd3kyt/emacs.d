@@ -31,7 +31,7 @@
 (require 'init-local-autosave)
 
 ;; scheme
-(require 'init-local-scheme)
+;; (require 'init-local-scheme)
 
 ;; verilog
 ;;(require 'init-local-verilog)
