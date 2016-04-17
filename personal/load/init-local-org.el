@@ -36,7 +36,7 @@
 ;(global-set-key (kbd "C-c k") 'org-capture)
 
 (defvar my-org-capture-template-dir
-  (expand-file-name "templates" my-emacs-dir)
+  (expand-file-name "templates" kyt/personal-dir)
   "Path to 'org-capture' local templates dir.")
 (setq org-capture-templates nil)
 
@@ -68,7 +68,7 @@
 
 (add-to-list 'load-path
              (expand-file-name "kyt-org"
-                               my-package-dir))
+                               kyt/package-dir))
 (require 'org-screenshot)
 
 (provide 'init-local-org)

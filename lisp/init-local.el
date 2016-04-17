@@ -9,23 +9,23 @@
 ;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 
-(defvar debug-var)
-(set-variable 'debug-var "start")
+(defvar kyt/debug-var)
+(set-variable 'kyt/debug-var "start")
 
-(defvar my-emacs-dir
+(defvar kyt/personal-dir
   (expand-file-name "personal"
                     user-emacs-directory)
   "集中个人设置的地方(相对 purcell 的设置).")
 
-(defvar my-package-dir
+(defvar kyt/package-dir
   (expand-file-name "packages"
-                    my-emacs-dir)
+                    kyt/personal-dir)
   "放置个人写的类似包的东西.")
 
-(defvar my-init-dir
-  (expand-file-name "load" my-emacs-dir)
+(defvar kyt/init-dir
+  (expand-file-name "load" kyt/personal-dir)
   "Path to local init dir.")
-(add-to-list 'load-path my-init-dir)
+(add-to-list 'load-path kyt/init-dir)
 
 ;; ===== personal global vars end =====
 
@@ -97,7 +97,7 @@
 ;; (add-to-list 'default-frame-alist '(height . 25))
 ;; (add-to-list 'default-frame-alist '(width . 80))
 
-(set-variable 'debug-var "before font")
+(set-variable 'kyt/debug-var "before font")
 
 ;; 解决 daemon 中设置 font 的问题
 (if (daemonp)
@@ -106,7 +106,7 @@
                 (require 'init-local-font)))
   (require 'init-local-font))
 
-(set-variable 'debug-var "after font")
+(set-variable 'kyt/debug-var "after font")
 
 (provide 'init-local)
 ;;; init-local.el ends here
