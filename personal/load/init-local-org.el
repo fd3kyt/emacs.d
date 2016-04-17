@@ -69,8 +69,6 @@
 ;; show code highlight
 (setq org-src-fontify-natively t)
 
-
->>>>>>> more on org
 (add-to-list 'load-path "~/.emacs.d/local/kyt-org/")
 (require 'org-screenshot)
 
