@@ -13,11 +13,17 @@
 (setq auto-mode-alist
       (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
 
+;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
+(defvar my-emacs-dir
+  (expand-file-name "personal"
+                    user-emacs-directory)
+  "集中个人设置的地方(相对 purcell 的设置)")
 
 ;; ========== load init file in init-local.d ==========
-
 (defvar init-local-dir
-  (expand-file-name "local" (expand-file-name "lisp" user-emacs-directory))
+  (expand-file-name "local"
+                    (expand-file-name "lisp"
+                                      user-emacs-directory))
   "Path to local init dir.")
 (add-to-list 'load-path init-local-dir)
 
