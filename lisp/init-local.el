@@ -1,6 +1,8 @@
 ;;; init-local.el --- Kyt local settings after purcell init
 
 ;;; Commentary:
+;; 单独运行这个buffer会失败, 而且这里也显示错误信息
+;; 但从init.el启动时,会成功
 ;;
 
 ;;; Code:
@@ -18,10 +20,6 @@
   (expand-file-name "local" (expand-file-name "lisp" user-emacs-directory))
   "Path to local init dir.")
 (add-to-list 'load-path init-local-dir)
-                                        ;(add-to-list 'load-path "/home/fd3kyt/.emacs.d/lisp/init-local.d/")
-
-;; 单独运行这个buffer会失败, 而且这里也显示错误信息
-;; 但从init.el启动时,会成功
 
 ;; org-mode
 (require 'org)
