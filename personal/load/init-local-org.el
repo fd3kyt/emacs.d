@@ -66,7 +66,9 @@
 ;; show code highlight
 (setq org-src-fontify-natively t)
 
-(add-to-list 'load-path "~/.emacs.d/local/kyt-org/")
+(add-to-list 'load-path
+             (expand-file-name "kyt-org"
+                               my-package-dir))
 (require 'org-screenshot)
 
 (provide 'init-local-org)

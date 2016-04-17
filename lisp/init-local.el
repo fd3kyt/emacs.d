@@ -17,7 +17,12 @@
 (defvar my-emacs-dir
   (expand-file-name "personal"
                     user-emacs-directory)
-  "集中个人设置的地方(相对 purcell 的设置)")
+  "集中个人设置的地方(相对 purcell 的设置).")
+
+(defvar my-package-dir
+  (expand-file-name "packages"
+                    my-emacs-dir)
+  "放置个人写的类似包的东西.")
 
 ;; ========== load init file in init-local.d ==========
 (defvar init-local-dir
