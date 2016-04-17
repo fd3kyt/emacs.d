@@ -25,6 +25,9 @@
 
 ;; ===== personal global vars end =====
 
+;; 先把 site-lisp 文件夹加进 load-path
+(require 'init-site-lisp)
+
 ;; theme
 (color-theme-sanityinc-solarized-light)
 
