@@ -29,12 +29,6 @@
 
 ;; ===== personal global vars end =====
 
-;; 先把 site-lisp 文件夹加进 load-path
-;; (require 'init-site-lisp)
-;; 不知道为什么, 之前加载了 init-site-lisp.el, 但 load-path 现在没有
-;; 强制加载
-;; (load-library "init-site-lisp")
-
 ;; theme
 (color-theme-sanityinc-solarized-light)
 
