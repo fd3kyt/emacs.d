@@ -6,13 +6,7 @@
 ;;
 
 ;;; Code:
-
-(color-theme-sanityinc-solarized-light)
-
-;; .md,.markdown 默认用gfm-mode打开
-(setq auto-mode-alist
-      (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
-
+;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 (defvar my-emacs-dir
   (expand-file-name "personal"
@@ -24,13 +18,19 @@
                     my-emacs-dir)
   "放置个人写的类似包的东西.")
 
-;; ========== load init file in init-local.d ==========
-(defvar init-local-dir
-  (expand-file-name "local"
-                    (expand-file-name "lisp"
-                                      user-emacs-directory))
+(defvar my-init-dir
+  (expand-file-name "load" my-emacs-dir)
   "Path to local init dir.")
-(add-to-list 'load-path init-local-dir)
+(add-to-list 'load-path my-init-dir)
+
+;; ===== personal global vars end =====
+
+;; theme
+(color-theme-sanityinc-solarized-light)
+
+;; .md,.markdown 默认用gfm-mode打开
+(setq auto-mode-alist
+      (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
 
 ;; org-mode
 (require 'org)
