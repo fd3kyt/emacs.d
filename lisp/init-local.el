@@ -8,6 +8,10 @@
 ;;; Code:
 ;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
+
+(defvar debug-var)
+(set-variable 'debug-var "start")
+
 (defvar my-emacs-dir
   (expand-file-name "personal"
                     user-emacs-directory)
@@ -26,7 +30,10 @@
 ;; ===== personal global vars end =====
 
 ;; 先把 site-lisp 文件夹加进 load-path
-(require 'init-site-lisp)
+;; (require 'init-site-lisp)
+;; 不知道为什么, 之前加载了 init-site-lisp.el, 但 load-path 现在没有
+;; 强制加载
+;; (load-library "init-site-lisp")
 
 ;; theme
 (color-theme-sanityinc-solarized-light)
@@ -90,8 +97,12 @@
 ;; (add-to-list 'default-frame-alist '(height . 25))
 ;; (add-to-list 'default-frame-alist '(width . 80))
 
+(set-variable 'debug-var "before font")
+
 ;; 这行应该在最下面
 (require 'init-local-font)
+
+(set-variable 'debug-var "after font")
 
 (provide 'init-local)
 ;;; init-local.el ends here
