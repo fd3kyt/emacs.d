@@ -55,12 +55,14 @@
 
 (require 'graphviz-dot-mode)
 
+(require 'init-local-fcitx)
+
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;;(require 'init-local-autoinsert)
-;;(require 'init-local-ycmd)
+(require 'init-local-ycmd)
 
 
 ;; temp c
