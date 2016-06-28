@@ -25,13 +25,16 @@
 (set-variable 'ycmd-server-command '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
 ;;(ycmd-server-command (quote ("python" "/home/fd3kyt/local/ycmd/ycmd")))
 (set-variable 'ycmd-global-config "/home/fd3kyt/local/ycmd/cpp/ycm/.ycm_extra_conf.py")
-;;(set-variable 'ycmd-extra-conf-whitelist '("/home/chris/Code/daily_report_system/v1.0/*"))
+(set-variable 'ycmd-extra-conf-whitelist '("~/Projects/*"))
+(set-variable 'ycmd-extra-conf-handler 'load)
 (require 'company-ycmd)
 (company-ycmd-setup)
 (global-company-mode)
 
 (require 'flycheck-ycmd)
 (flycheck-ycmd-setup)
+
+(set-variable 'company-clang-executable "/usr/bin/clang-3.8")
 
 (provide 'init-local-ycmd)
 ;;; init-local-ycmd.el ends here
