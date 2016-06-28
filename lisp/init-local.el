@@ -55,7 +55,13 @@
 
 (require 'graphviz-dot-mode)
 
-(require 'init-local-fcitx)
+;; (require 'init-local-fcitx)
+;; 使用我的 fcitx3
+(add-to-list 'load-path
+             (expand-file-name "fcitx"
+                               kyt/package-dir))
+(require 'fcitx3)
+(fcitx/enable)
 
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
@@ -106,6 +112,9 @@
   (require 'init-local-font))
 
 (set-variable 'kyt/debug-var "after font")
+
+;; fix sudo blocking
+(setq projectile-mode-line " Projectile")
 
 (provide 'init-local)
 ;;; init-local.el ends here

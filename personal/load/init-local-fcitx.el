@@ -5,7 +5,7 @@
 
 (require 'fcitx)
 
-(fcitx-default-setup)
+(fcitx-aggressive-setup)
 
 (setq fcitx-use-dbus t)
 
