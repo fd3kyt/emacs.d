@@ -63,10 +63,6 @@
 (require 'fcitx3)
 (fcitx/enable)
 
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
 ;;(require 'init-local-autoinsert)
 (require 'init-local-ycmd)
 
@@ -115,6 +111,8 @@
 
 ;; fix sudo blocking
 (setq projectile-mode-line " Projectile")
+
+(require 'init-cpp-local)
 
 (provide 'init-local)
 ;;; init-local.el ends here
