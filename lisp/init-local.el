@@ -100,6 +100,11 @@
 
 (set-variable 'kyt/debug-var "before font")
 
+;; https://github.com/tuhdo/semantic-stickyfunc-enhance
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(semantic-mode 1)
+(require 'stickyfunc-enhance)
+
 ;; 解决 daemon 中设置 font 的问题
 (if (daemonp)
     (add-hook 'after-make-window-system-frame-hooks
