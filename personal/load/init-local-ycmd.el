@@ -36,5 +36,8 @@
 
 (set-variable 'company-clang-executable "/usr/bin/clang-3.8")
 
+;; (add-hook 'ycmd-file-parse-result-hook 'ycmd-display-file-parse-results)
+;; (remove-hook 'ycmd-file-parse-result-hook 'ycmd-display-file-parse-results)
+
 (provide 'init-local-ycmd)
 ;;; init-local-ycmd.el ends here

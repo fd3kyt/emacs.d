@@ -117,6 +117,8 @@
 ;; fix sudo blocking
 (setq projectile-mode-line " Projectile")
 
+(setq dired-listing-switches "-aBhl  --group-directories-first")
+
 (require 'init-cpp-local)
 
 (provide 'init-local)

@@ -40,9 +40,18 @@
 (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
 (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
 
+;; c-c o switch between header and implementation
+;; http://emacs-fu.blogspot.com/2008/12/quickly-switching-between-header-and.html
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
+
 (setq auto-mode-alist
       (append '(("\\.h\\'" . c++-mode))
               auto-mode-alist))
+
+(fset 'c-header-guard
+      [?\C-a ?\C-. ?\C-e ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t ?r ?i ?n ?g return ?  return ?_ return ?\C-e ?_ ?h ?_ ?\C-a ?\C-. ?\C-e ?\M-x ?u ?p return ?\M-x ?u ?p ?c ?a ?s ?e ?\C-. return ?\C-a ?\C-k ?# ?i ?f ?d backspace ?n ?d ?e ?r backspace ?f ?  ?\C-y return ?# ?d ?e ?f ?i ?n ?e ?  ?\C-y return return return ?# ?e ?n ?d ?i ?f ?  ?/ ?/ ?  ?\C-y ?\C-p ?\C-o])
 
 
 (provide 'init-cpp-local)
