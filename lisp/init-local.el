@@ -74,28 +74,28 @@
 ;; mysite project
 ;;(setq python-shell-interpreter "~/.virtualenvs/mysite/bin/python")
 
-;; highlight-phrase bug
-(add-to-list 'ido-ubiquitous-command-overrides
-             '(disable exact "highlight-phrase"))
-(add-to-list 'ido-ubiquitous-command-overrides
-             '(disable exact "highlight-lines-matching-regexp"))
-(add-to-list 'ido-ubiquitous-command-overrides
-             '(disable exact "unhighlight-regexp"))
-(add-to-list 'ido-ubiquitous-command-overrides
-             '(disable exact "highlight-regexp"))
+;; ;; highlight-phrase bug
+;; (add-to-list 'ido-ubiquitous-command-overrides
+;;              '(disable exact "highlight-phrase"))
+;; (add-to-list 'ido-ubiquitous-command-overrides
+;;              '(disable exact "highlight-lines-matching-regexp"))
+;; (add-to-list 'ido-ubiquitous-command-overrides
+;;              '(disable exact "unhighlight-regexp"))
+;; (add-to-list 'ido-ubiquitous-command-overrides
+;;              '(disable exact "highlight-regexp"))
 
-;; global-magit-wip-save-mode bug:not existing dir
-(global-magit-wip-save-mode 0);;disable
+;; ;; global-magit-wip-save-mode bug:not existing dir
+;; (global-magit-wip-save-mode 0);;disable
 
 ;; (add-to-list 'default-frame-alist '(height . 25))
 ;; (add-to-list 'default-frame-alist '(width . 80))
 
 (set-variable 'kyt/debug-var "before font")
 
-;; https://github.com/tuhdo/semantic-stickyfunc-enhance
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-(semantic-mode 1)
-(require 'stickyfunc-enhance)
+;; ;; https://github.com/tuhdo/semantic-stickyfunc-enhance
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+;; (semantic-mode 1)
+;; (require 'stickyfunc-enhance)
 
 ;; 解决 daemon 中设置 font 的问题
 (if (daemonp)
