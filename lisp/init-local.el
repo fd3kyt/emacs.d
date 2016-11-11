@@ -111,7 +111,7 @@
 
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
-(require 'init-cpp-local)
+(require 'init-local-cpp)
 (require 'init-python-local)
 
 ;; (require 'init-local-fcitx)
