@@ -44,7 +44,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 (defun kyt/set-up-font ()
   (interactive)
   (qiang-set-font
-   '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=16"
+   '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=18"
    '("Microsoft Yahei" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体")))
 
 (kyt/set-up-font)

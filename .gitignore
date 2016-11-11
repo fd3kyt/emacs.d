@@ -47,3 +47,4 @@ site-lisp/package/
 # kyt
 flycheck_*
 personal/packages/fcitx/
+/semanticdb/
