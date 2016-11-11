@@ -55,14 +55,6 @@
 
 (require 'graphviz-dot-mode)
 
-;; (require 'init-local-fcitx)
-;; 使用我的 fcitx3
-(add-to-list 'load-path
-             (expand-file-name "fcitx"
-                               kyt/package-dir))
-(require 'fcitx3)
-(fcitx/enable)
-
 ;;(require 'init-local-autoinsert)
 (require 'init-local-ycmd)
 
@@ -120,6 +112,15 @@
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
 (require 'init-cpp-local)
+(require 'init-python-local)
+
+;; (require 'init-local-fcitx)
+;; 使用我的 fcitx3
+(add-to-list 'load-path
+             (expand-file-name "fcitx"
+                               kyt/package-dir))
+(require 'fcitx3)
+(fcitx/enable)
 
 (provide 'init-local)
 ;;; init-local.el ends here
