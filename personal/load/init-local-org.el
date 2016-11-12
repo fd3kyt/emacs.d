@@ -17,9 +17,15 @@
 
 (setq org-startup-indented t);indent
 
+(defun org-save-all-org-buffers-no-message ()
+  "Copy from org-save-all-org-buffers."
+  (save-some-buffers t (lambda () (derived-mode-p 'org-mode)))
+  (when (featurep 'org-id) (org-id-locations-save)))
+
 (defun org-mode-startup-settings ()
   "Set up org mode after it start."
-  (add-hook 'auto-save-hook 'org-save-all-org-buffers) ; autosave
+  (add-hook 'auto-save-hook
+            'org-save-all-org-buffers-no-message) ; autosave
 
   ;;(setq org-startup-indented t) ;indent
   (org-hide-starting-star))
