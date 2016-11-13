@@ -18,12 +18,11 @@
 (setq org-startup-indented t);indent
 
 (defun org-save-all-org-buffers-no-message ()
-  "Copy from org-save-all-org-buffers.
-http://endlessparentheses.com/understanding-letf-and-how-it-replaces-flet.html"
+  "Call org-save-all-org-buffers, clear echo area if in minibuffer."
   (interactive)
-  (cl-letf (((symbol-function 'message) #'format))
-    (save-some-buffers t (lambda () (derived-mode-p 'org-mode)))
-    (when (featurep 'org-id) (org-id-locations-save))))
+  (org-save-all-org-buffers)
+  (if (window-minibuffer-p)
+      (message nil)))
 
 (defun org-mode-startup-settings ()
   "Set up org mode after it start."
