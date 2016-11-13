@@ -35,6 +35,9 @@
 ;; 默认不显示 menu
 (menu-bar-mode 0)
 
+;; global ispell dictionary
+(ispell-change-dictionary "american" t)
+
 ;; .md,.markdown 默认用gfm-mode打开
 (setq auto-mode-alist
       (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
