@@ -6,10 +6,11 @@
 ;;; Code:
 
 ;; proxy
+;; https://www.gnu.org/software/emacs/manual/html_node/url/Proxies.html
 (setq-default url-proxy-services
               '(("http"     . "http://localhost:8123")
                 ("https"    . "http://localhost:8123")
-                ("no_proxy" . "^.*example.com")))
+                ("no_proxy" . "\\(localhost\\|127.*.*.*\\)")))
 
 (provide 'init-preload-local)
 
