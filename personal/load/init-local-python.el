@@ -1,4 +1,4 @@
-;;; init-python-local.el --- Initialize my python environment
+;;; init-local-python.el --- Initialize my python environment
 
 ;;; Commentary:
 ;;
@@ -10,6 +10,6 @@
 (setq python-shell-interpreter
       "/home/fd3kyt/anaconda3/bin/python3")
 
-(provide 'init-python-local)
+(provide 'init-local-python)
 
-;;; init-python-local.el ends here
+;;; init-local-python.el ends here

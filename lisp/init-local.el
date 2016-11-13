@@ -115,7 +115,7 @@
   (require 'init-local-cpp)
   (require 'init-local-ycmd))
 
-(require 'init-python-local)
+(require 'init-local-python)
 
 ;; (require 'init-local-fcitx)
 ;; 使用我的 fcitx3
