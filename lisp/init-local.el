@@ -56,7 +56,7 @@
 (require 'graphviz-dot-mode)
 
 ;;(require 'init-local-autoinsert)
-(require 'init-local-ycmd)
+;; (require 'init-local-ycmd)
 
 
 ;; temp c
