@@ -12,6 +12,10 @@
                 ("https"    . "http://localhost:8123")
                 ("no_proxy" . "\\(localhost\\|127.*.*.*\\)")))
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/benchmark-init-el/")
+(require 'benchmark-init-modes)
+(benchmark-init/activate)
+
 (provide 'init-preload-local)
 
 ;;; init-preload-local.el ends here
