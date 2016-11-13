@@ -40,8 +40,7 @@
       (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
 
 ;; org-mode
-(require 'org)
-(require 'init-local-org)
+(after-load 'org (require 'init-local-org))
 
 ;; save and recover setting
 (require 'init-local-autosave)
@@ -111,7 +110,8 @@
 
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
-(require 'init-local-cpp)
+(after-load 'cc-mode (require 'init-local-cpp))
+
 (require 'init-python-local)
 
 ;; (require 'init-local-fcitx)
