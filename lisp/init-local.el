@@ -58,8 +58,6 @@
 (require 'graphviz-dot-mode)
 
 ;;(require 'init-local-autoinsert)
-;; (require 'init-local-ycmd)
-
 
 ;; temp c
 (defun my-flycheck-c-setup ()
@@ -113,7 +111,9 @@
 
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
-(after-load 'cc-mode (require 'init-local-cpp))
+(after-load 'cc-mode
+  (require 'init-local-cpp)
+  (require 'init-local-ycmd))
 
 (require 'init-python-local)
 

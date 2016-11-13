@@ -19,7 +19,8 @@
 
 (require 'ycmd)
 ;;;;;;;;;;;;;;;;;;;emacs-ycmd;;;;;;;;;;;;;;;;;;;
-(add-hook 'after-init-hook #'global-ycmd-mode)
+;; (add-hook 'after-init-hook #'global-ycmd-mode)
+(add-hook 'c-mode-common-hook #'ycmd-mode)
 (set-variable 'ycmd-force-semantic-completion t)
 ;;(set-variable 'ycmd-global-config nil)
 (set-variable 'ycmd-server-command '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
