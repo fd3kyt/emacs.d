@@ -8,8 +8,10 @@
 ;; proxy
 ;; https://www.gnu.org/software/emacs/manual/html_node/url/Proxies.html
 (setq-default url-proxy-services
-              '(("http"     . "http://localhost:8123")
-                ("https"    . "http://localhost:8123")
+              ;; dont't use "http://localhost:8123", use "localhost:8123" directly
+              '(("http"     . "localhost:8123")
+                ("https"    . "localhost:8123")
+                ;; regular expression, not CSV
                 ("no_proxy" . "\\(localhost\\|127.*.*.*\\)")))
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/benchmark-init-el/")
