@@ -27,6 +27,10 @@
   "Path to local init dir.")
 (add-to-list 'load-path kyt/init-dir)
 
+;; ===== if under Windows =====
+(when (equal window-system 'w32)
+  (require 'init-local-w32))
+
 ;; ===== personal global vars end =====
 
 ;; theme
@@ -124,6 +128,13 @@
                                kyt/package-dir))
 (require 'fcitx3)
 (fcitx/enable)
+
+(defun load-frequently-used ()
+  "Load packges that I use frequently."
+  (interactive)
+  (require 'magit)
+  (require 'org)
+  (require 'python))
 
 (provide 'init-local)
 ;;; init-local.el ends here
