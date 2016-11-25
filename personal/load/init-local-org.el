@@ -83,6 +83,21 @@
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
 (require 'org-download)
+(defun kyt/org-screenshot (prefix)
+  "Call org-download-screenshot with frame minimized.
+PREFIX: if not nil, do not minmize."
+  (interactive "P")
+  (if prefix
+      (org-download-screenshot)
+    (progn
+      (make-frame-invisible)
+      (with-demoted-errors "Error: %S"
+        (org-download-screenshot))
+      (make-frame-visible))
+    ))
+(add-hook 'org-mode-hook (lambda ()
+                           (local-set-key (kbd "C-c M-d")
+                                          'kyt/org-screenshot)))
 
 ;; (add-to-list 'load-path
 ;;              (expand-file-name "kyt-org"
