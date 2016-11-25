@@ -48,3 +48,4 @@ site-lisp/package/
 flycheck_*
 personal/packages/fcitx/
 /semanticdb/
+/projectile.cache

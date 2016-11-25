@@ -74,6 +74,16 @@
 ;; show code highlight
 (setq org-src-fontify-natively t)
 
+;; init org-attach
+(defun kyt/org-attach-init ()
+  (setq-local org-attach-directory
+              (concat (file-name-directory (buffer-file-name))
+                      (file-name-nondirectory (buffer-file-name))
+                      ".d/")))
+(add-hook 'org-mode-hook 'kyt/org-attach-init)
+
+(require 'org-download)
+
 (add-to-list 'load-path
              (expand-file-name "kyt-org"
                                kyt/package-dir))
