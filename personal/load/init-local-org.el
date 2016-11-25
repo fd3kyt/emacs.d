@@ -41,7 +41,7 @@
 ;; 自动加载,避免变量未定义
 (require 'org-capture)
 
-;(global-set-key (kbd "C-c k") 'org-capture)
+;; (global-set-key (kbd "C-c k") 'org-capture)
 
 (defvar my-org-capture-template-dir
   (expand-file-name "templates" kyt/personal-dir)
@@ -85,7 +85,7 @@
 (require 'org-download)
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
-PREFIX: if not nil, do not minmize."
+PREFIX: if not nil, do not minimize."
   (interactive "P")
   (if prefix
       (org-download-screenshot)
@@ -96,8 +96,8 @@ PREFIX: if not nil, do not minmize."
       (make-frame-visible))
     ))
 (add-hook 'org-mode-hook (lambda ()
-                           (local-set-key (kbd "C-c M-d")
-                                          'kyt/org-screenshot)))
+                           (define-key org-mode-map (kbd "C-c M-d")
+                             'kyt/org-screenshot)))
 
 ;; (add-to-list 'load-path
 ;;              (expand-file-name "kyt-org"
