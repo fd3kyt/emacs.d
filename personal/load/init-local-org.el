@@ -84,10 +84,11 @@
 
 (require 'org-download)
 
-(add-to-list 'load-path
-             (expand-file-name "kyt-org"
-                               kyt/package-dir))
-(require 'org-screenshot)
+;; (add-to-list 'load-path
+;;              (expand-file-name "kyt-org"
+;;                                kyt/package-dir))
+;; (require 'org-screenshot)
+;; use org-download-screenshot instead
 
 (provide 'init-local-org)
 
