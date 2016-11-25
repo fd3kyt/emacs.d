@@ -65,6 +65,7 @@
 
 ;; temp c
 (defun my-flycheck-c-setup ()
+  "Set flycheck standard flag."
   (setq flycheck-gcc-language-standard "c99")
   (setq flycheck-clang-language-standard "c99"))
 
@@ -135,6 +136,8 @@
   (require 'magit)
   (require 'org)
   (require 'python))
+
+(require 'init-local-git)
 
 (provide 'init-local)
 ;;; init-local.el ends here
