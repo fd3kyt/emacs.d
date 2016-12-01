@@ -139,5 +139,13 @@
 
 (require 'init-local-git)
 
+;; (after-load 'company-ispell
+;;   (global-set-key (kbd "C-c i")
+;;                   'company-ispell))
+(require 'init-local-hydra)
+
+(require-package 'yasnippet)
+(yas-global-mode)
+
 (provide 'init-local)
 ;;; init-local.el ends here
