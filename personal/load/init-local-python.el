@@ -7,8 +7,12 @@
 
 (require 'python)
 
-(setq python-shell-interpreter
-      "/home/fd3kyt/anaconda3/bin/python3")
+;; set these in custom
+;; (setq python-shell-interpreter
+;;       "/home/fd3kyt/anaconda3/bin/python3")
+
+;; (setq flycheck-python-pylint-executable
+;;       "/home/fd3kyt/anaconda3/bin/pylint")
 
 (advice-add 'anaconda-mode-create-response-handler
             :after (lambda (&rest args) (if (window-minibuffer-p)

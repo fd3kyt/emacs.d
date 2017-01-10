@@ -46,6 +46,6 @@ site-lisp/package/
 
 # kyt
 flycheck_*
-personal/packages/fcitx/
+# personal/packages/fcitx/
 /semanticdb/
 /projectile.cache

@@ -144,8 +144,12 @@
 ;;                   'company-ispell))
 (require 'init-local-hydra)
 
+(global-set-key (kbd "C-c C-<")
+                'mc/mark-all-like-this-dwim)
+
 (require-package 'yasnippet)
 (yas-global-mode)
+(require 'init-local-snippet)
 
 (provide 'init-local)
 ;;; init-local.el ends here

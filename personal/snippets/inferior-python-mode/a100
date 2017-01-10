@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: a100
+# key: a100
+# --
+a = np.reshape(np.arange(100), (10, 10))
