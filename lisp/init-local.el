@@ -151,5 +151,28 @@
 (yas-global-mode)
 (require 'init-local-snippet)
 
+;; shows errors under point in pos-tip popups
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
+
+(defun sudo-edit (&optional arg)
+  "Edit currently visited file as root.
+
+With a prefix ARG prompt for a file to visit.
+Will also prompt for a file to visit if current
+buffer is not visiting a file."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:"
+                         (ido-read-file-name "Find file(as root): ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(global-set-key (kbd "C-S-t") 'transpose-words)
+(global-set-key (kbd "M-t") 'transpose-sexps)
+
+;; ftw
+(setenv "http_proxy" "http://localhost:8123")
+(setenv "https_proxy" "http://localhost:8123")
+
 (provide 'init-local)
 ;;; init-local.el ends here

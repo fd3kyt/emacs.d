@@ -14,9 +14,16 @@
 ;; (setq flycheck-python-pylint-executable
 ;;       "/home/fd3kyt/anaconda3/bin/pylint")
 
-(advice-add 'anaconda-mode-create-response-handler
-            :after (lambda (&rest args) (if (window-minibuffer-p)
-                                       (message nil))))
+(after-load 'anaconda
+  (advice-add 'anaconda-mode-create-response-handler
+              :after (lambda (&rest args) (if (window-minibuffer-p)
+                                         (message nil)))))
+
+(after-load 'flycheck
+  (flycheck-add-next-checker 'python-flake8 'python-pylint))
+
+;; (eval-after-load 'flycheck
+;;   '(add-to-list 'flycheck-checkers 'python-pylint))
 
 (provide 'init-local-python)
 

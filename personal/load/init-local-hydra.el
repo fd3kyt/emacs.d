@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;;
 
-(require 'hydra)
+(require-package 'hydra)
 
 ;;; Code:
 
@@ -27,6 +27,21 @@
   ("z" hydra-zoom/body "zoom")
   ("i" hydra-complete/body "complete"))
 (global-set-key (kbd "C-z") 'hydra-main/body)
+
+;; https://github.com/abo-abo/hydra/wiki/Flycheck
+(defhydra hydra-flycheck
+  (:color pink
+          :pre (progn (setq hydra-lv t) (flycheck-list-errors))
+          :post (progn (setq hydra-lv nil) (quit-windows-on "*Flycheck errors*"))
+          :hint nil)
+  "Errors"
+  ("f"  flycheck-error-list-set-filter                            "Filter")
+  ("n"  flycheck-next-error                                       "Next")
+  ("p"  flycheck-previous-error                                   "Previous")
+  ("a" flycheck-first-error                                      "First")
+  ("e"  (progn (goto-char (point-max)) (flycheck-previous-error)) "Last")
+  ("q"  nil "QUIT" :color blue))
+(global-set-key (kbd "C-!") 'hydra-flycheck/body)
 
 (provide 'init-local-hydra)
 

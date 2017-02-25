@@ -7,6 +7,8 @@
 ;;; Code:
 (require 'org)
 
+(require-package 'org-download)
+
 (defun org-hide-starting-star ()
   "Hide starting star when using org indent."
   (interactive)
