@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: profilehooks
+# key: prof
+# --
+from profilehooks import profile
