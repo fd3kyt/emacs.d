@@ -174,5 +174,11 @@ buffer is not visiting a file."
 (setenv "http_proxy" "http://localhost:8123")
 (setenv "https_proxy" "http://localhost:8123")
 
+;; octave
+(setq auto-mode-alist
+      (append '(("\\.m\\'" . octave-mode))
+              auto-mode-alist))
+
+
 (provide 'init-local)
 ;;; init-local.el ends here

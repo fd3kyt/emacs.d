@@ -107,6 +107,15 @@ PREFIX: if not nil, do not minimize."
 ;; (require 'org-screenshot)
 ;; use org-download-screenshot instead
 
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (emacs-lisp . t)
+   (C . t)
+   (shell . t)
+   ))
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here

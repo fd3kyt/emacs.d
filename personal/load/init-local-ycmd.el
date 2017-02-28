@@ -24,7 +24,7 @@
 (customize-set-variable 'ycmd-force-semantic-completion t)
 ;;(customize-set-variable 'ycmd-global-config nil)
 (customize-set-variable 'ycmd-server-command
-                        '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
+                        '("python2" "/home/fd3kyt/local/ycmd/ycmd/"))
 ;;(ycmd-server-command (quote ("python" "/home/fd3kyt/local/ycmd/ycmd")))
 (customize-set-variable 'ycmd-global-config
                         "/home/fd3kyt/local/ycmd/cpp/ycm/.ycm_extra_conf.py")
@@ -32,6 +32,7 @@
                         '("~/Projects/*"))
 (customize-set-variable 'ycmd-extra-conf-handler
                         'load)
+
 (require 'company-ycmd)
 (company-ycmd-setup)
 (global-company-mode)
