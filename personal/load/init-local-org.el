@@ -15,8 +15,6 @@
   (set-face-background 'org-hide (face-background 'default));hide stars
   (set-face-foreground 'org-hide (face-background 'default)))
 
-(add-hook 'org-mode-hook 'org-mode-startup-settings)
-
 (setq org-startup-indented t);indent
 
 (defun org-save-all-org-buffers-no-message ()
@@ -33,22 +31,23 @@
 
   ;;(setq org-startup-indented t) ;indent
   (org-hide-starting-star))
+(add-hook 'org-mode-hook 'org-mode-startup-settings)
 
 (setq org-directory "~/Documents")
 
 ;; org-capture
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
-;; org-capture
-;; 自动加载,避免变量未定义
-(require 'org-capture)
+;; ;; org-capture
+;; ;; 自动加载,避免变量未定义
+;; (require 'org-capture)
 
-;; (global-set-key (kbd "C-c k") 'org-capture)
+;; ;; (global-set-key (kbd "C-c k") 'org-capture)
 
-(defvar my-org-capture-template-dir
-  (expand-file-name "templates" kyt/personal-dir)
-  "Path to 'org-capture' local templates dir.")
-(setq org-capture-templates nil)
+;; (defvar my-org-capture-template-dir
+;;   (expand-file-name "templates" kyt/personal-dir)
+;;   "Path to 'org-capture' local templates dir.")
+;; (setq org-capture-templates nil)
 
 ;; (setq org-capture-templates
 ;;       (append '(("d" "Django")

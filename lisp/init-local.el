@@ -9,6 +9,9 @@
 ;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 
+;; install packages
+(require-package 'realgud)
+
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 
@@ -138,6 +141,7 @@
   (require 'python))
 
 (require 'init-local-git)
+(require 'init-local-r)
 
 ;; (after-load 'company-ispell
 ;;   (global-set-key (kbd "C-c i")

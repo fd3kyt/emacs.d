@@ -25,6 +25,9 @@
 ;; (eval-after-load 'flycheck
 ;;   '(add-to-list 'flycheck-checkers 'python-pylint))
 
+(require-package 'pyvenv)
+(pyvenv-activate "~/anaconda3")
+
 (provide 'init-local-python)
 
 ;;; init-local-python.el ends here
