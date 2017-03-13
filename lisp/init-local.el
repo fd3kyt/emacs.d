@@ -183,6 +183,9 @@ buffer is not visiting a file."
       (append '(("\\.m\\'" . octave-mode))
               auto-mode-alist))
 
+;; System locale to use for formatting time values.
+(setq system-time-locale "C")
+
 
 (provide 'init-local)
 ;;; init-local.el ends here
