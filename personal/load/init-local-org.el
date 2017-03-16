@@ -89,6 +89,11 @@ PREFIX: if not nil, do not minimize."
    (shell . t)
    ))
 
+(setq org-ellipsis "↓")
+
+;; useful tweak
+
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here

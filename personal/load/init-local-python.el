@@ -28,6 +28,10 @@
 (require-package 'pyvenv)
 (pyvenv-activate "~/anaconda3")
 
+;; convert ipython prompt to python prompt
+(fset 'kyt/doctest_ipython_to_python
+      "\213\213\C-d>>>\C-n\C-a\213\213\C-d\C-d")
+
 (provide 'init-local-python)
 
 ;;; init-local-python.el ends here

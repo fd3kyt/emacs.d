@@ -41,9 +41,8 @@
                 ("l" "time log" entry
                  (file+datetree "~/Documents/time_log.org")
                  (file "~/.emacs.d/personal/templates/org-capture-note.org")
-                 :prepend t
                  :clock-in t
-                 :clock-resume t))
+                 ))
               org-capture-templates))
 
 
