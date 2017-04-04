@@ -32,6 +32,12 @@
 (fset 'kyt/doctest_ipython_to_python
       "\213\213\C-d>>>\C-n\C-a\213\213\C-d\C-d")
 
+(fset 'kyt/log_marked
+      [?\M-w ?\C-\M-b ?\C-\M-f return ?l ?o ?g ?g ?e ?r ?. ?i ?n ?f ?o ?\( ?\" ?\C-y ?: ?  ?% ?s ?\C-f ?, ?  ?\C-y ?\C-e])
+
+(fset 'kyt/log_yank
+      "logger.info(\"\C-y: %s\C-f, \C-y\C-e")
+
 (provide 'init-local-python)
 
 ;;; init-local-python.el ends here

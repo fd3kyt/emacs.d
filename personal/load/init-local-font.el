@@ -47,7 +47,14 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
    '("Consolas" "Monaco" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=18"
    '("Microsoft Yahei" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体")))
 
-(kyt/set-up-font)
+;;(kyt/set-up-font)
+
+(require 'chinese-fonts-setup)
+;; 让 chinese-fonts-setup 随着 emacs 自动生效。
+(chinese-fonts-setup-enable)
+(cfs--select-profile "code")
+;; 让 spacemacs mode-line 中的 Unicode 图标正确显示。
+(cfs-set-spacemacs-fallback-fonts)
 
 ;; 设置新 frame 大小
 ;; see default-text-scale

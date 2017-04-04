@@ -190,10 +190,14 @@ buffer is not visiting a file."
 (setq system-time-locale "C")
 
 
+;; for R
+(message "ATTENTION: setting $LANG to en_US.UTF-8")
+(setenv "LANG" "en_US.UTF-8")
+
 ;; ivy fuzzy
-(setq ivy-re-builders-alist
-      '((t . ivy--regex-fuzzy)))
-(setq ivy-initial-inputs-alist nil)     ; no leading "^"
+;; (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
+;; (setq ivy-initial-inputs-alist nil)     ; no leading "^"
+
 
 (provide 'init-local)
 ;;; init-local.el ends here

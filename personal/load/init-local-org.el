@@ -74,6 +74,23 @@ PREFIX: if not nil, do not minimize."
                            (define-key org-mode-map (kbd "C-c M-d")
                              'kyt/org-screenshot)))
 
+
+(defun kyt/get-reasonable-file-name (string)
+  "Replace special characters in STRING, so that it can be used
+as a file name."
+  (replace-regexp-in-string "[: *&^%$#@!?\"'/]" "_"
+                            string))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq org-download-image-dir
+                  (concat "./"
+                          (file-name-nondirectory (buffer-file-name))
+                          ".d"))
+            (advice-add 'org-download--dir-2
+                        :filter-return
+                        #'kyt/get-reasonable-file-name)))
+
 ;; (add-to-list 'load-path
 ;;              (expand-file-name "kyt-org"
 ;;                                kyt/package-dir))
