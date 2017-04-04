@@ -8,11 +8,11 @@
 (require 'python)
 
 ;; set these in custom
-;; (setq python-shell-interpreter
-;;       "/home/fd3kyt/anaconda3/bin/python3")
+;; (custom-set-variables `(python-shell-interpreter
+;;                         "/home/fd3kyt/anaconda3/bin/python3"))
 
-;; (setq flycheck-python-pylint-executable
-;;       "/home/fd3kyt/anaconda3/bin/pylint")
+;; (custom-set-variables `(flycheck-python-pylint-executable
+;;                         "/home/fd3kyt/anaconda3/bin/pylint"))
 
 (after-load 'anaconda
   (advice-add 'anaconda-mode-create-response-handler

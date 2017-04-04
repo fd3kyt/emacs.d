@@ -7,7 +7,7 @@
 
 (fcitx-aggressive-setup)
 
-(setq fcitx-use-dbus t)
+(custom-set-variables `(fcitx-use-dbus t))
 
 (provide 'init-local-fcitx)
 

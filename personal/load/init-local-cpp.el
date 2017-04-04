@@ -17,15 +17,15 @@
 容易搞混.  这里直接写一个完整的 style 设置"
   (google-set-c-style)
   (google-make-newline-indent)
-  (setq c-basic-offset 4))
+  (custom-set-variables `(c-basic-offset 4)))
 
 (add-hook 'c-mode-common-hook #'kyt/set-c-style)
 
 (require 'cmake-mode)
-(setq auto-mode-alist
-      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                ("\\.cmake\\'" . cmake-mode))
-              auto-mode-alist))
+(custom-set-variables `(auto-mode-alist
+                        (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                                  ("\\.cmake\\'" . cmake-mode))
+                                auto-mode-alist)))
 
 ;; https://github.com/tuhdo/semantic-refactor
 (require 'srefactor)
@@ -47,9 +47,9 @@
           (lambda()
             (local-set-key  (kbd "C-c o") 'ff-find-other-file)))
 
-(setq auto-mode-alist
-      (append '(("\\.h\\'" . c++-mode))
-              auto-mode-alist))
+(custom-set-variables `(auto-mode-alist
+                        (append '(("\\.h\\'" . c++-mode))
+                                auto-mode-alist)))
 
 (fset 'c-header-guard
       [?\C-e ?_ ?\C-. ?\C-a ?\M-x ?u ?p ?c ?a ?s ?e ?- ?r ?e ?g ?i ?o ?n return ?\C-. ?\C-e ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t ?r ?i ?n ?g return ?  return ?_ return ?\C-e ?\C-\M-b ?\C-\M-k ?# ?i ?f ?n ?d ?e ?f ?  ?\C-y return ?# ?d ?e ?f ?i ?n ?e ?  ?\C-y return return ?# ?e ?n ?d ?i ?f ?  ?/ ?/ ?  ?\C-y ?\C-p ?\C-o ?\C-o ?\C-n])

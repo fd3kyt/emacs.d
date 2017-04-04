@@ -15,7 +15,7 @@
   (set-face-background 'org-hide (face-background 'default));hide stars
   (set-face-foreground 'org-hide (face-background 'default)))
 
-(setq org-startup-indented t);indent
+(custom-set-variables `(org-startup-indented t))              ;indent
 
 (defun org-save-all-org-buffers-no-message ()
   "Call org-save-all-org-buffers, clear echo area if in minibuffer."
@@ -29,11 +29,11 @@
   (add-hook 'auto-save-hook
             'org-save-all-org-buffers-no-message) ; autosave
 
-  ;;(setq org-startup-indented t) ;indent
+  ;;(custom-set-variables `(org-startup-indented t') ;indent
   (org-hide-starting-star))
 (add-hook 'org-mode-hook 'org-mode-startup-settings)
 
-(setq org-directory "~/Documents")
+(custom-set-variables `(org-directory "~/Documents"))
 
 (require 'init-local-org-capture)
 
@@ -46,7 +46,7 @@
   (kbd "C-c z") [?\C-c ?\C-z ?< ?q tab ?\C-y ?\M-q ?\M-> return return])
 
 ;; show code highlight
-(setq org-src-fontify-natively t)
+(custom-set-variables `(org-src-fontify-natively t))
 
 ;; init org-attach
 (defun kyt/org-attach-init ()
@@ -74,19 +74,12 @@ PREFIX: if not nil, do not minimize."
                            (define-key org-mode-map (kbd "C-c M-d")
                              'kyt/org-screenshot)))
 
-
-(defun kyt/get-reasonable-file-name (string)
-  "Replace special characters in STRING, so that it can be used
-as a file name."
-  (replace-regexp-in-string "[: *&^%$#@!?\"'/]" "_"
-                            string))
-
 (add-hook 'org-mode-hook
           (lambda ()
-            (setq org-download-image-dir
-                  (concat "./"
-                          (file-name-nondirectory (buffer-file-name))
-                          ".d"))
+            (custom-set-variables `(org-download-image-dir
+                                    (concat "./"
+                                            (file-name-nondirectory (buffer-file-name))
+                                            ".d")))
             (advice-add 'org-download--dir-2
                         :filter-return
                         #'kyt/get-reasonable-file-name)))
@@ -106,7 +99,7 @@ as a file name."
    (shell . t)
    ))
 
-(setq org-ellipsis "↓")
+(custom-set-variables `(org-ellipsis "↓"))
 
 ;; useful tweak
 

@@ -6,11 +6,11 @@
 ;;
 
 ;;; Code:
+
+;; ATTENTION: don't put any code here, before setting the vars.
+
 ;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
-
-;; install packages
-(require-package 'realgud)
 
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
@@ -29,6 +29,13 @@
   (expand-file-name "load" kyt/personal-dir)
   "Path to local init dir.")
 (add-to-list 'load-path kyt/init-dir)
+
+;; ========== init start ==========
+
+(require 'kyt-lib)
+
+;; install packages
+(require-package 'realgud)
 
 ;; ===== if under Windows =====
 (when (equal window-system 'w32)
