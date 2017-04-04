@@ -11,6 +11,7 @@
 (require-package 'ess-R-object-popup)
 (require-package 'ess-smart-underscore)
 
+(defvar inferior-ess-mode-map)
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
             (require 'ess-view)
