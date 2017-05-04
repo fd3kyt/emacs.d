@@ -184,10 +184,6 @@ buffer is not visiting a file."
 (global-set-key (kbd "C-S-t") 'transpose-words)
 (global-set-key (kbd "M-t") 'transpose-sexps)
 
-;; ftw
-(setenv "http_proxy" "http://localhost:8123")
-(setenv "https_proxy" "http://localhost:8123")
-
 ;; octave
 (setq auto-mode-alist
       (append '(("\\.m\\'" . octave-mode))
