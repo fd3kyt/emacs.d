@@ -41,6 +41,10 @@
   (kbd "C-M-<return>")
   'org-insert-heading-after-current)
 
+(define-key org-mode-map
+  (kbd "M-S-<return>")
+  'org-insert-subheading)
+
 ;; macro for note
 (define-key org-mode-map
   (kbd "C-c z") [?\C-c ?\C-z ?< ?q tab ?\C-y ?\M-q ?\M-> return return])
@@ -70,16 +74,21 @@ PREFIX: if not nil, do not minimize."
         (org-download-screenshot))
       (make-frame-visible))
     ))
-(add-hook 'org-mode-hook (lambda ()
-                           (define-key org-mode-map (kbd "C-c M-d")
-                             'kyt/org-screenshot)))
+
+(after-load 'org
+  (define-key org-mode-map (kbd "C-c M-d")
+    'kyt/org-screenshot))
+
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (custom-set-variables `(org-download-image-dir
-                                    (concat "./"
-                                            (file-name-nondirectory (buffer-file-name))
-                                            ".d")))
+            ;; same problem as setting kyt/org-attach-init. Maybe I
+            ;; should create a function for this.
+            (when (buffer-file-name)
+              (setq org-download-image-dir
+                    (concat "./"
+                            (file-name-nondirectory (buffer-file-name))
+                            ".d")))
             (advice-add 'org-download--dir-2
                         :filter-return
                         #'kyt/get-reasonable-file-name)))
