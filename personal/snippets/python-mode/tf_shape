@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tf_shape
+# key: pshape
+# --
+print("$1 shape: %s" % ($1.shape))
