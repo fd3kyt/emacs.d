@@ -19,8 +19,8 @@
               :after (lambda (&rest args) (if (window-minibuffer-p)
                                          (message nil)))))
 
-(after-load 'flycheck
-  (flycheck-add-next-checker 'python-flake8 'python-pylint))
+;; (after-load 'flycheck
+;;   (flycheck-add-next-checker 'python-flake8 'python-pylint))
 
 ;; (eval-after-load 'flycheck
 ;;   '(add-to-list 'flycheck-checkers 'python-pylint))
