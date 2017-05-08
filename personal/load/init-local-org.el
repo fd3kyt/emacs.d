@@ -54,11 +54,11 @@
 
 ;; init org-attach
 (defun kyt/org-attach-init ()
-  (when (buffer-file-name)
-    (setq-local org-attach-directory
-                (concat (file-name-directory (buffer-file-name))
-                        (file-name-nondirectory (buffer-file-name))
-                        ".d/"))))
+  "Initialization for org-attach."
+  (setq-local org-attach-directory
+              (concat (file-name-directory (kyt/buffer-file-name-or-default))
+                      (file-name-nondirectory (kyt/buffer-file-name-or-default))
+                      ".d/")))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
 (require 'org-download)
@@ -84,11 +84,11 @@ PREFIX: if not nil, do not minimize."
           (lambda ()
             ;; same problem as setting kyt/org-attach-init. Maybe I
             ;; should create a function for this.
-            (when (buffer-file-name)
-              (setq org-download-image-dir
-                    (concat "./"
-                            (file-name-nondirectory (buffer-file-name))
-                            ".d")))
+            (setq org-download-image-dir
+                  (concat "./"
+                          (file-name-nondirectory
+                           (kyt/buffer-file-name-or-default))
+                          ".d"))
             (advice-add 'org-download--dir-2
                         :filter-return
                         #'kyt/get-reasonable-file-name)))
