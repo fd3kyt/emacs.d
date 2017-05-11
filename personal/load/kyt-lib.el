@@ -25,6 +25,37 @@ If it is nil, a make temp name with kyt/temp-file-base-name as base name."
   (buffer-file-name))
 
 
+(defun kyt/artist-mode-use-origin-next-line (arg)
+  "Use old `next-line', `previous-line' instead.
+
+Usually used with `set-goal-column'.
+
+ARG: prefix argument.  If not nil, reset to `artist-next-line'
+and `artist-previous-line'."
+  (interactive "P")
+  (if arg
+      (progn (define-key artist-mode-map [remap artist-next-line] nil)
+             (define-key artist-mode-map [remap artist-previous-line] nil))
+    (progn (define-key artist-mode-map [remap artist-next-line] 'next-line)
+           (define-key artist-mode-map [remap artist-previous-line] 'previous-line)))
+  )
+
+(define-minor-mode kyt/vertical-editing
+  "Get your foos in the right places."
+  :lighter " vert"
+  (artist-mode (if kyt/vertical-editing 1 -1))
+  (kyt/artist-mode-use-origin-next-line kyt/vertical-editing)
+  )
+
+(defun kyt/move-to-goal-column ()
+  "Move to `goal-column' if it is setted, add space if line is too short."
+  (if goal-column
+      (move-to-column goal-column t)))
+
+;; TODO no, it don't work as I think. next-line won't add space.
+;; I think I need to use artist-next-line and read goal-column
+
+
 
 (provide 'kyt-lib)
 
