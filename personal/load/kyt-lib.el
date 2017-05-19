@@ -24,37 +24,36 @@ If it is nil, a make temp name with kyt/temp-file-base-name as base name."
                 (make-temp-name kyt/temp-file-base-name)))
   (buffer-file-name))
 
-
-(defun kyt/artist-mode-use-origin-next-line (arg)
-  "Use old `next-line', `previous-line' instead.
-
-Usually used with `set-goal-column'.
-
-ARG: prefix argument.  If not nil, reset to `artist-next-line'
-and `artist-previous-line'."
-  (interactive "P")
-  (if arg
-      (progn (define-key artist-mode-map [remap artist-next-line] nil)
-             (define-key artist-mode-map [remap artist-previous-line] nil))
-    (progn (define-key artist-mode-map [remap artist-next-line] 'next-line)
-           (define-key artist-mode-map [remap artist-previous-line] 'previous-line)))
-  )
-
-(define-minor-mode kyt/vertical-editing
-  "Get your foos in the right places."
-  :lighter " vert"
-  (artist-mode (if kyt/vertical-editing 1 -1))
-  (kyt/artist-mode-use-origin-next-line kyt/vertical-editing)
-  )
-
+;;; vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kyt/move-to-goal-column ()
   "Move to `goal-column' if it is setted, add space if line is too short."
   (if goal-column
       (move-to-column goal-column t)))
 
-;; TODO no, it don't work as I think. next-line won't add space.
-;; I think I need to use artist-next-line and read goal-column
+(defun kyt/goal-column-next-line (&optional ARG TRY-VSCROLL)
+  "Next line and `kyt/move-to-goal-column'.
+Pass `ARG' and `TRY-VSCROLL' to `next-line'."
+  (interactive "P")
+  (next-line ARG TRY-VSCROLL)
+  (kyt/move-to-goal-column))
 
+(defun kyt/goal-column-previous-line (&optional ARG TRY-VSCROLL)
+  "Previous line and `kyt/move-to-goal-column'.
+Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
+  (interactive "P")
+  (previous-line ARG TRY-VSCROLL)
+  (kyt/move-to-goal-column))
+
+(define-minor-mode kyt/vertical-editing
+  "Get your foos in the right places."
+  :lighter " vert"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-n")
+              'kyt/goal-column-next-line)
+            (define-key map (kbd "C-p")
+              'kyt/goal-column-previous-line)
+            map))
+;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (provide 'kyt-lib)
