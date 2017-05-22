@@ -53,6 +53,32 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
             (define-key map (kbd "C-p")
               'kyt/goal-column-previous-line)
             map))
+
+
+;; TODO weird, start-process don't work with xdg-open.
+;; shell-command works, but blocks.
+(defun kyt/open-current-file ()
+  "Open current file with the default program."
+  (interactive)
+  (if buffer-file-name
+      (start-process "External File" nil
+                     "xdg-open"
+                     buffer-file-name)
+    (message "Current buffer is not a file!")))
+
+(defun kyt/open-current-image ()
+  "Open current image with viewnior."
+  (interactive)
+  (if buffer-file-name
+      (start-process "Viewnior" nil
+                     "viewnior"
+                     buffer-file-name)
+    (message "Current buffer is not a file!")))
+
+
+
+
+
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
