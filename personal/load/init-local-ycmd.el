@@ -1,4 +1,4 @@
-;;; init-local-ycmd.el --- ycmd 初始化设置
+;;; init-local-ycmd.el --- initialize ycmd (for cpp)
 
 ;;; Commentary:
 ;; https://github.com/abingham/emacs-ycmd

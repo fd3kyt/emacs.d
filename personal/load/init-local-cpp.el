@@ -41,6 +41,10 @@
 (global-set-key (kbd "M-RET d") 'srefactor-lisp-format-defun)
 (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
 
+
+(define-key c++-mode-map [remap ff-find-other-file]
+  'projectile-find-other-file)
+
 ;; c-c o switch between header and implementation
 ;; http://emacs-fu.blogspot.com/2008/12/quickly-switching-between-header-and.html
 (add-hook 'c-mode-common-hook
@@ -53,6 +57,10 @@
 
 (fset 'c-header-guard
       [?\C-e ?_ ?\C-. ?\C-a ?\M-x ?u ?p ?c ?a ?s ?e ?- ?r ?e ?g ?i ?o ?n return ?\C-. ?\C-e ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t ?r ?i ?n ?g return ?  return ?_ return ?\C-e ?\C-\M-b ?\C-\M-k ?# ?i ?f ?n ?d ?e ?f ?  ?\C-y return ?# ?d ?e ?f ?i ?n ?e ?  ?\C-y return return ?# ?e ?n ?d ?i ?f ?  ?/ ?/ ?  ?\C-y ?\C-p ?\C-o ?\C-o ?\C-n])
+
+
+(require 'gxref)
+(add-to-list 'xref-backend-functions 'gxref-xref-backend)
 
 
 (provide 'init-local-cpp)

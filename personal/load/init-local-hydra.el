@@ -48,12 +48,12 @@
 (global-set-key (kbd "C-!") 'hydra-flycheck/body)
 
 
-(defhydra hydra-source-insight (:color pink)
-  "code inspect"
-  ("R" semantic-symref "line reference")
-  ("r" semantic-symref-symbol "symbol ref")
-  ("g" ycmd-goto "goto")
-  ("d" ycmd-goto-definition "definition"))
+;; (defhydra hydra-source-insight (:color pink)
+;;   "code inspect"
+;;   ("R" semantic-symref "line reference")
+;;   ("r" semantic-symref-symbol "symbol ref")
+;;   ("g" ycmd-goto "goto")
+;;   ("d" ycmd-goto-definition "definition"))
 
 
 (define-prefix-command 'kyt/source)

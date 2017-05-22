@@ -128,7 +128,9 @@
 
 (after-load 'cc-mode
   (require 'init-local-cpp)
-  (require 'init-local-ycmd))
+  (require 'init-local-ycmd)
+  (require 'init-local-rtags)
+  )
 
 (require 'init-local-python)
 
@@ -200,6 +202,12 @@ buffer is not visiting a file."
 ;; ivy fuzzy
 ;; (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
 ;; (setq ivy-initial-inputs-alist nil)     ; no leading "^"
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-ignore-order)))
+
+
+(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-M-z") 'avy-goto-char-in-line)
 
 
 (provide 'init-local)
