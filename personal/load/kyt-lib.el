@@ -76,7 +76,12 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
     (message "Current buffer is not a file!")))
 
 
-
+(defun kyt/copy-buffer-file-name ()
+  "Insert buffer file name to kill ring."
+  (interactive)
+  (if (buffer-file-name)
+      (kill-new (buffer-file-name))
+    (message "Current buffer is not a file.")))
 
 
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
