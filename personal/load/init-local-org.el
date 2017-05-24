@@ -112,6 +112,9 @@ PREFIX: if not nil, do not minimize."
 
 ;; useful tweak
 
+(custom-set-variables
+ `(org-tag-persistent-alist
+   '(("workflow" . ?w) ("log" . ?l) ("question" . ?q))))
 
 (provide 'init-local-org)
 
