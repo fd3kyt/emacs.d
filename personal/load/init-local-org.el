@@ -114,7 +114,7 @@ PREFIX: if not nil, do not minimize."
 
 (custom-set-variables
  `(org-tag-persistent-alist
-   '(("workflow" . ?w) ("log" . ?l) ("question" . ?q))))
+   '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s))))
 
 (provide 'init-local-org)
 
