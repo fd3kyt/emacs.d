@@ -142,13 +142,6 @@
 (require 'fcitx3)
 (fcitx/enable)
 
-(defun load-frequently-used ()
-  "Load packges that I use frequently."
-  (interactive)
-  (require 'magit)
-  (require 'org)
-  (require 'python))
-
 (require 'init-local-git)
 (require 'init-local-r)
 
@@ -208,6 +201,9 @@ buffer is not visiting a file."
 
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-M-z") 'avy-goto-char-in-line)
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 
 (provide 'init-local)
