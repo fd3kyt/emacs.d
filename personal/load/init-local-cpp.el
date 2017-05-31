@@ -63,6 +63,14 @@
 (add-to-list 'xref-backend-functions 'gxref-xref-backend)
 
 
+(after-load 'projectile
+  (projectile-register-project-type
+   'c++ '("CMakeLists.txt" "src" "build")
+   :compile "mkdir -p build && cd build && cmake .. && make"
+   :test "cd build && ctest"
+   :test-prefix "test_"))
+
+
 (provide 'init-local-cpp)
 
 ;;; init-local-cpp.el ends here
