@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: doxygen comment block
+# key: /**
+# --
+/** $0
+*/
