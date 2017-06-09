@@ -17,7 +17,10 @@
 (after-load 'anaconda
   (advice-add 'anaconda-mode-create-response-handler
               :after (lambda (&rest args) (if (window-minibuffer-p)
-                                         (message nil)))))
+                                          (message nil))))
+  ;; avoid hiding ag-project
+  (define-key anaconda-mode-map (kbd "M-?") nil)
+  )
 
 ;; (after-load 'flycheck
 ;;   (flycheck-add-next-checker 'python-flake8 'python-pylint))

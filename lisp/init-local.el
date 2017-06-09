@@ -206,5 +206,52 @@ buffer is not visiting a file."
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 
+;; show as image at open
+(custom-set-variables '(auto-image-file-mode t))
+
+;; c-c to toggle image display
+(add-hook 'nxml-mode-hook 'image-minor-mode)
+
+;; disable semantic-mode to avoid hanging in comment
+;; won't affect code completion dis
+(semantic-mode -1)
+
+
+
+
+;; temp
+;; https://www.emacswiki.org/emacs/NxmlMode#toc11
+
+(after-load 'nxml-mode
+  (defun nxml-where ()
+    "Display the hierarchy of XML elements the point is on as a path."
+    (interactive)
+    (let ((path nil))
+      (save-excursion
+        (save-restriction
+          (widen)
+          (while (and (< (point-min) (point)) ;; Doesn't error if point is at beginning of buffer
+                      (condition-case nil
+                          (progn
+                            (nxml-backward-up-element) ; always returns nil
+                            t)
+                        (error nil)))
+            (setq path (cons (xmltok-start-tag-local-name) path)))
+          (if (called-interactively-p t)
+              (progn (message "/%s" (mapconcat 'identity path "/"))
+                     (kill-new (mapconcat 'identity path "/")))
+            (format "/%s" (mapconcat 'identity path "/")))))))
+  (defun nxml-where-header-line ()
+    (interactive)
+    (setq-local header-line-format (nxml-where)))
+  (define-key nxml-mode-map (kbd "C-'") 'nxml-where)
+  (defun setup-nxml-header-line ()
+    (add-hook 'post-command-hook 'nxml-where-header-line t t))
+  (add-hook 'nxml-mode-hook 'setup-nxml-header-line))
+
+
+
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
