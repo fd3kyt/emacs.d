@@ -22,24 +22,37 @@
 
 ;; Temp
 
+
 ;;; Code:
+(autoload 'yas-expand-snippet "yasnippet")
+(auto-insert-mode 1)  ;;; Adds hook to find-files-hook
+;; (setq-default auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 
-(require 'header2)
+(defvar kyt/auto-insert-directory "~/.emacs.d/personal/auto-insert/"
+  "My `auto-insert' template directory.  Put yasnippet body here.")
+(custom-set-variables '(auto-insert-directory kyt/auto-insert-directory))
 
-(defsubst header-org-mode ()
-  "Insert \"#+TITLE: ...\" at the beginning of org file."
-  (insert "#+TITLE: " (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) "\n") ;; filename only, without dir or extension
-  (insert "#+AUTHOR: " (user-full-name) "\n")
-  (insert "#+OPTIONS: H:2 num:t toc:nil\n")
-  (insert "#+OPTIONS: ^:nil\n")
-  (insert "#+OPTIONS: <:nil todo:nil *:t ^:{} @:t ::t |:t TeX:t\n")
-  (insert "#how to change image size: #+attr_html: width=\"40%\"\n")
-  (yas-insert-snippet))
 
-(add-hook 'org-mode-hook 'auto-make-header)
+(defun my-autoinsert-yas-expand()
+  "Replace text in yasnippet template."
+  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-(add-hook 'make-header-hook 'header-org-mode)
+(defun kyt/define-auto-insert (condition filename)
+  "Simple wrapper of `define-auto-insert'.
+CONDITION and FILENAME is passed to `define-auto-insert.'"
+  (define-auto-insert condition (vector filename 'my-autoinsert-yas-expand))
+  )
 
+
+;; workflow to add new auto-insert:
+;;
+;; add a file under `kyt/auto-insert-directory', the file contains the
+;; *body* of a yasnippet
+;;
+;; add a (kyt/define-auto-insert <filename-pattern> <template_file>)
+(defvar auto-insert-alist)
+(setq auto-insert-alist nil)
+(kyt/define-auto-insert "\\.org$" "auto-insert.org")
 
 
 (provide 'init-local-header)

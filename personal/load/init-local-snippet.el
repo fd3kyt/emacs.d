@@ -21,15 +21,16 @@
   "Rename new snippet buffer with the snippet name."
   (rename-buffer (s-replace " " "_" (extract-snippet-name))))
 
-(defun kyt/new-snippet-rename-buffer-and-save ()
+(defun kyt/save-file-rename-if-new ()
   "Rename current new snippet buffer and save it."
   (interactive)
-  (rename-new-snippet-buffer)
+  (unless (buffer-name)
+    (rename-new-snippet-buffer))
   (save-buffer))
 
 (after-load 'yasnippet
   (define-key snippet-mode-map (kbd "C-x C-s")
-    'kyt/new-snippet-rename-buffer-and-save))
+    'kyt/save-file-rename-if-new))
 
 (provide 'init-local-snippet)
 

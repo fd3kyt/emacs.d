@@ -214,7 +214,7 @@ buffer is not visiting a file."
 
 ;; disable semantic-mode to avoid hanging in comment
 ;; won't affect code completion dis
-(semantic-mode -1)
+(add-hook 'emacs-lisp-mode-hook (lambda () (semantic-mode -1)))
 
 
 
@@ -248,6 +248,10 @@ buffer is not visiting a file."
   (defun setup-nxml-header-line ()
     (add-hook 'post-command-hook 'nxml-where-header-line t t))
   (add-hook 'nxml-mode-hook 'setup-nxml-header-line))
+
+
+(require 'bing-dict)
+(global-set-key (kbd "C-c b") 'bing-dict-brief)
 
 
 
