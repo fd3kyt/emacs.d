@@ -75,14 +75,30 @@
 (defvar fcitx/was-active-p nil
   "if fcitx was active before it becomed not permitted")
 
-(defun fcitx/home-dir-shell-command-to-string (command)
+(defun fcitx/home-dir-shell-command (command)
   (let ((default-directory "~/"))
-    (shell-command-to-string command)))
+    (call-process "bash" nil nil nil
+                  "-c" command)))
+
+(defcustom fcitx/im-turn-on-command "fcitx-remote -o"
+  "Command to acitvate the input method."
+  :group 'fcitx)
+
+(defcustom fcitx/im-turn-off-command "fcitx-remote -c"
+  "Command to deacitvate the input method."
+  :group 'fcitx)
+
+(defcustom fcitx/im-test-if-turned-on-command "[[ `fcitx-remote` == 2 ]]"
+  "Command to deacitvate the input method."
+  :group 'fcitx)
+
+;; (defun fcitx/current-active-p ()
+;;   (eq 2
+;;       (string-to-number
+;;        (fcitx/home-dir-shell-command "fcitx-remote"))))
 
 (defun fcitx/current-active-p ()
-  (eq 2
-      (string-to-number
-       (fcitx/home-dir-shell-command-to-string "fcitx-remote"))))
+  (eq 0 (fcitx/home-dir-shell-command fcitx/im-test-if-turned-on-command)))
 
 (defun fcitx/polling-function ()
   (let ((current-permitted (fcitx/permitted-p)))
@@ -91,11 +107,11 @@
                 current-permitted)
       (when (and current-permitted
                  fcitx/was-active-p)
-        (fcitx/home-dir-shell-command-to-string "fcitx-remote -o"))
+        (fcitx/home-dir-shell-command fcitx/im-turn-on-command))
       (when (not current-permitted)
         (when (setq fcitx/was-active-p
                     (fcitx/current-active-p))
-          (fcitx/home-dir-shell-command-to-string "fcitx-remote -c"))))
+          (fcitx/home-dir-shell-command fcitx/im-turn-off-command))))
     (setq fcitx/last-polling-permitted-p current-permitted)))
 
 (defvar fcitx/polling-timer nil
