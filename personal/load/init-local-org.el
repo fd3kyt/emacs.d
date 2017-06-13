@@ -117,6 +117,40 @@ PREFIX: if not nil, do not minimize."
    '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s)))
  `(org-hide-emphasis-markers nil))
 
+
+;; set the faces
+
+(custom-set-variables '(org-fontify-quote-and-verse-blocks t))
+
+(set-face-attribute 'org-block-begin-line nil
+                    :weight 'bold
+                    :background "#F0F0F0")
+
+(set-face-attribute 'org-quote nil
+                    :background "#F5F2EC"
+                    :weight 'normal
+                    :inherit 'org-block-begin-line)
+
+(set-face-attribute 'org-block-end-line nil
+                    :strike-through "grey"
+                    :foreground "grey"
+                    :weight 'bold
+                    :inherit 'org-quote)
+
+(set-face-attribute 'org-block nil
+                    :inherit 'org-quote)
+
+(set-face-attribute 'org-verse nil
+                    :inherit 'org-quote)
+
+(set-face-attribute 'org-code nil
+                    :inherit 'org-quote
+                    :weight 'bold
+                    :box '(:line-width 3 :color "grey"
+                                       :style pressed-button))
+
+
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
