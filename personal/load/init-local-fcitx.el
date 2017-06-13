@@ -12,9 +12,9 @@
 (require 'fcitx3)
 (fcitx/enable)
 
-(custom-set-variables `(fcitx/im-turn-off-command "ibus engine xkb:us::eng")
-                      `(fcitx/im-turn-on-command "ibus engine rime")
-                      `(fcitx/im-test-if-turned-on-command "[[ `ibus engine` == rime ]] "))
+;; (custom-set-variables `(fcitx/im-turn-off-command "ibus engine xkb:us::eng")
+;;                       `(fcitx/im-turn-on-command "ibus engine rime")
+;;                       `(fcitx/im-test-if-turned-on-command "[[ `ibus engine` == rime ]] "))
 
 (provide 'init-local-fcitx)
 

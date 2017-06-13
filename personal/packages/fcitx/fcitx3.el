@@ -67,7 +67,8 @@
 (defun fcitx/permitted-p ()
   (and (not buffer-read-only)
        (fcitx/typeable-p)
-       (not (window-minibuffer-p))))
+       (not (window-minibuffer-p))
+       (not hydra-curr-map)))
 
 (defvar fcitx/last-polling-permitted-p nil
   "the result of fcitx/permitted-p() in last polling")
