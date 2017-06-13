@@ -134,13 +134,8 @@
 
 (require 'init-local-python)
 
-;; (require 'init-local-fcitx)
-;; 使用我的 fcitx3
-(add-to-list 'load-path
-             (expand-file-name "fcitx"
-                               kyt/package-dir))
-(require 'fcitx3)
-(fcitx/enable)
+(require 'init-local-fcitx)
+
 
 (require 'init-local-git)
 (require 'init-local-r)
