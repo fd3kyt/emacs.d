@@ -144,10 +144,10 @@ PREFIX: if not nil, do not minimize."
                     :inherit 'org-quote)
 
 (set-face-attribute 'org-code nil
-                    :inherit 'org-quote
-                    :weight 'bold
-                    :box '(:line-width 3 :color "grey"
-                                       :style pressed-button))
+                    :inherit 'org-block-begin-line)
+
+(set-face-attribute 'org-verbatim nil
+                    :inherit 'org-code)
 
 
 
