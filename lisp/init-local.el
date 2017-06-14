@@ -248,8 +248,14 @@ buffer is not visiting a file."
 (require 'bing-dict)
 (global-set-key (kbd "C-c b") 'bing-dict-brief)
 
+(require-package 'ace-pinyin)
+(ace-pinyin-global-mode)
 
+(require-package 'avy-zap)
+(global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
+(global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
 
+(require 'init-local-paredit)
 
 
 (provide 'init-local)
