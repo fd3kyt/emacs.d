@@ -124,11 +124,13 @@ PREFIX: if not nil, do not minimize."
 
 (set-face-attribute 'org-block-begin-line nil
                     :weight 'bold
+                    :underline nil
                     :background "#F0F0F0")
 
 (set-face-attribute 'org-quote nil
                     :background "#F5F2EC"
                     :weight 'normal
+                    :foreground "dark"
                     :inherit 'org-block-begin-line)
 
 (set-face-attribute 'org-block-end-line nil
@@ -138,6 +140,7 @@ PREFIX: if not nil, do not minimize."
                     :inherit 'org-quote)
 
 (set-face-attribute 'org-block nil
+                    :foreground "dark"
                     :inherit 'org-quote)
 
 (set-face-attribute 'org-verse nil
@@ -148,6 +151,9 @@ PREFIX: if not nil, do not minimize."
 
 (set-face-attribute 'org-verbatim nil
                     :inherit 'org-code)
+
+(set-face-attribute 'org-meta-line nil
+                    :underline "dark")
 
 
 

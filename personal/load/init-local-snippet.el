@@ -24,7 +24,7 @@
 (defun kyt/save-file-rename-if-new ()
   "Rename current new snippet buffer and save it."
   (interactive)
-  (unless (buffer-name)
+  (unless (buffer-file-name)
     (rename-new-snippet-buffer))
   (save-buffer))
 
