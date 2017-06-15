@@ -99,15 +99,6 @@ PREFIX: if not nil, do not minimize."
 ;; (require 'org-screenshot)
 ;; use org-download-screenshot instead
 
-;; active Babel languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)
-   (emacs-lisp . t)
-   (C . t)
-   (shell . t)
-   ))
-
 (custom-set-variables `(org-ellipsis "↓"))
 
 ;; useful tweak
@@ -116,6 +107,13 @@ PREFIX: if not nil, do not minimize."
  `(org-tag-persistent-alist
    '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s)))
  `(org-hide-emphasis-markers nil))
+
+
+(defun org-refile-goto ()
+  "Go to heading using `org-refile'."
+  (interactive)
+  (org-refile '(4)))
+(define-key org-mode-map (kbd "C-\\") 'org-refile-goto)
 
 
 ;; set the faces
@@ -155,6 +153,17 @@ PREFIX: if not nil, do not minimize."
 (set-face-attribute 'org-meta-line nil
                     :underline "dark")
 
+;;; Babel
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (emacs-lisp . t)
+   (C . t)
+   (shell . t)
+   ))
+
+(append )
 
 
 (provide 'init-local-org)
