@@ -35,12 +35,17 @@
 
 (defun my-autoinsert-yas-expand()
   "Replace text in yasnippet template."
+  (yas-minor-mode)
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-(defun kyt/define-auto-insert (condition filename)
+(defun kyt/define-auto-insert (condition filename &rest functions)
   "Simple wrapper of `define-auto-insert'.
-CONDITION and FILENAME is passed to `define-auto-insert.'"
-  (define-auto-insert condition (vector filename 'my-autoinsert-yas-expand))
+CONDITION and FILENAME is passed to `define-auto-insert.'
+FUNCTIONS: extra functions to run after expanding the snippet."
+  (princ functions)
+  (define-auto-insert condition
+    (vconcat (vector filename 'my-autoinsert-yas-expand)
+             functions))
   )
 
 
@@ -53,6 +58,9 @@ CONDITION and FILENAME is passed to `define-auto-insert.'"
 (defvar auto-insert-alist)
 (setq auto-insert-alist nil)
 (kyt/define-auto-insert "\\.org$" "auto-insert.org")
+(kyt/define-auto-insert "\\.dot$" "auto-insert.dot")
+(kyt/define-auto-insert "\\.sh$" "auto-insert.sh"
+                        '(lambda () (sh-set-shell "bash")))
 
 
 (provide 'init-local-header)
