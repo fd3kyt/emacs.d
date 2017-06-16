@@ -28,9 +28,7 @@
 (auto-insert-mode 1)  ;;; Adds hook to find-files-hook
 ;; (setq-default auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 
-(defvar kyt/auto-insert-directory "~/.emacs.d/personal/auto-insert/"
-  "My `auto-insert' template directory.  Put yasnippet body here.")
-(custom-set-variables '(auto-insert-directory kyt/auto-insert-directory))
+(custom-set-variables '(auto-insert-directory "~/.emacs.d/personal/auto-insert/"))
 
 
 (defun my-autoinsert-yas-expand()

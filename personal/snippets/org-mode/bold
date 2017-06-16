@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: bold
 # key: *
+# condition: (not (eq (char-after) ?*))
 # --
 *$1* $0
