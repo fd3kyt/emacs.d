@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: bold
 # key: *
-# condition: (not (eq (char-after) ?*))
+# condition: (not (org-at-heading-p))
 # --
 *$1* $0
