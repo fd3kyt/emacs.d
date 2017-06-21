@@ -259,5 +259,17 @@ buffer is not visiting a file."
 (require 'init-local-header)
 
 
+(add-hook 'sh-mode-hook
+          '(lambda ()
+             (make-local-variable 'company-backends)
+             (push 'company-shell company-backends)
+             (push 'company-files company-backends)))
+
+
+(custom-set-variables '(delete-by-moving-to-trash t)
+                      '(trash-directory "/home/Storage/.trash"))
+
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
