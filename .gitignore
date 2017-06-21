@@ -49,3 +49,4 @@ flycheck_*
 # personal/packages/fcitx/
 /semanticdb/
 /projectile.cache
+/abbrev_defs
