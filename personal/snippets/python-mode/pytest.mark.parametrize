@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: pytest.mark.parametrize
+# key: @pmp
+# --
+@pytest.mark.parametrize([${2:$(mapconcat (lambda (x) (format "'%s'" x))
+                                  (split-string yas-text "," t "[ \t]") ", ")}], [
+    [$2],
+])
+def test_$1(${2:args}):
+    ${3:pass}
