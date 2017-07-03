@@ -84,6 +84,13 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
     (message "Current buffer is not a file.")))
 
 
+(defun kyt/new-line ()
+  "Create a new line under current line and go to it."
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

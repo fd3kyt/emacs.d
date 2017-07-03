@@ -269,6 +269,18 @@ buffer is not visiting a file."
 (custom-set-variables '(delete-by-moving-to-trash t)
                       '(trash-directory "/home/Storage/.trash"))
 
+(global-set-key (kbd "C-j") 'kyt/new-line)
+
+(global-set-key (kbd "C-S-L") 'move-to-window-line-top-bottom)
+
+(defun kyt/go-to-beginning-and-search ()
+  "Go to the beginning of current buffer and start isearch."
+  (interactive)
+  (beginning-of-buffer)
+  (isearch-forward))
+
+(global-set-key (kbd "C-S-S") 'kyt/go-to-beginning-and-search)
+
 
 
 (provide 'init-local)
