@@ -69,7 +69,7 @@ PREFIX: if not nil, do not minimize."
   (if prefix
       (org-download-screenshot)
     (progn
-      (make-frame-invisible)
+      (make-frame-invisible nil t)
       (with-demoted-errors "Error: %S"
         (org-download-screenshot))
       (make-frame-visible))
@@ -161,10 +161,10 @@ PREFIX: if not nil, do not minimize."
    (emacs-lisp . t)
    (C . t)
    (shell . t)
+   (plantuml . t)
    ))
 
-(append )
-
+(custom-set-variables '(org-plantuml-jar-path "~/local/plantuml.jar"))
 
 (provide 'init-local-org)
 
