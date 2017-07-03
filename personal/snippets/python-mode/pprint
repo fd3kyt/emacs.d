@@ -2,4 +2,4 @@
 # name: pprint
 # key: pprint
 # --
-from pprint import pprint; pprint($0)
+from pprint import pprint
