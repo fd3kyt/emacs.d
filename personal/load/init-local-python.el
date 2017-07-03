@@ -14,12 +14,33 @@
 ;; (custom-set-variables `(flycheck-python-pylint-executable
 ;;                         "/home/fd3kyt/anaconda3/bin/pylint"))
 
+(defun kyt/restart_anaconda_if_error (&optional ignored)
+  "Restart anaconda if *anaconda-mode* contain traceback.
+
+`IGNORED': passed by `company-completion-started-hook'."
+  (when (get-buffer "*anaconda-mode*")
+    (with-current-buffer "*anaconda-mode*"
+      (when (string-match-p (regexp-quote "Traceback") (buffer-string))
+        (message "Restart anaconda server...")
+        (kill-buffer)))
+    )
+  )
+
+(after-load 'company-anaconda
+  (add-hook 'company-completion-started-hook 'kyt/restart_anaconda_if_error)
+  )
+
+
 (after-load 'anaconda
   (advice-add 'anaconda-mode-create-response-handler
               :after (lambda (&rest args) (if (window-minibuffer-p)
-                                          (message nil))))
+                                         (message nil))))
   ;; avoid hiding ag-project
   (define-key anaconda-mode-map (kbd "M-?") nil)
+  (remove-hook 'anaconda-mode-process-fail-hook 'anaconda-mode-show-process-buffer)
+  (add-hook 'anaconda-mode-process-fail-hook 'anaconda-mode-start)
+  (add-hook 'anaconda-mode-response-read-fail-hook 'anaconda-mode-start)
+  ;; (add-hook 'anaconda-mode-hook 'kyt/register-anaconda-autorestart)
   )
 
 ;; (after-load 'flycheck
