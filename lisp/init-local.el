@@ -12,6 +12,9 @@
 ;; ===== personal global vars =====
 ;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 
+(defconst *is-a-cygwin* (eq system-type 'darwin))
+
+
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 
@@ -37,9 +40,8 @@
 ;; install packages
 (require-package 'realgud)
 
-;; ===== if under Windows =====
-(when (equal window-system 'w32)
-  (require 'init-local-w32))
+(when *is-a-cygwin*
+  (require 'init-local-cygwin))
 
 ;; ===== personal global vars end =====
 
