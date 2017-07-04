@@ -4,13 +4,15 @@
 (add-auto-mode 'tcl-mode "Portfile\\'")
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(when (fboundp 'prog-mode)
-  (add-hook 'prog-mode-hook 'goto-address-prog-mode))
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
 (setq goto-address-mail-face 'link)
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 (setq-default regex-tool-backend 'perl)
+(after-load 're-builder
+  ;; Support a slightly more idiomatic quit binding in re-builder
+  (define-key reb-mode-map (kbd "C-c C-k") 'reb-quit))
 
 (add-auto-mode 'conf-mode "Procfile")
 
