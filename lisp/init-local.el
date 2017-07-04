@@ -281,6 +281,11 @@ buffer is not visiting a file."
 
 (global-set-key (kbd "C-S-S") 'kyt/go-to-beginning-and-search)
 
+(global-auto-revert-mode t)             ; won't revert modified buffers
+
+(after-load 'image
+  (custom-set-variables
+   '(revert-without-query (list ".png$" ".svg$"))))
 
 
 (provide 'init-local)

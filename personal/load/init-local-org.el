@@ -52,13 +52,18 @@
 ;; show code highlight
 (custom-set-variables `(org-src-fontify-natively t))
 
+(defun kyt/org-get-data-directory-name ()
+  "Get the expected data directory name of current org file."
+  (concat "./"
+          (file-name-nondirectory
+           (kyt/buffer-file-name-or-default))
+          ".d"))
+
 ;; init org-attach
 (defun kyt/org-attach-init ()
   "Initialization for org-attach."
   (setq-local org-attach-directory
-              (concat (file-name-directory (kyt/buffer-file-name-or-default))
-                      (file-name-nondirectory (kyt/buffer-file-name-or-default))
-                      ".d/")))
+              (kyt/org-get-data-directory-name)))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
 (require 'org-download)
@@ -85,10 +90,7 @@ PREFIX: if not nil, do not minimize."
             ;; same problem as setting kyt/org-attach-init. Maybe I
             ;; should create a function for this.
             (setq org-download-image-dir
-                  (concat "./"
-                          (file-name-nondirectory
-                           (kyt/buffer-file-name-or-default))
-                          ".d"))
+                  (kyt/org-get-data-directory-name))
             (advice-add 'org-download--dir-2
                         :filter-return
                         #'kyt/get-reasonable-file-name)))
