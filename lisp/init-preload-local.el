@@ -7,6 +7,7 @@
 
 ;; proxy
 ;; https://www.gnu.org/software/emacs/manual/html_node/url/Proxies.html
+(require 'url-vars)
 (setq-default url-proxy-services
               ;; dont't use "http://localhost:8123", use "localhost:8123" directly
               '(("http"     . "localhost:8123")
