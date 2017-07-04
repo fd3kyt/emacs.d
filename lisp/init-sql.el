@@ -2,6 +2,19 @@
 (after-load 'sql
   (require 'sql-indent))
 
+(after-load 'sql
+  ;; sql-mode pretty much requires your psql to be uncustomised from stock settings
+  (push "--no-psqlrc" sql-postgres-options))
+
+(defun sanityinc/fix-postgres-prompt-regexp ()
+  "Work around https://debbugs.gnu.org/cgi/bugreport.cgi?bug=22596.
+Fix for the above hasn't been released as of Emacs 25.2."
+  (when (eq sql-product 'postgres)
+    (setq-local sql-prompt-regexp "^[[:alnum:]_]*=[#>] ")
+    (setq-local sql-prompt-cont-regexp "^[[:alnum:]_]*[-(][#>] ")))
+
+(add-hook 'sql-interactive-mode-hook 'sanityinc/fix-postgres-prompt-regexp)
+
 (defun sanityinc/pop-to-sqli-buffer ()
   "Switch to the corresponding sqli buffer."
   (interactive)
@@ -15,7 +28,6 @@
 
 (after-load 'sql
   (define-key sql-mode-map (kbd "C-c C-z") 'sanityinc/pop-to-sqli-buffer)
-  (add-hook 'sql-interactive-mode-hook 'sanityinc/never-indent)
   (when (package-installed-p 'dash-at-point)
     (defun sanityinc/maybe-set-dash-db-docset ()
       (when (eq sql-product 'postgres)
