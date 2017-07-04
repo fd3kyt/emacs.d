@@ -74,11 +74,6 @@
 
 (require 'graphviz-dot-mode)
 
-;; ;; https://github.com/tuhdo/semantic-stickyfunc-enhance
-;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-;; (semantic-mode 1)
-;; (require 'stickyfunc-enhance)
-
 ;; 解决 daemon 中设置 font 的问题
 (set-variable 'kyt/debug-var "before font")
 (if (daemonp)
@@ -199,19 +194,13 @@ buffer is not visiting a file."
   (add-hook 'nxml-mode-hook 'setup-nxml-header-line))
 
 
-(require 'bing-dict)
-(global-set-key (kbd "C-c b") 'bing-dict-brief)
-
 (require-package 'ace-pinyin)
 (ace-pinyin-global-mode)
-
-(require-package 'avy-zap)
-(global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
-(global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
 
 (require 'init-local-paredit)
 (require 'init-local-autoinsert)
 (require 'init-local-simple-key-bindings)
+(require 'init-local-simple-util)
 
 
 (add-hook 'sh-mode-hook
