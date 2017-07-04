@@ -51,6 +51,7 @@ site-lisp/package/
 
 # kyt
 flycheck_*
+# personal/packages/fcitx/
 /abbrev_defs
 /personal/backup/
 /projectile.cache

@@ -1,6 +1,6 @@
 (require 'xah-replace-pairs)
 
-(setq vcpu-dir "~/Project/verilog/single")
+(defvar vcpu-dir "~/Project/verilog/single")
 
 (defun vcpu-replace-op-to-binary (φbegin φend)
   "Replace alpha to α etc in current line or selection.
@@ -43,7 +43,7 @@ Version 2015-04-28"
   (verilog-vcpu-set-compile-command)
   (verilog-auto-save-compile))
 
-(setq verilog-mode-hook 'verilog-vcpu-set-compile-command)
+(defvar verilog-mode-hook 'verilog-vcpu-set-compile-command)
 
 (defun verilog-cpuproject-open-gtkwave ()
   (interactive)

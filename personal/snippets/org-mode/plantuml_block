@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: plantuml block
+# key: <su
+# --
+#+BEGIN_SRC plantuml :file $1
+@startuml
+
+start
+:$0
+stop
+
+@enduml
+#+END_SRC

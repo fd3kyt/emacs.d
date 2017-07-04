@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: dot block
+# key: <sd
+# --
+#:NAME: $1
+#+BEGIN_SRC dot :file ${1:$(kyt/get-reasonable-file-name yas-text)}.${2:png} :cmdline -Kdot -T$2
+digraph ${1:$(kyt/get-reasonable-file-name yas-text)} {
+    $0
+}
+#+END_SRC
+
+
+
+
+

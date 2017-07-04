@@ -1,0 +1,46 @@
+guide-key.el
+
+(defun guide-key/polling-function ()
+
+* fun and var
+
+** command
+(this-single-command-keys)
+(this-command-keys)
+
+** var
+pre-command-hook
+
+post-command-hook
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Command-Overview.html
+
+this-command
+
+last-command
+
+* 从 key 获得 function
+(setq defn (key-binding key t))
+
+* message
+message format-string &rest arguments
+* kbd
+key sequence 格式转换（人眼转内部）
+* 匿名函数
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Anonymous-Functions.html
+
+#'(lambda (x) (* x x))
+* 计时
+python -m timeit '"-".join(str(n) for n in range(100))'
+
+os.system("some_command with args")
+
+python -m timeit 'import os;os.system("fcitx-remote")'
+* fcitx-remote
+时间相近
+
+fcitx-remote
+
+fcitx-remote -c
+
+fcitx-remote -o

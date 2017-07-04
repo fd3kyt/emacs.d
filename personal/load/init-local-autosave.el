@@ -3,12 +3,12 @@
 ;;; Commentary:
 ;;
 
-(setq auto-save-interval 300
-      auto-save-timeout 120)
+(custom-set-variables `(auto-save-interval 300)
+                      `(auto-save-timeout 120))
 
 ;; By default
 ;; (desktop-save-mode 1)
-(setq desktop-restore-eager 7)
+(custom-set-variables `(desktop-restore-eager 0))
 
 ;;; Code:
 
