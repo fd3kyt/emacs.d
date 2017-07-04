@@ -249,7 +249,7 @@ buffer is not visiting a file."
 (global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
 
 (require 'init-local-paredit)
-(require 'init-local-header)
+(require 'init-local-autoinsert)
 
 
 (add-hook 'sh-mode-hook
