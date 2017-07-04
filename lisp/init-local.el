@@ -40,11 +40,11 @@
 
 (require 'kyt-lib)
 
-;; install packages
-(require-package 'realgud)
-
 (when *is-a-cygwin*
   (require 'init-local-cygwin))
+
+;; install packages
+(require-package 'realgud)
 
 ;; theme
 (color-theme-sanityinc-solarized-light)
