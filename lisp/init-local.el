@@ -125,13 +125,6 @@
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
-
-;; show as image at open
-(custom-set-variables '(auto-image-file-mode t))
-
-;; c-c to toggle image display
-(add-hook 'nxml-mode-hook 'image-minor-mode)
-
 ;; disable semantic-mode to avoid hanging in comment
 ;; won't affect code completion dis
 (add-hook 'emacs-lisp-mode-hook (lambda () (semantic-mode -1)))
@@ -173,6 +166,7 @@
 (require-package 'ace-pinyin)
 (ace-pinyin-global-mode)
 
+(require 'init-local-image)
 (require 'init-local-paredit)
 (require 'init-local-autoinsert)
 (require 'init-local-simple-key-bindings)

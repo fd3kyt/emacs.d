@@ -5,17 +5,12 @@
 
 ;;; Code:
 
-(defvar kyt/image-name-regexps (list ".png$" ".svg$"))
-
 (setq auto-mode-alist
       (append '(
                 ("\\.\\(md\\|markdown\\)\\'" . gfm-mode)  ;markdown
                 ("\\.m\\'" . octave-mode)                 ;octave
                 )
               auto-mode-alist))
-
-(custom-set-variables
- '(revert-without-query kyt/image-name-regexps))
 
 (provide 'init-local-file-type)
 
