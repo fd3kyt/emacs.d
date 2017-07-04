@@ -55,10 +55,6 @@
 ;; global ispell dictionary
 (ispell-change-dictionary "american" t)
 
-;; .md,.markdown 默认用gfm-mode打开
-(setq auto-mode-alist
-      (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
-
 ;; org-mode
 (after-load 'org (require 'init-local-org))
 
@@ -113,14 +109,8 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-;; octave
-(setq auto-mode-alist
-      (append '(("\\.m\\'" . octave-mode))
-              auto-mode-alist))
-
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")
-
 
 ;; for R
 (message "ATTENTION: setting $LANG to en_US.UTF-8")
@@ -187,6 +177,7 @@
 (require 'init-local-autoinsert)
 (require 'init-local-simple-key-bindings)
 (require 'init-local-simple-util)
+(require 'init-local-file-type)
 
 
 (add-hook 'sh-mode-hook
@@ -200,10 +191,6 @@
                       '(trash-directory "/home/Storage/.trash"))
 
 (global-auto-revert-mode t)             ; won't revert modified buffers
-
-(after-load 'image
-  (custom-set-variables
-   '(revert-without-query (list ".png$" ".svg$"))))
 
 
 (provide 'init-local)
