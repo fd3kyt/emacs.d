@@ -115,9 +115,6 @@
 (global-set-key (kbd "C-c C-<")
                 'mc/mark-all-like-this-dwim)
 
-(fset 'kyt/open-line [?\C-e return])
-(global-set-key (kbd "M-o") 'kyt/open-line)
-
 (require-package 'yasnippet)
 (yas-global-mode)
 (require 'init-local-snippet)
