@@ -10,14 +10,13 @@
 ;; ATTENTION: don't put any code here, before setting the vars.
 
 ;; ===== personal global vars =====
-;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
-
 (defconst *is-a-cygwin* (eq system-type 'darwin))
 
 
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 
+;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 (defvar kyt/personal-dir
   (expand-file-name "personal"
                     user-emacs-directory)
@@ -32,6 +31,10 @@
   (expand-file-name "load" kyt/personal-dir)
   "Path to local init dir.")
 (add-to-list 'load-path kyt/init-dir)
+;; ===== personal global vars end =====
+
+
+
 
 ;; ========== init start ==========
 
@@ -42,8 +45,6 @@
 
 (when *is-a-cygwin*
   (require 'init-local-cygwin))
-
-;; ===== personal global vars end =====
 
 ;; theme
 (color-theme-sanityinc-solarized-light)
