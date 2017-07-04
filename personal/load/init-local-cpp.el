@@ -8,6 +8,15 @@
 (require 'cc-mode)
 (require-package 'flycheck-pos-tip)
 
+;; c
+(defun my-flycheck-c-setup ()
+  "Set flycheck standard flag."
+  (setq flycheck-gcc-language-standard "c99")
+  (setq flycheck-clang-language-standard "c99"))
+
+(add-hook 'c-mode-hook 'my-flycheck-c-setup)
+
+
 (require 'google-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-set-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
