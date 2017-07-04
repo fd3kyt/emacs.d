@@ -91,6 +91,14 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
   (newline-and-indent))
 
 
+(defun kyt/go-to-beginning-and-search ()
+  "Go to the beginning of current buffer and start isearch."
+  (interactive)
+  (beginning-of-buffer)
+  (isearch-forward))
+
+
+
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

@@ -112,9 +112,6 @@
 ;;                   'company-ispell))
 (require 'init-local-hydra)
 
-(global-set-key (kbd "C-c C-<")
-                'mc/mark-all-like-this-dwim)
-
 (require-package 'yasnippet)
 (yas-global-mode)
 (require 'init-local-snippet)
@@ -135,9 +132,6 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(global-set-key (kbd "C-S-t") 'transpose-words)
-(global-set-key (kbd "M-t") 'transpose-sexps)
-
 ;; octave
 (setq auto-mode-alist
       (append '(("\\.m\\'" . octave-mode))
@@ -156,10 +150,6 @@ buffer is not visiting a file."
 ;; (setq ivy-initial-inputs-alist nil)     ; no leading "^"
 (setq ivy-re-builders-alist
       '((t . ivy--regex-ignore-order)))
-
-
-(global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "C-M-z") 'avy-goto-char-in-line)
 
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
@@ -221,6 +211,7 @@ buffer is not visiting a file."
 
 (require 'init-local-paredit)
 (require 'init-local-autoinsert)
+(require 'init-local-simple-key-bindings)
 
 
 (add-hook 'sh-mode-hook
@@ -232,18 +223,6 @@ buffer is not visiting a file."
 
 (custom-set-variables '(delete-by-moving-to-trash t)
                       '(trash-directory "/home/Storage/.trash"))
-
-(global-set-key (kbd "C-j") 'kyt/new-line)
-
-(global-set-key (kbd "C-S-L") 'move-to-window-line-top-bottom)
-
-(defun kyt/go-to-beginning-and-search ()
-  "Go to the beginning of current buffer and start isearch."
-  (interactive)
-  (beginning-of-buffer)
-  (isearch-forward))
-
-(global-set-key (kbd "C-S-S") 'kyt/go-to-beginning-and-search)
 
 (global-auto-revert-mode t)             ; won't revert modified buffers
 
