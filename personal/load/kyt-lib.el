@@ -94,7 +94,7 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
 (defun kyt/go-to-beginning-and-search ()
   "Go to the beginning of current buffer and start isearch."
   (interactive)
-  (beginning-of-buffer)
+  (goto-char (point-min))
   (isearch-forward))
 
 
