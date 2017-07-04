@@ -76,11 +76,9 @@
 
 ;; 解决 daemon 中设置 font 的问题
 (set-variable 'kyt/debug-var "before font")
-(if (daemonp)
-    (add-hook 'after-make-window-system-frame-hooks
-              (lambda ()
-                (require 'init-local-font)))
-  (require 'init-local-font))
+(add-hook 'after-make-window-system-frame-hooks
+          (lambda ()
+            (require 'init-local-font)))
 (set-variable 'kyt/debug-var "after font")
 
 ;; fix sudo blocking
