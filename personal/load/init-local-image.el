@@ -8,8 +8,7 @@
 
 
 (defvar kyt/image-name-regexps (list ".png$" ".svg$"))
-(custom-set-variables
- '(revert-without-query kyt/image-name-regexps))
+(setq-default revert-without-query kyt/image-name-regexps)
 
 ;; show as image at open
 (custom-set-variables '(auto-image-file-mode t))
