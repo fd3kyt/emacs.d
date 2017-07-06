@@ -33,6 +33,8 @@
 (customize-set-variable 'ycmd-extra-conf-handler
                         'load)
 
+(setq-default ycmd-startup-timeout 6)
+
 (require-package 'company-ycmd)
 (company-ycmd-setup)
 (global-company-mode)

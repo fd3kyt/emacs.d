@@ -31,8 +31,10 @@
 (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
 
 
+(require-package 'flycheck-rtags)
 ;; flycheck
 (defun my-flycheck-rtags-setup ()
+  (require 'flycheck-rtags)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
