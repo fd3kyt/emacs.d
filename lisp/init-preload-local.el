@@ -15,8 +15,20 @@
 ;;                 ;; regular expression, not CSV
 ;;                 ("no_proxy" . "\\(localhost\\|127.*.*.*\\)")))
 
-(setq url-gateway-method 'socks)
-(setq socks-server '("Default server" "127.0.0.1" 4399 5))
+;; (setq url-gateway-method 'socks)
+;; (setq socks-server '("Default server" "127.0.0.1" 4399 5))
+
+;; ;; https://elpa.emacs-china.org/
+;; (setq package-archives '(("melpa" . "http://elpa.emacs-china.org/melpa/")
+;;                          ("org" . "http://elpa.emacs-china.org/org/")
+;;                          ("gnu"   . "http://elpa.emacs-china.org/gnu/")
+;;                          ))
+
+;; tsinghua                                        ;
+(setq package-archives '(("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                         ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ))
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/benchmark-init-el/")
 (require 'benchmark-init-modes)
