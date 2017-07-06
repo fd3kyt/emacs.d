@@ -65,7 +65,7 @@
   (define-key c++-mode-map (kbd "C-c s") 'kyt/source))
 
 
-;; (require 'key-chord)
+;; (require-package 'key-chord)
 ;; (key-chord-mode t)
 ;; (key-chord-define-global "as" 'kyt/source)
 ;; (setq key-chord-two-keys-delay 0.05)

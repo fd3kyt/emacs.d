@@ -4,7 +4,7 @@
 ;; (custom-set-variables `(verilog-simulator "verilator ... "')
 ;; (custom-set-variables `(verilog-compiler "(make -f makev :__FILE__)"' )
 
-(require 'verilog-mode)
+(require-package 'verilog-mode)
 ;;避免变量未定义
 
 (require 'vcpu-project)

@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require 'cc-mode)
+(require-package 'cc-mode)
 (require-package 'flycheck-pos-tip)
 
 ;; c
@@ -17,7 +17,7 @@
 (add-hook 'c-mode-hook 'my-flycheck-c-setup)
 
 
-(require 'google-c-style)
+(require-package 'google-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-set-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
@@ -30,15 +30,15 @@
 
 (add-hook 'c-mode-common-hook #'kyt/set-c-style)
 
-(require 'cmake-mode)
+(require-package 'cmake-mode)
 (custom-set-variables `(auto-mode-alist
                         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
                                   ("\\.cmake\\'" . cmake-mode))
                                 auto-mode-alist)))
 
 ;; https://github.com/tuhdo/semantic-refactor
-(require 'srefactor)
-(require 'srefactor-lisp)
+(require-package 'srefactor)
+(require-package 'srefactor-lisp)
 
 ;; OPTIONAL: ADD IT ONLY IF YOU USE C/C++.
 (semantic-mode 1) ;; -> this is optional for Lisp
@@ -68,7 +68,7 @@
       [?\C-e ?_ ?\C-. ?\C-a ?\M-x ?u ?p ?c ?a ?s ?e ?- ?r ?e ?g ?i ?o ?n return ?\C-. ?\C-e ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t ?r ?i ?n ?g return ?  return ?_ return ?\C-e ?\C-\M-b ?\C-\M-k ?# ?i ?f ?n ?d ?e ?f ?  ?\C-y return ?# ?d ?e ?f ?i ?n ?e ?  ?\C-y return return ?# ?e ?n ?d ?i ?f ?  ?/ ?/ ?  ?\C-y ?\C-p ?\C-o ?\C-o ?\C-n])
 
 
-(require 'gxref)
+(require-package 'gxref)
 (add-to-list 'xref-backend-functions 'gxref-xref-backend)
 
 

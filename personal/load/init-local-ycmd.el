@@ -4,15 +4,15 @@
 ;; https://github.com/abingham/emacs-ycmd
 
 ;;; Code:
-;; (require 'ycmd)
+;; (require-package 'ycmd)
 ;; (add-hook 'after-init-hook #'global-ycmd-mode)
 
 ;; (customize-set-variable 'ycmd-server-command '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
 
-;; (require 'company-ycmd)
+;; (require-package 'company-ycmd)
 ;; (company-ycmd-setup)
 
-;; (require 'flycheck-ycmd)
+;; (require-package 'flycheck-ycmd)
 ;; (flycheck-ycmd-setup)
 
 ;; (provide 'init-local-ycmd)
@@ -33,7 +33,7 @@
 (customize-set-variable 'ycmd-extra-conf-handler
                         'load)
 
-(require 'company-ycmd)
+(require-package 'company-ycmd)
 (company-ycmd-setup)
 (global-company-mode)
 

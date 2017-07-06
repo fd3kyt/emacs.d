@@ -5,7 +5,7 @@
 ;;
 
 ;;; Code:
-(require 'rtags)
+(require-package 'rtags)
 
 ;; (custom-set-variables `(rtags-path "~/Sources/rtags/bin"))
 ;; "sudo make install", don't need to set the path.
@@ -17,10 +17,10 @@
 (rtags-enable-standard-keybindings)
 
 
-(require 'company)
-(require 'company-rtags)
-(require 'flycheck-rtags)
-(require 'ivy-rtags)
+(require-package 'company)
+(require-package 'company-rtags)
+(require-package 'flycheck-rtags)
+(require-package 'ivy-rtags)
 
 ;; auto completion
 (setq rtags-autostart-diagnostics t)

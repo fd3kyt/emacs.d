@@ -5,7 +5,7 @@
 
 
 ;;; Code:
-(require 'org)
+(require-package 'org)
 
 (require-package 'org-download)
 
@@ -66,7 +66,7 @@
               (kyt/org-get-data-directory-name)))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
-(require 'org-download)
+(require-package 'org-download)
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."

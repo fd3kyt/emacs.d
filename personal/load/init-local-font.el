@@ -18,7 +18,7 @@
 
 ;;   "english-font-size could be set to \":pixelsize=18\" or a integer.
 ;; If set/leave chinese-font-size to nil, it will follow english-font-size"
-;;   (require 'cl)                         ; for find if
+;;   (require-package 'cl)                         ; for find if
 ;;   (let ((en-font (qiang-make-font-string
 ;;                   (find-if #'qiang-font-existsp english-fonts)
 ;;                   english-font-size))
@@ -49,7 +49,8 @@
 
 ;;(kyt/set-up-font)
 
-(require 'chinese-fonts-setup)
+(require-package 'chinese-fonts-setup)
+(require 'chinese-fonts-setup)          ;still need to require
 ;; 让 chinese-fonts-setup 随着 emacs 自动生效。
 (chinese-fonts-setup-enable)
 (cfs--select-profile "code")

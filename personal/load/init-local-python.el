@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require 'python)
+(require-package 'python)
 
 ;; set these in custom
 ;; (custom-set-variables `(python-shell-interpreter

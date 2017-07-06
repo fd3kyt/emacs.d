@@ -10,12 +10,12 @@
 ;;; Commentary:
 
 ;; scheme
-(require 'scheme)
+(require-package 'scheme)
 
 
 
 ;; geiser
-;;(require 'geiser)
+;;(require-package 'geiser)
 ;;(custom-set-variables `(geiser-active-implementations '(racket)')
 ;;(custom-set-variables `(geiser-mode-start-repl-p t')
 
@@ -24,7 +24,7 @@
 
 ;; quack
 
-(require 'quack)
+(require-package 'quack)
 
 
 (add-hook 'scheme-mode-hook 'enable-paredit-mode)
