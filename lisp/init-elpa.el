@@ -31,8 +31,9 @@
 
 ;; It seems that my shadowsocks doesn't work well with ssl, so never
 ;; use ssl here.
-(defconst sanityinc/no-ssl (and (memq system-type '(windows-nt ms-dos))
-                                (not (gnutls-available-p))))
+(defconst sanityinc/no-ssl (or t
+                               (and (memq system-type '(windows-nt ms-dos))
+                                    (not (gnutls-available-p)))))
 
 ;;; Also use Melpa for most packages
 (add-to-list 'package-archives
