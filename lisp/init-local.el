@@ -85,7 +85,7 @@
 (after-load 'cc-mode
   (require 'init-local-cpp)
   (require 'init-local-ycmd)
-  ;; (require 'init-local-rtags)
+  (require 'init-local-rtags)
   )
 
 (require 'init-local-python)
