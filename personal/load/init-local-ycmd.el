@@ -4,32 +4,27 @@
 ;; https://github.com/abingham/emacs-ycmd
 
 ;;; Code:
-;; (require-package 'ycmd)
-;; (add-hook 'after-init-hook #'global-ycmd-mode)
-
-;; (customize-set-variable 'ycmd-server-command '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
-
-;; (require-package 'company-ycmd)
-;; (company-ycmd-setup)
-
-;; (require-package 'flycheck-ycmd)
-;; (flycheck-ycmd-setup)
-
-;; (provide 'init-local-ycmd)
-
 (require-package 'ycmd)
+
+(defvar kyt/ycmd-path nil
+  "Ycmd projcet path.")
+
+;; personal setting
+(setq-default kyt/ycmd-path (expand-file-name "~/local/ycmd/"))
+
 ;;;;;;;;;;;;;;;;;;;emacs-ycmd;;;;;;;;;;;;;;;;;;;
 ;; (add-hook 'after-init-hook #'global-ycmd-mode)
 (add-hook 'c-mode-common-hook #'ycmd-mode)
 (customize-set-variable 'ycmd-force-semantic-completion t)
 ;;(customize-set-variable 'ycmd-global-config nil)
 (customize-set-variable 'ycmd-server-command
-                        '("python" "/home/fd3kyt/local/ycmd/ycmd/"))
-;;(ycmd-server-command (quote ("python" "/home/fd3kyt/local/ycmd/ycmd")))
+                        (list "python" (expand-file-name "ycmd/"
+                                                         kyt/ycmd-path)))
 (customize-set-variable 'ycmd-global-config
-                        "/home/fd3kyt/local/ycmd/cpp/ycm/.ycm_extra_conf.py")
+                        (expand-file-name "cpp/ycm/.ycm_extra_conf.py"
+                                          kyt/ycmd-path))
 (customize-set-variable 'ycmd-extra-conf-whitelist
-                        '("~/Projects/*"))
+                        (list (expand-file-name "~/Projects/*")))
 (customize-set-variable 'ycmd-extra-conf-handler
                         'load)
 

@@ -1,4 +1,4 @@
-;;; init-local-org.el --- local org init for fd3kyt
+;;; init-local-org.el --- initialize org
 
 ;;; Commentary:
 ;;
