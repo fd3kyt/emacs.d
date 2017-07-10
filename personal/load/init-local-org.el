@@ -67,6 +67,7 @@
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
 (require-package 'org-download)
+(require 'org-download)
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."
