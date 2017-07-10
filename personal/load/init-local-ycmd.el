@@ -4,13 +4,12 @@
 ;; https://github.com/abingham/emacs-ycmd
 
 ;;; Code:
+(declare-function require-package "init-elpa")
 (require-package 'ycmd)
 
-(defvar kyt/ycmd-path nil
-  "Ycmd projcet path.")
-
 ;; personal setting
-(setq-default kyt/ycmd-path (expand-file-name "~/local/ycmd/"))
+(defvar kyt/ycmd-path (expand-file-name "~/local/ycmd/")
+  "Ycmd projcet path.")
 
 ;;;;;;;;;;;;;;;;;;;emacs-ycmd;;;;;;;;;;;;;;;;;;;
 ;; (add-hook 'after-init-hook #'global-ycmd-mode)
@@ -28,7 +27,8 @@
 (customize-set-variable 'ycmd-extra-conf-handler
                         'load)
 
-(setq-default ycmd-startup-timeout 10)
+(defvar ycmd-startup-timeout)
+(setq ycmd-startup-timeout 10)
 
 (require-package 'company-ycmd)
 (company-ycmd-setup)

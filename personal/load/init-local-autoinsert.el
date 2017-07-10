@@ -5,9 +5,10 @@
 
 
 ;;; Code:
+(require 'autoinsert)
 (autoload 'yas-expand-snippet "yasnippet")
 (auto-insert-mode 1)  ;;; Adds hook to find-files-hook
-;; (setq-default auto-insert-query nil) ;;; If you don't want to be prompted before insertion
+(setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 
 (custom-set-variables '(auto-insert-directory "~/.emacs.d/personal/auto-insert/"))
 
