@@ -10,11 +10,13 @@
 ;; ATTENTION: don't put any code here, before setting the vars.
 
 ;; ===== personal global vars =====
-;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
+(defconst *is-a-cygwin* (eq system-type 'darwin))
+
 
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 
+;; .emacs.d/personal 作为集中个人设置的地方(相对 purcell 的设置)
 (defvar kyt/personal-dir
   (expand-file-name "personal"
                     user-emacs-directory)
@@ -29,19 +31,20 @@
   (expand-file-name "load" kyt/personal-dir)
   "Path to local init dir.")
 (add-to-list 'load-path kyt/init-dir)
+;; ===== personal global vars end =====
+
+
+
 
 ;; ========== init start ==========
 
 (require 'kyt-lib)
 
+(when *is-a-cygwin*
+  (require 'init-local-cygwin))
+
 ;; install packages
 (require-package 'realgud)
-
-;; ===== if under Windows =====
-(when (equal window-system 'w32)
-  (require 'init-local-w32))
-
-;; ===== personal global vars end =====
 
 ;; theme
 (color-theme-sanityinc-solarized-light)
@@ -51,10 +54,6 @@
 
 ;; global ispell dictionary
 (ispell-change-dictionary "american" t)
-
-;; .md,.markdown 默认用gfm-mode打开
-(setq auto-mode-alist
-      (cons '("\\.\\(md\\|markdown\\)\\'" . gfm-mode) auto-mode-alist))
 
 ;; org-mode
 (after-load 'org (require 'init-local-org))
@@ -71,54 +70,11 @@
 
 (require 'graphviz-dot-mode)
 
-;;(require 'init-local-autoinsert)
-
-;; temp c
-(defun my-flycheck-c-setup ()
-  "Set flycheck standard flag."
-  (setq flycheck-gcc-language-standard "c99")
-  (setq flycheck-clang-language-standard "c99"))
-
-(add-hook 'c-mode-hook #'my-flycheck-c-setup)
-
-
-;; local tools
-;;(add-to-list 'load-path "~/.emacs.d/local/python-django/")
-;;(require 'python-django)
-
-;; mysite project
-;;(setq python-shell-interpreter "~/.virtualenvs/mysite/bin/python")
-
-;; ;; highlight-phrase bug
-;; (add-to-list 'ido-ubiquitous-command-overrides
-;;              '(disable exact "highlight-phrase"))
-;; (add-to-list 'ido-ubiquitous-command-overrides
-;;              '(disable exact "highlight-lines-matching-regexp"))
-;; (add-to-list 'ido-ubiquitous-command-overrides
-;;              '(disable exact "unhighlight-regexp"))
-;; (add-to-list 'ido-ubiquitous-command-overrides
-;;              '(disable exact "highlight-regexp"))
-
-;; ;; global-magit-wip-save-mode bug:not existing dir
-;; (global-magit-wip-save-mode 0);;disable
-
-;; (add-to-list 'default-frame-alist '(height . 25))
-;; (add-to-list 'default-frame-alist '(width . 80))
-
-(set-variable 'kyt/debug-var "before font")
-
-;; ;; https://github.com/tuhdo/semantic-stickyfunc-enhance
-;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-;; (semantic-mode 1)
-;; (require 'stickyfunc-enhance)
-
 ;; 解决 daemon 中设置 font 的问题
-(if (daemonp)
-    (add-hook 'after-make-window-system-frame-hooks
-              (lambda ()
-                (require 'init-local-font)))
-  (require 'init-local-font))
-
+(set-variable 'kyt/debug-var "before font")
+(add-hook 'after-make-window-system-frame-hooks
+          (lambda ()
+            (require 'init-local-font)))
 (set-variable 'kyt/debug-var "after font")
 
 ;; fix sudo blocking
@@ -145,12 +101,6 @@
 ;;                   'company-ispell))
 (require 'init-local-hydra)
 
-(global-set-key (kbd "C-c C-<")
-                'mc/mark-all-like-this-dwim)
-
-(fset 'kyt/open-line [?\C-e return])
-(global-set-key (kbd "M-o") 'kyt/open-line)
-
 (require-package 'yasnippet)
 (yas-global-mode)
 (require 'init-local-snippet)
@@ -159,29 +109,8 @@
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-(defun sudo-edit (&optional arg)
-  "Edit currently visited file as root.
-
-With a prefix ARG prompt for a file to visit.
-Will also prompt for a file to visit if current
-buffer is not visiting a file."
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-(global-set-key (kbd "C-S-t") 'transpose-words)
-(global-set-key (kbd "M-t") 'transpose-sexps)
-
-;; octave
-(setq auto-mode-alist
-      (append '(("\\.m\\'" . octave-mode))
-              auto-mode-alist))
-
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")
-
 
 ;; for R
 (message "ATTENTION: setting $LANG to en_US.UTF-8")
@@ -193,19 +122,8 @@ buffer is not visiting a file."
 (setq ivy-re-builders-alist
       '((t . ivy--regex-ignore-order)))
 
-
-(global-set-key (kbd "C-:") 'avy-goto-char)
-(global-set-key (kbd "C-M-z") 'avy-goto-char-in-line)
-
 (require 'magit-gitflow)
 (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-
-
-;; show as image at open
-(custom-set-variables '(auto-image-file-mode t))
-
-;; c-c to toggle image display
-(add-hook 'nxml-mode-hook 'image-minor-mode)
 
 ;; disable semantic-mode to avoid hanging in comment
 ;; won't affect code completion dis
@@ -245,18 +163,15 @@ buffer is not visiting a file."
   (add-hook 'nxml-mode-hook 'setup-nxml-header-line))
 
 
-(require 'bing-dict)
-(global-set-key (kbd "C-c b") 'bing-dict-brief)
-
 (require-package 'ace-pinyin)
 (ace-pinyin-global-mode)
 
-(require-package 'avy-zap)
-(global-set-key (kbd "M-z") 'avy-zap-to-char-dwim)
-(global-set-key (kbd "M-Z") 'avy-zap-up-to-char-dwim)
-
+(require 'init-local-image)
 (require 'init-local-paredit)
-(require 'init-local-header)
+(require 'init-local-autoinsert)
+(require 'init-local-simple-key-bindings)
+(require 'init-local-simple-util)
+(require 'init-local-file-type)
 
 
 (add-hook 'sh-mode-hook
@@ -266,26 +181,10 @@ buffer is not visiting a file."
              (push 'company-files company-backends)))
 
 
-(custom-set-variables '(delete-by-moving-to-trash t)
-                      '(trash-directory "/home/Storage/.trash"))
-
-(global-set-key (kbd "C-j") 'kyt/new-line)
-
-(global-set-key (kbd "C-S-L") 'move-to-window-line-top-bottom)
-
-(defun kyt/go-to-beginning-and-search ()
-  "Go to the beginning of current buffer and start isearch."
-  (interactive)
-  (beginning-of-buffer)
-  (isearch-forward))
-
-(global-set-key (kbd "C-S-S") 'kyt/go-to-beginning-and-search)
+(setq delete-by-moving-to-trash t
+      trash-directory "/home/Storage/.trash")
 
 (global-auto-revert-mode t)             ; won't revert modified buffers
-
-(after-load 'image
-  (custom-set-variables
-   '(revert-without-query (list ".png$" ".svg$"))))
 
 
 (provide 'init-local)

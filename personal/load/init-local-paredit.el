@@ -5,7 +5,7 @@
 
 ;;; Code:
 (after-load 'org
-  (require 'paredit)
+  (require-package 'paredit)
   (defvar org-mode-map)
   (define-paredit-pair ?\= ?\= "equal")
   (define-paredit-pair ?\~ ?\~ "tilde")

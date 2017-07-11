@@ -5,14 +5,7 @@
 
 ;;; Code:
 
-(require 'python)
-
-;; set these in custom
-;; (custom-set-variables `(python-shell-interpreter
-;;                         "/home/fd3kyt/anaconda3/bin/python3"))
-
-;; (custom-set-variables `(flycheck-python-pylint-executable
-;;                         "/home/fd3kyt/anaconda3/bin/pylint"))
+(require-package 'python)
 
 (defun kyt/restart_anaconda_if_error (&optional ignored)
   "Restart anaconda if *anaconda-mode* contain traceback.

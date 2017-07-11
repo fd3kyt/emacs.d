@@ -1,11 +1,11 @@
-;;; init-local-org.el --- local org init for fd3kyt
+;;; init-local-org.el --- initialize org
 
 ;;; Commentary:
 ;;
 
 
 ;;; Code:
-(require 'org)
+(require-package 'org)
 
 (require-package 'org-download)
 
@@ -15,7 +15,8 @@
   (set-face-background 'org-hide (face-background 'default));hide stars
   (set-face-foreground 'org-hide (face-background 'default)))
 
-(custom-set-variables `(org-startup-indented t))              ;indent
+(defvar org-startup-indented)
+(setq org-startup-indented t)              ;indent
 
 (defun org-save-all-org-buffers-no-message ()
   "Call org-save-all-org-buffers, clear echo area if in minibuffer."
@@ -28,12 +29,11 @@
   "Set up org mode after it start."
   (add-hook 'auto-save-hook
             'org-save-all-org-buffers-no-message) ; autosave
-
-  ;;(custom-set-variables `(org-startup-indented t') ;indent
   (org-hide-starting-star))
 (add-hook 'org-mode-hook 'org-mode-startup-settings)
 
-(custom-set-variables `(org-directory "~/Documents"))
+(defvar org-directory)
+(setq org-directory "~/Documents")
 
 (require 'init-local-org-capture)
 
@@ -50,7 +50,7 @@
   (kbd "C-c z") [?\C-c ?\C-z ?< ?q tab ?\C-y ?\M-q ?\M-> return return])
 
 ;; show code highlight
-(custom-set-variables `(org-src-fontify-natively t))
+(setq org-src-fontify-natively t)
 
 (defun kyt/org-get-data-directory-name ()
   "Get the expected data directory name of current org file."
@@ -66,6 +66,7 @@
               (kyt/org-get-data-directory-name)))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
+(require-package 'org-download)
 (require 'org-download)
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
@@ -101,15 +102,14 @@ PREFIX: if not nil, do not minimize."
 ;; (require 'org-screenshot)
 ;; use org-download-screenshot instead
 
-(custom-set-variables `(org-ellipsis "↓"))
+(setq org-ellipsis "↓")
 
 ;; useful tweak
 
-(custom-set-variables
- `(org-tag-persistent-alist
-   '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s)))
- `(org-hide-emphasis-markers nil))
+(setq org-tag-persistent-alist
+      '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s)) )
 
+(setq org-hide-emphasis-markers nil)
 
 (defun org-refile-goto ()
   "Go to heading using `org-refile'."
@@ -120,7 +120,7 @@ PREFIX: if not nil, do not minimize."
 
 ;; set the faces
 
-(custom-set-variables '(org-fontify-quote-and-verse-blocks t))
+(setq org-fontify-quote-and-verse-blocks t)
 
 (set-face-attribute 'org-block-begin-line nil
                     :weight 'bold
@@ -166,7 +166,7 @@ PREFIX: if not nil, do not minimize."
    (plantuml . t)
    ))
 
-(custom-set-variables '(org-plantuml-jar-path "~/local/plantuml.jar"))
+(setq org-plantuml-jar-path "~/local/plantuml.jar")
 
 (provide 'init-local-org)
 

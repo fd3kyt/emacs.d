@@ -5,9 +5,9 @@
 ;;
 
 ;;; Code:
-(require 'rtags)
+(require-package 'rtags)
 
-;; (custom-set-variables `(rtags-path "~/Sources/rtags/bin"))
+;; (setq rtags-path "~/Sources/rtags/bin")
 ;; "sudo make install", don't need to set the path.
 
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
@@ -17,10 +17,10 @@
 (rtags-enable-standard-keybindings)
 
 
-(require 'company)
-(require 'company-rtags)
-(require 'flycheck-rtags)
-(require 'ivy-rtags)
+(require-package 'company)
+(require-package 'company-rtags)
+(require-package 'flycheck-rtags)
+(require-package 'ivy-rtags)
 
 ;; auto completion
 (setq rtags-autostart-diagnostics t)
@@ -31,8 +31,10 @@
 (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
 
 
+(require-package 'flycheck-rtags)
 ;; flycheck
 (defun my-flycheck-rtags-setup ()
+  (require 'flycheck-rtags)
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
