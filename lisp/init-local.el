@@ -181,8 +181,8 @@
              (push 'company-files company-backends)))
 
 
-(custom-set-variables '(delete-by-moving-to-trash t)
-                      '(trash-directory "/home/Storage/.trash"))
+(setq delete-by-moving-to-trash t
+      trash-directory "/home/Storage/.trash")
 
 (global-auto-revert-mode t)             ; won't revert modified buffers
 

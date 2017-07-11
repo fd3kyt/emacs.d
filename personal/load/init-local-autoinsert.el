@@ -10,7 +10,7 @@
 (auto-insert-mode 1)  ;;; Adds hook to find-files-hook
 (setq auto-insert-query nil) ;;; If you don't want to be prompted before insertion
 
-(custom-set-variables '(auto-insert-directory "~/.emacs.d/personal/auto-insert/"))
+(setq auto-insert-directory "~/.emacs.d/personal/auto-insert/")
 
 
 (defun my-autoinsert-yas-expand()

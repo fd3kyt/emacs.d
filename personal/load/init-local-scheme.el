@@ -16,8 +16,8 @@
 
 ;; geiser
 ;;(require-package 'geiser)
-;;(custom-set-variables `(geiser-active-implementations '(racket)')
-;;(custom-set-variables `(geiser-mode-start-repl-p t')
+;;(setq geiser-active-implementations "racket")
+;;(setq geiser-mode-start-repl-p t)
 
 
 

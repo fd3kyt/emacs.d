@@ -7,7 +7,7 @@
 ;;; Code:
 (require-package 'rtags)
 
-;; (custom-set-variables `(rtags-path "~/Sources/rtags/bin"))
+;; (setq rtags-path "~/Sources/rtags/bin")
 ;; "sudo make install", don't need to set the path.
 
 (add-hook 'c-mode-hook 'rtags-start-process-unless-running)

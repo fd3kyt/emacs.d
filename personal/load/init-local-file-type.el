@@ -12,6 +12,17 @@
                 )
               auto-mode-alist))
 
+
+(require-package 'cmake-mode)
+(setq auto-mode-alist
+      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                ("\\.cmake\\'" . cmake-mode))
+              auto-mode-alist))
+
+(setq auto-mode-alist
+      (append '(("\\.h\\'" . c++-mode))
+              auto-mode-alist))
+
 (provide 'init-local-file-type)
 
 ;;; init-local-file-type.el ends here

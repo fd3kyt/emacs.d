@@ -1,8 +1,8 @@
-;; (custom-set-variables `(verilog-tool 'verilog-compiler')
-;; (custom-set-variables `(verilog-linter "vlint ..."')
-;; (custom-set-variables `(verilog-coverage "coverage ..."')
-;; (custom-set-variables `(verilog-simulator "verilator ... "')
-;; (custom-set-variables `(verilog-compiler "(make -f makev :__FILE__)"' )
+;; (setq verilog-tool 'verilog-compiler')
+;; (setq verilog-linter "vlint ...")
+;; (setq verilog-coverage "coverage ...")
+;; (setq verilog-simulator "verilator ... ")
+;; (setq verilog-compiler "(make -f makev :__FILE__)")
 
 (require-package 'verilog-mode)
 ;;避免变量未定义
