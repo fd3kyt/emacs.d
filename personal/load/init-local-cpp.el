@@ -41,6 +41,9 @@
 (global-set-key (kbd "M-RET b") 'srefactor-lisp-format-buffer)
 
 
+(define-key c-mode-map [remap ff-find-other-file]
+  'projectile-find-other-file)
+
 (define-key c++-mode-map [remap ff-find-other-file]
   'projectile-find-other-file)
 
