@@ -187,5 +187,11 @@
 (global-auto-revert-mode t)             ; won't revert modified buffers
 
 
+;; dired
+(add-hook 'dired-mode-hook 'dired-omit-mode)
+(setq dired-omit-extensions (list ))
+(setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
