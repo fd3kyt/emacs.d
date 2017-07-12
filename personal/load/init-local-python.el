@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(declare-function require-package "init-elpa")
 (require-package 'python)
 
 (defun kyt/restart_anaconda_if_error (&optional ignored)
