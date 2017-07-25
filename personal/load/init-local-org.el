@@ -168,6 +168,12 @@ PREFIX: if not nil, do not minimize."
 
 (setq org-plantuml-jar-path "~/local/plantuml.jar")
 
+;; try org-brain
+(require-package 'org-brain)
+(require 'org-brain)
+(setq org-id-track-globally t)
+(setq org-brain-path "~/Documents/")
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here

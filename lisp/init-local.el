@@ -192,6 +192,10 @@
 (setq dired-omit-extensions (list ))
 (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
 
+;; try annotate
+(require-package 'annotate)
+
+
 
 (provide 'init-local)
 ;;; init-local.el ends here
