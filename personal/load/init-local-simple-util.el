@@ -22,7 +22,7 @@
 ;; see more in https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org#持续改进
 ;; use M-1, M-2 ... to switch window
 (require-package 'window-numbering)
-(window-numbering-mode)
+;; (window-numbering-mode)
 
 (provide 'init-local-simple-util)
 
