@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: cpp code block with main
+# key: <sC
+# --
+#+BEGIN_SRC cpp :results drawer
+  #include <stdio.h>
+
+  int main(){
+    printf("%s\n", "hello world");
+    $0
+  }
+#+END_SRC
