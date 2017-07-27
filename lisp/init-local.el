@@ -189,6 +189,7 @@
 
 ;; dired
 (add-hook 'dired-mode-hook 'dired-omit-mode)
+(setq dired-omit-verbose nil)
 (setq dired-omit-extensions (list ))
 (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
 

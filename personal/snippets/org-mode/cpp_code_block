@@ -2,6 +2,6 @@
 # name: cpp code block
 # key: <sc
 # --
-#+BEGIN_SRC cpp
+#+BEGIN_SRC cpp :results drawer
 $0
 #+END_SRC
