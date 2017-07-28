@@ -122,6 +122,8 @@ PREFIX: if not nil, do not minimize."
 
 (setq org-fontify-quote-and-verse-blocks t)
 
+(setq dark-color "DimGray")
+
 (set-face-attribute 'org-block-begin-line nil
                     :weight 'bold
                     :underline nil
@@ -130,7 +132,7 @@ PREFIX: if not nil, do not minimize."
 (set-face-attribute 'org-quote nil
                     :background "#F5F2EC"
                     :weight 'normal
-                    :foreground "dark"
+                    :foreground dark-color
                     :inherit 'org-block-begin-line)
 
 (set-face-attribute 'org-block-end-line nil
@@ -140,7 +142,7 @@ PREFIX: if not nil, do not minimize."
                     :inherit 'org-quote)
 
 (set-face-attribute 'org-block nil
-                    :foreground "dark"
+                    :foreground dark-color
                     :inherit 'org-quote)
 
 (set-face-attribute 'org-verse nil
@@ -153,7 +155,7 @@ PREFIX: if not nil, do not minimize."
                     :inherit 'org-code)
 
 (set-face-attribute 'org-meta-line nil
-                    :underline "dark")
+                    :underline dark-color)
 
 ;;; Babel
 ;; active Babel languages
