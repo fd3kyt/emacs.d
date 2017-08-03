@@ -2,6 +2,6 @@
 # name: bash block
 # key: <ss
 # --
-#+BEGIN_SRC bash
+#+BEGIN_SRC bash :results outptut drawer
 $0
 #+END_SRC
