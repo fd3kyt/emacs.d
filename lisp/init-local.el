@@ -196,6 +196,8 @@
 ;; try annotate
 (require-package 'annotate)
 
+(setq guide-key/guide-key-sequence t)
+
 
 
 (provide 'init-local)
