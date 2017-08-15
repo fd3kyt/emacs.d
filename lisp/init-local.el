@@ -231,7 +231,7 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
   "Run OLDFUN using REST as arguments with `aggressive-indent-mode' turned off.
 
 Update: it seems that in order to make it work, we should keep
-aggressive-indent-mode off instead of restoring it original
+aggressive-indent-mode off instead of restoring its original
 state."
   (let ((aggressive-indent-on-p aggressive-indent-mode))
     (aggressive-indent-mode -1)
