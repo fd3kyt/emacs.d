@@ -68,6 +68,18 @@
    :test "cd build && ctest"
    :test-prefix "test_"))
 
+(defun kyt/gtags-current-project ()
+  "Generate gtags tag files for current project."
+  (interactive)
+  (projectile-with-default-dir (projectile-project-root)
+    (call-process "gtags")))
+
+(defun kyt/rtags-current-project ()
+  "Generate gtags tag files for current project."
+  (interactive)
+  (projectile-with-default-dir (projectile-project-root)
+    (call-process "add-to-rtags.sh")))
+
 
 (provide 'init-local-cpp)
 

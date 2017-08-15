@@ -57,3 +57,4 @@ flycheck_*
 /projectile.cache
 /semanticdb/
 /cnfonts/cnfonts.conf
+/personal/bookmarks.el

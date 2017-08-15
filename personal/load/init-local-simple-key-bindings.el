@@ -19,6 +19,7 @@
 
 (global-set-key (kbd "C-S-S") 'kyt/go-to-beginning-and-search)
 
+
 (provide 'init-local-simple-key-bindings)
 
 ;;; init-local-simple-key-bindings.el ends here

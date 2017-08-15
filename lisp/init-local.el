@@ -196,7 +196,55 @@
 ;; try annotate
 (require-package 'annotate)
 
+(defun kyt/dired-du ()
+  "Get the size of each marked files/directories."
+  (interactive)
+  (dired-do-shell-command "du -sh"
+                          current-prefix-arg
+                          (dired-get-marked-files t current-prefix-arg)))
 
+(require 'init-local-tramp)
+
+(defun kyt/ag-project-org (string regexp-p)
+  "Ag STRING in ~/Projects/**/*.org.
+
+If called with a prefix, use regexp (REGEXP-P will be t)."
+  (interactive (let ((regexp-p (> (prefix-numeric-value current-prefix-arg) 1)))
+                 (list (read-string (if regexp-p "Regexp: " "String: "))
+                       regexp-p)))
+  (let ((current-prefix-arg 1))         ;avoid passing down to `ag/search'
+    (ag/search string "~/Projects" :regexp regexp-p :file-regex "\\.org$"))
+  )
+
+(after-load 'projectile
+  (setq projectile-enable-caching t))
+
+(require-package 'bookmark+)
+(setq bookmark-version-control t)
+(setq bookmark-save-flag 1)             ; save on every modification
+(setq bookmark-default-file (expand-file-name "bookmarks.el"
+                                              kyt/personal-dir))
+
+;; fix: aggressive-indent-mode causes bookmark+ to raise "Invalid
+;; bookmark-file"
+(defun without-aggressive-indent-mode (oldfun &rest rest)
+  "Run OLDFUN using REST as arguments with `aggressive-indent-mode' turned off.
+
+Update: it seems that in order to make it work, we should keep
+aggressive-indent-mode off instead of restoring it original
+state."
+  (let ((aggressive-indent-on-p aggressive-indent-mode))
+    (aggressive-indent-mode -1)
+    (apply oldfun rest)
+    ;; (aggressive-indent-mode (if aggressive-indent-on-p 1 -1))
+    )
+  )
+(advice-add 'bookmark-write-file :around 'without-aggressive-indent-mode)
+
+
+(setq guide-key/guide-key-sequence t)
+
+(require 'init-local-goldfish)
 
 (provide 'init-local)
 ;;; init-local.el ends here
