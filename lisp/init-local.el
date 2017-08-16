@@ -220,6 +220,7 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
   (setq projectile-enable-caching t))
 
 (require-package 'bookmark+)
+(require 'bookmark+)
 (setq bookmark-version-control t)
 (setq bookmark-save-flag 1)             ; save on every modification
 (setq bookmark-default-file (expand-file-name "bookmarks.el"
@@ -233,10 +234,15 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
 Update: it seems that in order to make it work, we should keep
 aggressive-indent-mode off instead of restoring its original
 state."
-  (let ((aggressive-indent-on-p aggressive-indent-mode))
-    (aggressive-indent-mode -1)
-    (apply oldfun rest)
-    ;; (aggressive-indent-mode (if aggressive-indent-on-p 1 -1))
+  (let* ((file (car rest))
+         (existing-buf (get-file-buffer file)))
+    (with-current-buffer (let ((enable-local-variables  ())) (find-file-noselect file))
+      (let ((aggressive-indent-on-p aggressive-indent-mode))
+        (aggressive-indent-mode -1)
+        (apply oldfun rest)
+        ;; (aggressive-indent-mode (if aggressive-indent-on-p 1 -1))
+        )
+      (unless existing-buf (kill-buffer (current-buffer))))
     )
   )
 (advice-add 'bookmark-write-file :around 'without-aggressive-indent-mode)
