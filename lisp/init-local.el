@@ -241,6 +241,12 @@ state."
          (buffer-exist-p (get-file-buffer file)))
     (with-current-buffer (let ((enable-local-variables  ())) (find-file-noselect file))
       (aggressive-indent-mode -1)
+      ;; fix existing bookmark file
+      (save-excursion
+        (goto-char (point-max))
+        ;; don't need to replace if doesn't have spaces
+        (when (re-search-backward "^\\s-+)" nil t)
+          (replace-match ")")))
       (apply oldfun rest)
       (unless buffer-exist-p (kill-buffer (current-buffer))))
     )
