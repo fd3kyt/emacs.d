@@ -231,18 +231,18 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
 (defun without-aggressive-indent-mode (oldfun &rest rest)
   "Run OLDFUN using REST as arguments with `aggressive-indent-mode' turned off.
 
+Read the first element in REST as the file name, open it, switch to
+the buffer and turn off aggressive-indent-mode, then call `oldfun'.
+
 Update: it seems that in order to make it work, we should keep
 aggressive-indent-mode off instead of restoring its original
 state."
   (let* ((file (car rest))
-         (existing-buf (get-file-buffer file)))
+         (buffer-exist-p (get-file-buffer file)))
     (with-current-buffer (let ((enable-local-variables  ())) (find-file-noselect file))
-      (let ((aggressive-indent-on-p aggressive-indent-mode))
-        (aggressive-indent-mode -1)
-        (apply oldfun rest)
-        ;; (aggressive-indent-mode (if aggressive-indent-on-p 1 -1))
-        )
-      (unless existing-buf (kill-buffer (current-buffer))))
+      (aggressive-indent-mode -1)
+      (apply oldfun rest)
+      (unless buffer-exist-p (kill-buffer (current-buffer))))
     )
   )
 (advice-add 'bookmark-write-file :around 'without-aggressive-indent-mode)
