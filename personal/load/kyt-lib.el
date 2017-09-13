@@ -111,6 +111,34 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+(defvar kyt/common-delimiters '(";" "," " " "/" ":")
+  "Commonly used delimiters.")
+
+(defun kyt/decide-delimiter (string)
+  "Given STRING, try to decide its delimiter.
+Try the delimiters in `kyt/common-delimiters', count occurences."
+  (car (-max-by
+        (lambda (left right)
+          (> (cdr left) (cdr right)))
+        (mapcar (lambda (delimiter) (cons delimiter (s-count-matches delimiter string)))
+                kyt/common-delimiters))))
+
+(defun kyt/read-list ()
+  "Read a list from the user.
+Read a string of filenames, then read a delimiter to split it."
+  (let ((string (read-string "Filenames: ")))
+    (let ((delimiter (read-string "Delimiter: "
+                                  (kyt/decide-delimiter string))))
+      (split-string string delimiter)))
+  )
+
+(defun kyt/dired-mark-list (list)
+  "Mark all file names in LIST."
+  (interactive (list (kyt/read-list)))
+  (dired-mark-files-regexp
+   (concat "^\\(" (string-join list "\\|") "\\)$")
+   nil t))
+
 
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
