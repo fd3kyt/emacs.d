@@ -189,6 +189,27 @@ PREFIX: if not nil, do not minimize."
 (add-to-list 'org-todo-keyword-faces '("INACTIVE" :inherit font-lock-comment-fac))
 (add-to-list 'org-todo-keywords-for-agenda #("INACTIVE" 0 1 (idx 8)) t)
 
+
+
+
+;; org-confirm-babel-evaluate
+(defvar kyt/org-babel-need-not-confirm '("dot"))
+(defun kyt/org-babel-need-confirm-p (language body)
+  "Funtion for `org-confirm-babel-evaluate'.
+LANGUAGE: language of the code block.
+BODY: body of the code block."
+  (print language)
+  (if (-contains-p kyt/org-babel-need-not-confirm language)
+      nil
+    t))
+(setq org-confirm-babel-evaluate 'kyt/org-babel-need-confirm-p)
+
+(defun kyt/org-refresh-inline-image-if-displaying ()
+  "If inline image display is on, refresh inline images."
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
+(add-hook 'org-babel-after-execute-hook 'kyt/org-refresh-inline-image-if-displaying)
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
