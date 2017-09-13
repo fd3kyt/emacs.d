@@ -258,5 +258,12 @@ state."
 
 (require 'init-local-goldfish)
 
+(defun use-bash-when-zsh ()
+  "Set shell to 'bash' if is a zsh file.  Why: shellcheck doesn't support zsh."
+  (if (string-match "\\.zsh$" buffer-file-name)
+      (sh-set-shell "bash")))
+(add-hook 'sh-mode-hook
+          'use-bash-when-zsh)
+
 (provide 'init-local)
 ;;; init-local.el ends here
