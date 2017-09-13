@@ -176,6 +176,19 @@ PREFIX: if not nil, do not minimize."
 (setq org-id-track-globally t)
 (setq org-brain-path "~/Documents/")
 
+
+
+;; org agenda
+(add-to-list 'org-agenda-files "~/Projects/goldfish/")
+
+(setq org-todo-keywords
+      '((sequence "INACTIVE(i)" "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
+        (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
+        (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
+
+(add-to-list 'org-todo-keyword-faces '("INACTIVE" :inherit font-lock-comment-fac))
+(add-to-list 'org-todo-keywords-for-agenda #("INACTIVE" 0 1 (idx 8)) t)
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
