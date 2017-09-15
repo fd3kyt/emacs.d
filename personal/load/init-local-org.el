@@ -193,7 +193,10 @@ PREFIX: if not nil, do not minimize."
 
 
 ;; org-confirm-babel-evaluate
-(defvar kyt/org-babel-need-not-confirm '("dot"))
+(defvar kyt/org-babel-need-not-confirm nil
+  "Languages that don't need confirm before evaluation.")
+(setq kyt/org-babel-need-not-confirm '("dot" "plantuml"))
+
 (defun kyt/org-babel-need-confirm-p (language body)
   "Funtion for `org-confirm-babel-evaluate'.
 LANGUAGE: language of the code block.
