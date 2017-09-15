@@ -66,12 +66,21 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
                      buffer-file-name)
     (message "Current buffer is not a file!")))
 
-(defun kyt/open-current-image ()
+(defun kyt/open-current-image-viewnior ()
   "Open current image with viewnior."
   (interactive)
   (if buffer-file-name
       (start-process "Viewnior" nil
                      "viewnior"
+                     buffer-file-name)
+    (message "Current buffer is not a file!")))
+
+(defun kyt/open-current-image-shutter ()
+  "Open current image with viewnior."
+  (interactive)
+  (if buffer-file-name
+      (start-process "Shutter" nil
+                     "shutter"
                      buffer-file-name)
     (message "Current buffer is not a file!")))
 
