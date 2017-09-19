@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: question heading
+# key: ques:
+# --
+TODO question :question:
