@@ -6,7 +6,10 @@
 ;;; Code:
 
 (defvar goldfish/root "/home/74/goldfish")
-(defvar goldfish/msg-org-list "~/Projects/goldfish/proto_analysis/find_msg/msg.org.list")
+(defvar goldfish/msg-org-list
+  "~/Projects/goldfish/proto_analysis/find_msg/msg.org.list")
+(defvar goldfish/msg-list
+  "~/Projects/goldfish/proto_analysis/find_msg/msg.intersection.list")
 
 
 (defun goldfish/highlight ()
@@ -53,6 +56,15 @@ TODO: copy `kyt/ag-project-org'."
     (insert-file-contents filePath)
     (buffer-string)))
 
+(defun kyt/list-from-string (string)
+  "Given STRING, return a list of lines in it, stripped."
+  (-map 's-trim (-uniq (s-lines (s-trim string)))))
+
+(defun kyt/list-from-file (file)
+  "Given FILE, return a list of lines in it, stripped."
+  (kyt/list-from-string (get-string-from-file file)))
+
+;; ^\(MSG_SPG_QE_SIMPLE_PLAN\|MSG_RTABLE_CS_CS_SEARCH_ACK\)$
 (defun kyt/regexp-for-any-line (string)
   "Given STRING, return a regexp that match any line in it."
   (s-concat "^\\("
@@ -74,7 +86,13 @@ TODO: copy `kyt/ag-project-org'."
   (kyt/highlight-in goldfish/msg-org-list)
   (highlight-regexp "_ACK$" 'hi-pink))
 
-;; ^\(MSG_SPG_QE_SIMPLE_PLAN\|MSG_RTABLE_CS_CS_SEARCH_ACK\)$
+
+;; TODO
+;; given msg name, go to definition
+
+(defun goldfish/read-msg-name ()
+  (completing-read "MSG: " (kyt/list-from-file goldfish/msg-list)))
+
 
 
 (provide 'init-local-goldfish)
