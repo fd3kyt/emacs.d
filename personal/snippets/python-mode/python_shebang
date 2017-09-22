@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python shebang
+# key: #!
+# --
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+$0
