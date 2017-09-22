@@ -6,6 +6,7 @@
 ;;; Code:
 
 (defvar goldfish/root "/home/74/goldfish")
+(defvar goldfish/msg-org-list "~/Projects/goldfish/proto_analysis/find_msg/msg.org.list")
 
 
 (defun goldfish/highlight ()
@@ -45,6 +46,35 @@ TODO: copy `kyt/ag-project-org'."
                  :regexp regexp-p :file-regex "\\.org$"))
     )
   )
+
+(defun get-string-from-file (filePath)
+  "Return FILEPATH's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+
+(defun kyt/regexp-for-any-line (string)
+  "Given STRING, return a regexp that match any line in it."
+  (s-concat "^\\("
+            (s-join "\\|" (-map 's-trim (-uniq (s-lines (s-trim string)))))
+            "\\)$"))
+
+(defun kyt/highlight-in (file)
+  "Highlight all lines that are in FILE lines."
+  (interactive (list (read-file-name "The list file: ")))
+  (highlight-regexp
+   (kyt/regexp-for-any-line (get-string-from-file file))
+   'hi-yellow)
+  )
+
+(defun goldfish/msg-list-highlight ()
+  "Set highlight in msg.intersetion.list."
+  (interactive)
+  (unhighlight-regexp t)
+  (kyt/highlight-in goldfish/msg-org-list)
+  (highlight-regexp "_ACK$" 'hi-pink))
+
+;; ^\(MSG_SPG_QE_SIMPLE_PLAN\|MSG_RTABLE_CS_CS_SEARCH_ACK\)$
 
 
 (provide 'init-local-goldfish)
