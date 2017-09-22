@@ -112,13 +112,18 @@ TODO: copy `kyt/ag-project-org'."
   "Given MSG, return its locations by querying `goldfish/msg-definition-location-alist'."
   (cdr (assoc msg goldfish/msg-definition-location-alist)))
 
-(defun goldfish/jump-to-msg-definition (msg)
-  "Given MSG, jump to its definition."
-  (interactive (list (goldfish/read-msg-name)))
+(defun goldfish/jump-to-msg-definition (msg &optional arg)
+  "Given MSG, jump to its definition.  Prefix arg ARG.
+With an universal argument, choose from all available locations."
+  (interactive (list (goldfish/read-msg-name)
+                     current-prefix-arg))
   (org-open-link-from-string
-   (s-concat "file:"
-             (completing-read "Location:"
-                              (goldfish/query-msg-definition-location-alist msg))))
+   (let ((locations (goldfish/query-msg-definition-location-alist msg)))
+     (s-concat "file:"
+               (if (equal arg '(4))
+                   (completing-read "Location:" locations)
+                 (car locations))))
+   )
   )
 
 
