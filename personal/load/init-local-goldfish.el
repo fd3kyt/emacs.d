@@ -11,10 +11,16 @@
 (defvar goldfish/msg-list
   "~/Projects/goldfish/proto_analysis/find_msg/msg.intersection.list")
 
+(defvar goldfish/msg-definition-location-file
+  "~/Projects/goldfish/proto_analysis/find_msg/msg_definition_location.csv"
+  "Expected format: csv, First field is the msg name, others are locations."
+  )
+(defvar goldfish/msg-definition-location-alist nil)
 
-(defun goldfish/highlight ()
-  (interactive)
-  (highlight-regexp "\\b\\w+_\\b"))
+
+;; (defun goldfish/highlight ()
+;;   (interactive)
+;;   (highlight-regexp "\\b\\w+_\\b"))
 
 
 (require 'ag)
@@ -87,13 +93,38 @@ TODO: copy `kyt/ag-project-org'."
   (highlight-regexp "_ACK$" 'hi-pink))
 
 
-;; TODO
-;; given msg name, go to definition
-
 (defun goldfish/read-msg-name ()
+  "Read a msg name from minibuffer, with auto-completion."
   (completing-read "MSG: " (kyt/list-from-file goldfish/msg-list)))
 
+(defun goldfish/read-msg-definition-location-file (file)
+  "Read `goldfish/msg-definition-location-file' from FILE."
+  (-map (lambda (s) (s-split "," s))
+        (s-lines (get-string-from-file file))))
 
+(defun goldfish/setup ()
+  "Setup goldfish variables."
+  (setq goldfish/msg-definition-location-alist
+        (goldfish/read-msg-definition-location-file
+         goldfish/msg-definition-location-file)))
+
+(defun goldfish/query-msg-definition-location-alist (msg)
+  "Given MSG, return its locations by querying `goldfish/msg-definition-location-alist'."
+  (cdr (assoc msg goldfish/msg-definition-location-alist)))
+
+(defun goldfish/jump-to-msg-definition (msg)
+  "Given MSG, jump to its definition."
+  (interactive (list (goldfish/read-msg-name)))
+  (org-open-link-from-string
+   (s-concat "file:"
+             (completing-read "Location:"
+                              (goldfish/query-msg-definition-location-alist msg))))
+  )
+
+
+
+
+(goldfish/setup)
 
 (provide 'init-local-goldfish)
 
