@@ -225,6 +225,15 @@ BODY: body of the code block."
   )
 (setq org-make-link-description-function 'kyt/org-make-link-description-function)
 
+;; not done yet
+(defun kyt/org-insert-link-other-window ()
+  "Call `org-store-link', switch to the other window, and insert it."
+  (interactive)
+  (save-window-excursion
+    (org-store-link 1)
+    (switch-window)
+    (org-insert-last-stored-link 1)))
+
 
 (provide 'init-local-org)
 
