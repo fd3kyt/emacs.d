@@ -235,6 +235,23 @@ BODY: body of the code block."
     (org-insert-last-stored-link 1)))
 
 
+;; Fix: org-follow-link asks for a confirmation for killing temp
+;; buffer.
+;; reproduce:
+;; (with-temp-buffer (org-mode) (insert "hello"))
+(defun unset-buffer-modified (&rest arguments)
+  "Set `buffer-modified-p' to nil, ignore ARGUMENTS."
+  (set-buffer-modified-p nil))
+(defun org-supress-kill-confirmation-for-temp-buffer ()
+  "Fix: org-follow-link asks for a confirmation for killing temp buffer.
+If buffer name is like ' *temp*' or ' *temp*-123' (mind the
+space), unset `buffer-modified-p' after changes."
+  (when (s-match "^\\s-*\\*temp\\*" (buffer-name))
+    (add-hook 'after-change-functions 'unset-buffer-modified t t)))
+(add-hook 'org-mode-hook 'org-supress-kill-confirmation-for-temp-buffer)
+
+
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
