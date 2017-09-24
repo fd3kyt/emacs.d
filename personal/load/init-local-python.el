@@ -12,12 +12,13 @@
   "Restart anaconda if *anaconda-mode* contain traceback.
 
 `IGNORED': passed by `company-completion-started-hook'."
-  (when (get-buffer "*anaconda-mode*")
-    (with-current-buffer "*anaconda-mode*"
-      (when (string-match-p (regexp-quote "Traceback") (buffer-string))
-        (message "Restart anaconda server...")
-        (kill-buffer)))
-    )
+  (save-window-excursion
+    (when (get-buffer "*anaconda-mode*")
+      (with-current-buffer "*anaconda-mode*"
+        (when (string-match-p (regexp-quote "Traceback") (buffer-string))
+          (message "Restart anaconda server...")
+          (kill-buffer)))
+      ))
   )
 
 (after-load 'company-anaconda
