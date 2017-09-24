@@ -39,6 +39,7 @@ FUNCTIONS: extra functions to run after expanding the snippet."
 (setq auto-insert-alist nil)
 (kyt/define-auto-insert "\\.org$" "auto-insert.org")
 (kyt/define-auto-insert "\\.dot$" "auto-insert.dot")
+(kyt/define-auto-insert "\\.el$" "auto-insert.el")
 (kyt/define-auto-insert "\\.sh$" "auto-insert.sh"
                         '(lambda () (sh-set-shell "bash")))
 
