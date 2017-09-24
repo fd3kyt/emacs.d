@@ -5,26 +5,26 @@
 
 ;;; Code:
 
-(defvar goldfish/root "/home/74/goldfish")
-(defvar goldfish/msg-org-list
+(defvar gf/root "/home/74/goldfish")
+(defvar gf/msg-org-list
   "~/Projects/goldfish/proto_analysis/find_msg/msg.org.list")
-(defvar goldfish/msg-list
+(defvar gf/msg-list
   "~/Projects/goldfish/proto_analysis/find_msg/msg.intersection.list")
 
-(defvar goldfish/msg-definition-location-file
+(defvar gf/msg-definition-location-file
   "~/Projects/goldfish/proto_analysis/find_msg/msg_definition_location.csv"
   "Expected format: csv, First field is the msg name, others are locations."
   )
-(defvar goldfish/msg-definition-location-alist nil)
+(defvar gf/msg-definition-location-alist nil)
 
 
-;; (defun goldfish/highlight ()
+;; (defun gf/highlight ()
 ;;   (interactive)
 ;;   (highlight-regexp "\\b\\w+_\\b"))
 
 
 (require 'ag)
-(defun goldfish/ag-cpp-no-pb (string directory)
+(defun gf/ag-cpp-no-pb (string directory)
   "Ag, cpp only, ignore files compiled from protobuf.
 
 STRING, DIRECTORY: same as `ag-files'."
@@ -34,13 +34,13 @@ STRING, DIRECTORY: same as `ag-files'."
     (ag-files string '(:file-type "cpp") directory))
   )
 
-(defun goldfish/ag-root (string)
+(defun gf/ag-root (string)
   "Ag cpp for STRING in the whole goldfish directory."
   (interactive (list (read-string "String: ")))
   (let ((ag-arguments (append ag-arguments '("--ignore" "tag1.5_20170410"))))
-    (goldfish/ag-cpp-no-pb string goldfish/root)))
+    (gf/ag-cpp-no-pb string gf/root)))
 
-(defun goldfish/ag-org (string regexp-p)
+(defun gf/ag-org (string regexp-p)
   "Ag STRING in ~/Projects/goldfish/*.org.
 
 If called with a prefix, use regexp (REGEXP-P will be t).
@@ -85,40 +85,40 @@ TODO: copy `kyt/ag-project-org'."
    'hi-yellow)
   )
 
-(defun goldfish/msg-list-highlight ()
+(defun gf/msg-list-highlight ()
   "Set highlight in msg.intersetion.list."
   (interactive)
   (unhighlight-regexp t)
-  (kyt/highlight-in goldfish/msg-org-list)
+  (kyt/highlight-in gf/msg-org-list)
   (highlight-regexp "_ACK$" 'hi-pink))
 
 
-(defun goldfish/read-msg-name ()
+(defun gf/read-msg-name ()
   "Read a msg name from minibuffer, with auto-completion."
-  (completing-read "MSG: " (kyt/list-from-file goldfish/msg-list)))
+  (completing-read "MSG: " (kyt/list-from-file gf/msg-list)))
 
-(defun goldfish/read-msg-definition-location-file (file)
-  "Read `goldfish/msg-definition-location-file' from FILE."
+(defun gf/read-msg-definition-location-file (file)
+  "Read `gf/msg-definition-location-file' from FILE."
   (-map (lambda (s) (s-split "," s))
         (s-lines (get-string-from-file file))))
 
-(defun goldfish/setup ()
+(defun gf/setup ()
   "Setup goldfish variables."
-  (setq goldfish/msg-definition-location-alist
-        (goldfish/read-msg-definition-location-file
-         goldfish/msg-definition-location-file)))
+  (setq gf/msg-definition-location-alist
+        (gf/read-msg-definition-location-file
+         gf/msg-definition-location-file)))
 
-(defun goldfish/query-msg-definition-location-alist (msg)
-  "Given MSG, return its locations by querying `goldfish/msg-definition-location-alist'."
-  (cdr (assoc msg goldfish/msg-definition-location-alist)))
+(defun gf/query-msg-definition-location-alist (msg)
+  "Given MSG, return its locations by querying `gf/msg-definition-location-alist'."
+  (cdr (assoc msg gf/msg-definition-location-alist)))
 
-(defun goldfish/jump-to-msg-definition (msg &optional arg)
+(defun gf/jump-to-msg-definition (msg &optional arg)
   "Given MSG, jump to its definition.  Prefix arg ARG.
 With an universal argument, choose from all available locations."
-  (interactive (list (goldfish/read-msg-name)
+  (interactive (list (gf/read-msg-name)
                      current-prefix-arg))
   (org-open-link-from-string
-   (let ((locations (goldfish/query-msg-definition-location-alist msg)))
+   (let ((locations (gf/query-msg-definition-location-alist msg)))
      (s-concat "file:"
                (if (equal arg '(4))
                    (completing-read "Location:" locations)
@@ -129,7 +129,7 @@ With an universal argument, choose from all available locations."
 
 
 
-(goldfish/setup)
+(gf/setup)
 
 (provide 'init-local-goldfish)
 
