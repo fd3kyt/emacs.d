@@ -212,7 +212,8 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
   (interactive (let ((regexp-p (> (prefix-numeric-value current-prefix-arg) 1)))
                  (list (read-string (if regexp-p "Regexp: " "String: "))
                        regexp-p)))
-  (let ((current-prefix-arg 1))         ;avoid passing down to `ag/search'
+  (let ((current-prefix-arg 1)  ;avoid passing down to `ag/search'
+        (ag-arguments (append ag-arguments (list "-U"))))
     (ag/search string "~/Projects" :regexp regexp-p :file-regex "\\.org$"))
   )
 
