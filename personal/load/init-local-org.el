@@ -250,6 +250,8 @@ space), unset `buffer-modified-p' after changes."
     (add-hook 'after-change-functions 'unset-buffer-modified t t)))
 (add-hook 'org-mode-hook 'org-supress-kill-confirmation-for-temp-buffer)
 
+;; Fix: log note (C-c C-t c), C-c C-c asks for kill confirmation.
+(advice-add 'org-store-log-note :before 'unset-buffer-modified)
 
 
 (provide 'init-local-org)
