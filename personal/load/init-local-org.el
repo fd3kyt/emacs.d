@@ -213,16 +213,19 @@ BODY: body of the code block."
     (org-redisplay-inline-images)))
 (add-hook 'org-babel-after-execute-hook 'kyt/org-refresh-inline-image-if-displaying)
 
-
 (defun kyt/org-make-link-description-function (link desc)
   "LINK and DESC: see the manual of `org-make-link-description-function'."
-  (if (s-contains-p "::" link)
-      (let* ((splitted-link (s-split "::" link))
-             (link-context (apply 's-concat (cdr splitted-link)))
-             (link-path (car splitted-link)))
-        (s-concat (file-name-nondirectory link-path) " :: " link-context))
-    desc)
-  )
+  (let ((link-delimiter "::")
+        (new-desc-delimiter " :: "))
+    (if (s-contains-p link-delimiter link)
+        (let* ((splitted (s-split-up-to link-delimiter link 1))
+               (link-path (nth 0 splitted))
+               (link-context (nth 1 splitted)))
+          (s-concat (file-name-nondirectory link-path)
+                    new-desc-delimiter
+                    link-context))
+      desc)))
+
 (setq org-make-link-description-function 'kyt/org-make-link-description-function)
 
 ;; not done yet
