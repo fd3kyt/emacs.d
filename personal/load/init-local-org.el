@@ -253,6 +253,10 @@ space), unset `buffer-modified-p' after changes."
 ;; Fix: log note (C-c C-t c), C-c C-c asks for kill confirmation.
 (advice-add 'org-store-log-note :before 'unset-buffer-modified)
 
+(setq org-archive-default-command 'org-toggle-archive-tag)
+
+(setq org-refile-targets
+      '((nil :maxlevel . 10) (org-agenda-files :maxlevel . 10)))
 
 (provide 'init-local-org)
 
