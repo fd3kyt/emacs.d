@@ -284,5 +284,21 @@ state."
        ("r" imagex-sticky-rotate-right "rotate right")
        ("l" imagex-sticky-rotate-left "rotate left"))))
 
+
+;; ;; dired-rainbow
+;; ;; have some problems
+;; ;; must be run at initialization?
+;; ;; no effect on dirs?
+;; (dired-rainbow-define org_d "#222222" ".*\\.org\\.d/")
+;; (dired-rainbow-define image "#111111" ".*\\.png")
+
+;; ;; not working
+;; (setq dired-omit-extensions nil)
+;; (add-to-list 'dired-omit-extensions ".git/")
+;; (add-to-list 'dired-omit-extensions ".gitignore")
+;; (add-to-list 'completion-ignored-extensions ".gitignore")
+;; (setq dired-omit-extensions (remove ".png" dired-omit-extensions))
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
