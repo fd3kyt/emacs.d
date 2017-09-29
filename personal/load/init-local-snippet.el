@@ -25,7 +25,14 @@
   "Rename current new snippet buffer and save it."
   (interactive)
   (unless (buffer-file-name)
-    (rename-new-snippet-buffer))
+    (let ((suggested-name (s-replace " " "_"
+                                     (extract-snippet-name))))
+      (set-visited-file-name
+       (read-file-name "Snippet file name: "
+                       nil
+                       suggested-name ;don't work if INITIAL is nil?
+                       nil
+                       suggested-name))))
   (save-buffer))
 
 (after-load 'yasnippet
