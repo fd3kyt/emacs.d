@@ -70,6 +70,15 @@
 (define-key c-mode-base-map (kbd "M-.") (function kyt/cpp-goto))
 (define-key c-mode-base-map (kbd "M-,") (function kyt/cpp-back))
 
+(defun do-not-elide (oldfun &rest r)
+  "Call OLDFUN with arguments R, having `rtags-elide-text' do nothing."
+  (cl-letf (((symbol-function 'rtags-elide-text)
+             (lambda (str &rest args)
+               str)))
+    (apply oldfun r)))
+
+(advice-add 'rtags-insert-ref :around 'do-not-elide)
+
 (provide 'init-local-rtags)
 
 
