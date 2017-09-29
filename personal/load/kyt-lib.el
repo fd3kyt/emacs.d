@@ -145,7 +145,7 @@ Read a string of filenames, then read a delimiter to split it."
   "Mark all file names in LIST."
   (interactive (list (kyt/read-list)))
   (dired-mark-files-regexp
-   (concat "^\\(" (string-join list "\\|") "\\)$")
+   (concat "^\\(" (s-join "\\|" list) "\\)$")
    nil t))
 
 
