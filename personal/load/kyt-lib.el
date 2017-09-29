@@ -152,6 +152,9 @@ Read a string of filenames, then read a delimiter to split it."
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; (require 'kyt-ag)
+(require 'kyt-avy)
+
 (provide 'kyt-lib)
 
 ;;; kyt-lib.el ends here
