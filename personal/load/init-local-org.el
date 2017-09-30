@@ -213,6 +213,13 @@ BODY: body of the code block."
     (org-redisplay-inline-images)))
 (add-hook 'org-babel-after-execute-hook 'kyt/org-refresh-inline-image-if-displaying)
 
+(defun kyt/cpp-filename-inidicated-by-code-p (filename code)
+  "Return t if FILENAME is indicated in CODE."
+  (let ((cpp-scope-operator "::"))
+    (and (s-contains-p (s-concat (file-name-base filename) cpp-scope-operator)
+                       code)
+         (= 1 (s-count-matches cpp-scope-operator code)))))
+
 (defun kyt/org-make-link-description-function (link desc)
   "LINK and DESC: see the manual of `org-make-link-description-function'."
   (let ((link-delimiter "::")
@@ -220,10 +227,13 @@ BODY: body of the code block."
     (if (s-contains-p link-delimiter link)
         (let* ((splitted (s-split-up-to link-delimiter link 1))
                (link-path (nth 0 splitted))
+               (filename (file-name-nondirectory link-path))
                (link-context (nth 1 splitted)))
-          (s-concat (file-name-nondirectory link-path)
-                    new-desc-delimiter
-                    link-context))
+          (if (kyt/cpp-filename-inidicated-by-code-p filename link-context)
+              link-context  ; optimization for cpp
+            (s-concat filename
+                      new-desc-delimiter
+                      link-context)))
       desc)))
 
 (setq org-make-link-description-function 'kyt/org-make-link-description-function)
