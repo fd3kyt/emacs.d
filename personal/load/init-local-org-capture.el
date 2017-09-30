@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(require 'org)
 (defvar org-default-notes-file)
 (defvar org-directory)
 (setq org-default-notes-file (concat org-directory "/notes.org"))

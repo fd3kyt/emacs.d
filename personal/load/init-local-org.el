@@ -9,6 +9,9 @@
 
 (require-package 'org-download)
 
+(declare-function org-save-all-org-buffers 'org)
+(declare-function require-package 'init-elpa)
+
 (defun org-hide-starting-star ()
   "Hide starting star when using org indent."
   (interactive)
@@ -19,7 +22,7 @@
 (setq org-startup-indented t)              ;indent
 
 (defun org-save-all-org-buffers-no-message ()
-  "Call org-save-all-org-buffers, clear echo area if in minibuffer."
+  "Call `org-save-all-org-buffers', clear echo area if in minibuffer."
   (interactive)
   (org-save-all-org-buffers)
   (if (window-minibuffer-p)
@@ -58,6 +61,8 @@
           (file-name-nondirectory
            (kyt/buffer-file-name-or-default))
           ".d"))
+
+(defvar org-attach-directory)
 
 ;; init org-attach
 (defun kyt/org-attach-init ()
@@ -122,40 +127,41 @@ PREFIX: if not nil, do not minimize."
 
 (setq org-fontify-quote-and-verse-blocks t)
 
-(setq dark-color "DimGray")
+(let ((dark-color "DimGray"))
+  (set-face-attribute 'org-block-begin-line nil
+                      :weight 'bold
+                      :underline nil
+                      :background "#F0F0F0")
 
-(set-face-attribute 'org-block-begin-line nil
-                    :weight 'bold
-                    :underline nil
-                    :background "#F0F0F0")
+  (set-face-attribute 'org-quote nil
+                      :background "#F5F2EC"
+                      :weight 'normal
+                      :foreground dark-color
+                      :inherit 'org-block-begin-line)
 
-(set-face-attribute 'org-quote nil
-                    :background "#F5F2EC"
-                    :weight 'normal
-                    :foreground dark-color
-                    :inherit 'org-block-begin-line)
+  (set-face-attribute 'org-block-end-line nil
+                      :strike-through "grey"
+                      :foreground "grey"
+                      :weight 'bold
+                      :inherit 'org-quote)
 
-(set-face-attribute 'org-block-end-line nil
-                    :strike-through "grey"
-                    :foreground "grey"
-                    :weight 'bold
-                    :inherit 'org-quote)
+  (set-face-attribute 'org-block nil
+                      :foreground dark-color
+                      :inherit 'org-quote)
 
-(set-face-attribute 'org-block nil
-                    :foreground dark-color
-                    :inherit 'org-quote)
+  (set-face-attribute 'org-verse nil
+                      :inherit 'org-quote)
 
-(set-face-attribute 'org-verse nil
-                    :inherit 'org-quote)
+  (set-face-attribute 'org-code nil
+                      :inherit 'org-block-begin-line)
 
-(set-face-attribute 'org-code nil
-                    :inherit 'org-block-begin-line)
+  (set-face-attribute 'org-verbatim nil
+                      :inherit 'org-code)
 
-(set-face-attribute 'org-verbatim nil
-                    :inherit 'org-code)
+  (set-face-attribute 'org-meta-line nil
+                      :underline dark-color))
 
-(set-face-attribute 'org-meta-line nil
-                    :underline dark-color)
+
 
 ;;; Babel
 ;; active Babel languages
@@ -168,6 +174,7 @@ PREFIX: if not nil, do not minimize."
    (plantuml . t)
    ))
 
+(defvar org-plantuml-jar-path)
 (setq org-plantuml-jar-path "~/local/plantuml.jar")
 
 ;; try org-brain
@@ -266,6 +273,7 @@ space), unset `buffer-modified-p' after changes."
 ;; Fix: log note (C-c C-t c), C-c C-c asks for kill confirmation.
 (advice-add 'org-store-log-note :before 'unset-buffer-modified)
 
+(defvar org-archive-default-command)
 (setq org-archive-default-command 'org-toggle-archive-tag)
 
 (setq org-refile-targets
