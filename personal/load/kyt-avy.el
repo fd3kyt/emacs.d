@@ -37,6 +37,7 @@ ARG lines can be used."
       (let ((start (avy--line)))
         (save-excursion
           (goto-char start)
+          ;; XXX calling `org-store-link' directly doesn't work.
           (call-interactively 'org-store-link)
           (select-window initial-window)
           ;; `org-insert-link' will delete the link from `org-stored-links'

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: kyt comment block
+# key: /*k
+# --
+/** kyt: $0
+ */
