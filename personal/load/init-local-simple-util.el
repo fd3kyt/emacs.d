@@ -24,6 +24,18 @@
 (require-package 'window-numbering)
 (window-numbering-mode)
 
+
+;;; blink your cursor when you scroll.
+(require-package 'beacon)
+(beacon-mode 1)
+(setq beacon-size 50
+      beacon-color (face-attribute 'cursor :background)
+      ;; beacon-push-mark 35
+      beacon-blink-duration 0.1
+      beacon-blink-delay 0.2
+      )
+
+
 (provide 'init-local-simple-util)
 
 ;;; init-local-simple-util.el ends here
