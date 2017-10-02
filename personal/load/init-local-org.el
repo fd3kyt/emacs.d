@@ -246,13 +246,16 @@ BODY: body of the code block."
 (setq org-make-link-description-function 'kyt/org-make-link-description-function)
 
 ;; not done yet
-(defun kyt/org-insert-link-other-window ()
-  "Call `org-store-link', switch to the other window, and insert it."
-  (interactive)
+(defun kyt/org-insert-link-other-window (arg)
+  "Insert an org link of current position plus two newlines to the other window.
+With universal argument ARG, dont't insert newlines."
+  (interactive "P")
   (save-window-excursion
-    (org-store-link 1)
-    (switch-window)
-    (org-insert-last-stored-link 1)))
+    (call-interactively 'org-store-link)
+    (other-window 1)
+    (org-insert-link nil (car (car org-stored-links)))
+    (unless arg
+      (newline 2))))
 
 
 ;; Fix: org-follow-link asks for a confirmation for killing temp
