@@ -300,5 +300,16 @@ state."
 ;; (setq dired-omit-extensions (remove ".png" dired-omit-extensions))
 
 
+;; when opening org inline image, hard to determin which window is selected.
+
+;; (counsel-describe-face)
+;; (set-face-attribute 'mode-line-inactive nil :foreground "#ADB8B8")
+;; (set-face-attribute 'mode-line-inactive nil :foreground "#93A1A1")
+(set-face-attribute 'mode-line-inactive nil :background "#FDF6E3")
+
+;; (setq blink-cursor-delay 60
+;;       blink-cursor-blinks 0
+;;       blink-cursor-interval 0.4)
+
 (provide 'init-local)
 ;;; init-local.el ends here
