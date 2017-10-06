@@ -280,7 +280,10 @@ space), unset `buffer-modified-p' after changes."
 (setq org-archive-default-command 'org-toggle-archive-tag)
 
 (setq org-refile-targets
-      '((nil :maxlevel . 10) (org-agenda-files :maxlevel . 10)))
+      '((nil :maxlevel . 15) (org-agenda-files :maxlevel . 15)))
+
+
+(setq org-image-actual-width (list 300))
 
 (provide 'init-local-org)
 
