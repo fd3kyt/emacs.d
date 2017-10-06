@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(add-to-list 'yas-snippet-dirs (expand-file-name "snippets" kyt/personal-dir))
+
 (defun extract-snippet-name ()
   "Extract the snippet name from a new snippet buffer."
   (let ((name-line-start "# name: "))
