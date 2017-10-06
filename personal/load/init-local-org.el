@@ -28,15 +28,6 @@
   (if (window-minibuffer-p)
       (message nil)))
 
-;;;; org mode auto save
-(defun kyt/org-setup-autosave ()
-  ;; (auto-save-mode 1)   ; this is unnecessary as it is on by default
-  (setq-local auto-save-visited-file-name t)
-  (setq-local auto-save-interval 30)
-  (setq-local auto-save-timeout 30)
-  (auto-save-mode t))
-(add-hook 'org-mode-hook 'kyt/org-setup-autosave)
-
 (defvar org-directory)
 (setq org-directory "~/Documents")
 
