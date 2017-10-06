@@ -28,12 +28,14 @@
   (if (window-minibuffer-p)
       (message nil)))
 
-(defun org-mode-startup-settings ()
-  "Set up org mode after it start."
-  (add-hook 'auto-save-hook
-            'org-save-all-org-buffers-no-message) ; autosave
-  (org-hide-starting-star))
-(add-hook 'org-mode-hook 'org-mode-startup-settings)
+;;;; org mode auto save
+(defun kyt/org-setup-autosave ()
+  ;; (auto-save-mode 1)   ; this is unnecessary as it is on by default
+  (setq-local auto-save-visited-file-name t)
+  (setq-local auto-save-interval 30)
+  (setq-local auto-save-timeout 30)
+  (auto-save-mode t))
+(add-hook 'org-mode-hook 'kyt/org-setup-autosave)
 
 (defvar org-directory)
 (setq org-directory "~/Documents")
