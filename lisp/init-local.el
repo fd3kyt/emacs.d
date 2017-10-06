@@ -311,5 +311,24 @@ state."
 ;;       blink-cursor-blinks 0
 ;;       blink-cursor-interval 0.4)
 
+
+;; #################### backup ####################
+(setq make-backup-files t)
+(setq backup-directory-alist `(("." . "~/.emacs.backup")))
+;; Look like this: ".emacs.backup/!home!fd3kyt!Lab!try.org.~1~", can't
+;; see in dired.
+(setq backup-by-copying t)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
+
+;; #################### desktop ####################
+;; By default
+(defvar desktop-restore-eager)
+(setq desktop-restore-eager 0)
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
