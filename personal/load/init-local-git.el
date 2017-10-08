@@ -15,9 +15,12 @@
     (setenv "LANG" "en_US")
     ad-do-it))
 
-(require-package 'magit-gitflow)
-(define-key magit-gitflow-mode-map (kbd "C-f") nil)
-(define-key magit-gitflow-mode-map (kbd "C-c f") 'magit-gitflow-popup)
+(after-load 'magit
+  (require-package 'magit-gitflow)
+  (require 'magit-gitflow)
+  (defvar magit-gitflow-mode-map)
+  (define-key magit-gitflow-mode-map (kbd "C-f") nil)
+  (define-key magit-gitflow-mode-map (kbd "C-c f") 'magit-gitflow-popup))
 
 (provide 'init-local-git)
 
