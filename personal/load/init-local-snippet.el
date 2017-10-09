@@ -5,8 +5,6 @@
 
 ;;; Code:
 
-(add-to-list 'yas-snippet-dirs (expand-file-name "snippets" kyt/personal-dir))
-
 (defun extract-snippet-name ()
   "Extract the snippet name from a new snippet buffer."
   (let ((name-line-start "# name: "))
@@ -39,7 +37,9 @@
 
 (after-load 'yasnippet
   (define-key snippet-mode-map (kbd "C-x C-s")
-    'kyt/save-file-rename-if-new))
+    'kyt/save-file-rename-if-new)
+  (add-to-list 'yas-snippet-dirs (expand-file-name "snippets" kyt/personal-dir))
+  )
 
 (provide 'init-local-snippet)
 

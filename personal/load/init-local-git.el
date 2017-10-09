@@ -4,6 +4,8 @@
 ;;
 
 ;;; Code:
+(declare-function 'require-package 'init-elpa)
+(declare-function 'after-load 'subr)
 
 (after-load 'magit
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
