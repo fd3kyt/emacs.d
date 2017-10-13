@@ -14,7 +14,7 @@
              (-concat '("ag") options '("--") (list pattern) paths)
              " "))
 
-(kyt-ag/construct-ag-command '("--cpp" "--literal") "hello world" '("~/.emacs.d" "~/Documents"))
+(kyt-ag/construct-ag-command kyt-ag/base-options "hello world" '("~/.emacs.d" "~/Documents"))
 
 
 (defun kyt-ag/buffer-name (options pattern paths)
@@ -24,26 +24,29 @@
 
 
 (defun kyt-ag/run (options pattern paths)
-  "OPTIONS, PATTERN, PATHS: see `kyt-ag/construct-ag-command'."
+  "Run ag.
+OPTIONS, PATTERN, PATHS: see `kyt-ag/construct-ag-command',
+and `man' of ag: 'ag [options] pattern [path ...]'"
   (compilation-start
    (kyt-ag/construct-ag-command options pattern paths)
    #'ag-mode
-   `(lambda (mode-name) ,(ag/buffer-name "search-string" "directory" "regexp")))
+   `(lambda (mode-name) ,(kyt-ag/buffer-name options pattern paths)))
   )
 
 (defvar kyt-ag/base-options
-  (-map 'shell-quote-argument
-        '(
-          "--group"
-          "--line-number"
-          "--column"
-          "--color"
-          "--color-match" "30;43"
-          "--color-path" "1;32"
-          "--smart-case"
-          "--stats"
-          "--hidden"
-          )))
+  '(
+    "--group"
+    "--line-number"
+    "--column"
+    "--color"
+    "--color-match" "30;43"
+    "--color-path" "1;32"
+    "--smart-case"
+    "--stats"
+    "--hidden"
+    ))
+
+(kyt-ag/run kyt-ag/base-options "peco" (list "/home/fd3kyt/Documents"))
 
 
 (provide 'kyt-ag)
