@@ -10,24 +10,30 @@
 
 (require-package 'real-auto-save)
 (require 'real-auto-save)
-(setq real-auto-save-interval 10)
+(setq real-auto-save-interval 300)
 
 ;;;; org mode auto save
 (defun kyt/org-setup-autosave ()
   "Setup autosave for `org-mode'."
-  (setq-local real-auto-save-interval 3)
+  (setq-local real-auto-save-interval 300)
   (real-auto-save-mode))
 (add-hook 'org-mode-hook 'kyt/org-setup-autosave)
 
-(defun kyt/clear-message ()
-  "Clear the message in minibuffer."
-  (message nil))
-(advice-add 'real-auto-save-buffers :after 'kyt/clear-message)
+(require 'kyt-no-message)
+(defun kyt/advice-around-save-buffers (fun &rest rest)
+  "Will eval (apply FUN REST)."
+  (save-message
+   (save-excursion
+     (apply fun rest))))
+(advice-add 'real-auto-save-buffers :around 'kyt/advice-around-save-buffers)
+;; (advice-remove 'real-auto-save-buffers 'save-message-advice-around)
 
-(after-load 'whitespace
-  (defvar whitespace-cleanup-mode-preserve-point)
-  (setq whitespace-cleanup-mode-preserve-point t)) ;not working
+;; (setq whitespace-cleanup-mode-preserve-point nil)
 
+;; (defun try-clean-up ()
+;;   (interactive)
+;;   (save-mark-and-excursion)
+;;   (whitespace-cleanup))
 
 (provide 'init-local-autosave)
 
