@@ -5,6 +5,9 @@
 
 ;;; Code:
 
+(defun clear-message ()
+  "Clear the message in minibuffer."
+  (message nil))
 
 (defmacro no-message (&rest body)
   "Eval BODY, with `message' doing nothing."
