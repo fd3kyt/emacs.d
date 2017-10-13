@@ -129,6 +129,22 @@ With an universal argument, choose from all available locations."
 
 
 
+;;;; "gp" shorts for gporca or greenplum.
+(defvar gp/member-variable-definition-regexp
+  "^\\s-+\\(\\(volatile\\|const\\|static\\|\\)\\s-+\\)*[A-Z][a-zA-Z_<>]*[^a-zA-Z]+m_[a-zA-Z]+;"
+  "Regular expression matching class member definition.")
+
+(defun gp/highlight-member-variable-definition ()
+  "Highlight lines of member variable definitions."
+  (interactive)
+  (highlight-lines-matching-regexp gp/member-variable-definition-regexp
+                                   'hi-pink))
+
+;; "^\\s-+\\(\\(volatile\\|const\\)\\s-+\\)*[A-Z][a-zA-Z<>]*[^a-zA-Z]+m_[a-zA-Z]+;"
+;; const static volatile
+
+
+
 (gf/setup)
 
 (provide 'init-local-goldfish)
