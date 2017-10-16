@@ -45,7 +45,7 @@
                   (-contains-p options "--literal")))
 
 
-(defun kyt-ag-run (options pattern paths)
+(defun kyt-ag--run (options pattern paths)
   "Run ag.
 OPTIONS, PATTERN, PATHS: see `kyt-ag-construct-ag-command',
 and `man' of ag: 'ag [options] pattern [path ...]'"
@@ -55,7 +55,12 @@ and `man' of ag: 'ag [options] pattern [path ...]'"
    `(lambda (mode-name) ,(kyt-ag-buffer-name options pattern paths)))
   )
 
-(kyt-ag-run kyt-ag-base-options "peco" (list "/home/fd3kyt/Documents"))
+(kyt-ag--run kyt-ag-base-options "peco" (list "/home/fd3kyt/Documents"))
+
+(defun kyt-ag-run (options pattern paths)
+  "Run ag with `kyt-ag-base-options' + OPTIONS, PATTERN, PATHS."
+  (let ((final-options (append kyt-ag-base-options options)))
+    (kyt-ag--run final-options pattern paths)))
 
 
 ;; todo kyt-ag-base-options, kyt-ag---run
