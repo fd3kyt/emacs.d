@@ -8,6 +8,28 @@
 
 (require 'ag)
 
+
+(defgroup kyt-ag nil
+  "Kyt's wrapper of `ag'."
+  :group 'tools
+  :group 'matching
+  :prefix "kyt-ag/")
+
+(defcustom kyt-ag/base-options (list "--group"
+                                     "--line-number"
+                                     "--column"
+                                     "--color"
+                                     "--color-match" "30;43"
+                                     "--color-path" "1;32"
+                                     "--smart-case"
+                                     "--stats"
+                                     "--hidden"
+                                     )
+  "Base options passed to `ag-executable'.  The default value is copied from `ag'."
+  :type 'list
+  :group 'kyt-ag)
+
+
 (defun kyt-ag/construct-ag-command (options pattern paths)
   "Provide a list of OPTIONS, a PATTERN, a list of PATHS, return ag command."
   (mapconcat 'shell-quote-argument
@@ -33,20 +55,10 @@ and `man' of ag: 'ag [options] pattern [path ...]'"
    `(lambda (mode-name) ,(kyt-ag/buffer-name options pattern paths)))
   )
 
-(defvar kyt-ag/base-options
-  '(
-    "--group"
-    "--line-number"
-    "--column"
-    "--color"
-    "--color-match" "30;43"
-    "--color-path" "1;32"
-    "--smart-case"
-    "--stats"
-    "--hidden"
-    ))
-
 (kyt-ag/run kyt-ag/base-options "peco" (list "/home/fd3kyt/Documents"))
+
+
+;; todo kyt-ag/base-options, kyt-ag/--run
 
 
 (provide 'kyt-ag)
