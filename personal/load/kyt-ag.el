@@ -62,9 +62,37 @@ and `man' of ag: 'ag [options] pattern [path ...]'"
   (let ((final-options (append kyt-ag-base-options options)))
     (kyt-ag--run final-options pattern paths)))
 
+(kyt-ag-run nil "peco" (list "/home/fd3kyt/Documents"))
 
-;; todo kyt-ag-base-options, kyt-ag---run
 
+(magit-define-popup kyt-try-magit-popup-8-popup
+  "Popup console for `kyt-ag' options."
+  'kyt-ag-option-popup
+  :actions '("Section 1"
+             (?i "Initialize defaults" magit-gitflow-init)
+             (?f "Feature prefix"      magit-gitflow-init-feature)
+             "Section 2"
+             (?u "Run in popup" run-in-popup))
+  :switches '((?f "Force reinitialization" "--force")
+              (?k "Kaka" "-k"))
+  :options '((?t "Timeout" "--time=" read-number))
+  :default-arguments '("-k" "--time=200"))
+
+
+(defun run-in-popup ()
+  (interactive)
+  (prin1 magit-current-popup-args))
+
+
+(ag/get-supported-types)
+
+
+
+;; todo ag/get-supported-types, ag/read-file-type
+
+;; argument of ag/search, file-regex, file-type
+
+;; https://www.emacswiki.org/emacs/MinibufferHistory
 
 (provide 'kyt-ag)
 
