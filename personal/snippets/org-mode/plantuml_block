@@ -4,10 +4,6 @@
 # --
 #+BEGIN_SRC plantuml :file $1.png
 @startuml
-
-start
-:$0
-stop
-
+$0
 @enduml
 #+END_SRC
