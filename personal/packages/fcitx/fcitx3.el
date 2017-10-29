@@ -64,11 +64,35 @@
 (defvar fcitx/polling-interval 0.1
   "Time interval to execute polling function.")
 
+(defvar hydra-curr-map)
+
 (defun fcitx/permitted-p ()
+  "Check if fcitx should be turned on."
   (and (not buffer-read-only)
        (fcitx/typeable-p)
        (not (window-minibuffer-p))
-       (not hydra-curr-map)))
+       (not hydra-curr-map)
+       (not (last-char-is-a-letter-p))
+       (not (after-chinese-and-space-p))))
+
+(defun last-char-is-a-letter-p ()
+  "Tell if last character is a english letter.
+
+https://emacs.stackexchange.com/questions/8261/how-to-determine-if-the-current-character-is-a-letter"
+  (memq (get-char-code-property (char-before) 'general-category)
+        '(Ll Lu)))
+
+(defun after-chinese-and-space-p ()
+  "Tell if after chinese and a space."
+  (and (memq (get-char-code-property (char-before (- (point) 1))
+                                     'general-category)
+             '(Lo))
+       (= (char-before) ? )))
+
+(defun last-command-is-a-self-insert-command-p ()
+  "Tell if COMMAND a self-insert command."
+  (string-suffix-p "self-insert-command"
+                   (symbol-name last-command)))
 
 (defvar fcitx/last-polling-permitted-p nil
   "the result of fcitx/permitted-p() in last polling")
