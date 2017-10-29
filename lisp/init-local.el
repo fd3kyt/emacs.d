@@ -286,7 +286,8 @@ state."
 
 (add-to-list 'ag-arguments "-U")
 
+(yas-reload-all)
 
-;; ;; dired-rainbow
+
 (provide 'init-local)
 ;;; init-local.el ends here
