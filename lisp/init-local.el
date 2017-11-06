@@ -284,7 +284,8 @@ state."
        ("r" imagex-sticky-rotate-right "rotate right")
        ("l" imagex-sticky-rotate-left "rotate left"))))
 
-(add-to-list 'ag-arguments "-U")
+(eval-after-load 'ag
+  (add-to-list 'ag-arguments "-U"))
 
 (yas-reload-all)
 
