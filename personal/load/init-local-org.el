@@ -282,6 +282,9 @@ space), unset `buffer-modified-p' after changes."
 
 (setq org-image-actual-width (list 300))
 
+
+(require 'init-local-org-mobile)
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
