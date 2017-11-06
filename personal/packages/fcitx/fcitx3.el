@@ -75,24 +75,27 @@
        (not (last-char-is-a-letter-p))
        (not (after-chinese-and-space-p))))
 
+;; TODO refactor
 (defun last-char-is-a-letter-p ()
   "Tell if last character is a english letter.
 
 https://emacs.stackexchange.com/questions/8261/how-to-determine-if-the-current-character-is-a-letter"
-  (memq (get-char-code-property (char-before) 'general-category)
-        '(Ll Lu)))
+  (when (char-before)
+    (memq (get-char-code-property (char-before) 'general-category)
+          '(Ll Lu))))
 
 (defun after-chinese-and-space-p ()
   "Tell if after chinese and a space."
-  (and (memq (get-char-code-property (char-before (- (point) 1))
-                                     'general-category)
-             '(Lo))
-       (= (char-before) ? )))
+  (when (char-before (- (point) 1))
+    (and (memq (get-char-code-property (char-before (- (point) 1))
+                                       'general-category)
+               '(Lo))
+         (= (char-before) ? ))))
 
-(defun last-command-is-a-self-insert-command-p ()
-  "Tell if COMMAND a self-insert command."
-  (string-suffix-p "self-insert-command"
-                   (symbol-name last-command)))
+  (defun last-command-is-a-self-insert-command-p ()
+    "Tell if COMMAND a self-insert command."
+    (string-suffix-p "self-insert-command"
+                     (symbol-name last-command)))
 
 (defvar fcitx/last-polling-permitted-p nil
   "the result of fcitx/permitted-p() in last polling")
