@@ -118,6 +118,10 @@ PREFIX: if not nil, do not minimize."
 
 ;; set the faces
 
+(set-face-attribute 'org-list-dt nil
+                    :weight 'unspecified
+                    :slant 'italic)
+
 (setq org-fontify-quote-and-verse-blocks t)
 
 (let ((dark-color "DimGray"))

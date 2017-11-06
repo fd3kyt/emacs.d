@@ -79,6 +79,11 @@
 
 (advice-add 'rtags-insert-ref :around 'do-not-elide)
 
+
+(set-face-attribute 'rtags-skippedline nil
+                    :background "#F5F2EC")
+
+
 (provide 'init-local-rtags)
 
 
