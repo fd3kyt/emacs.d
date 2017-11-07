@@ -7,8 +7,6 @@
 
 ;; setup mobileorg
 (require 'org-mobile)
-;; (setq org-mobile-directory "/ssh:root@45.76.55.156:/root/mobileorg")
-;; (setq org-mobile-directory "/ssh:ubuntu@111.230.112.173:/home/ubuntu/mobileorg/")
 (setq org-mobile-directory "/home/XXD/Mobileorg")
 (setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
 
@@ -18,8 +16,6 @@
 ;; Problem: don't want recent files stay in org-mobile-files, because
 ;; I may want to use `org-mobile-files' directly, and simply remove
 ;; all files in recent list from `org-mobile-files' is a bad idea.
-(defvar org-mobile-files-backup nil
-  "Backup of `org-mobile-files' before adding recent org files.")
 
 (defvar recentf-list)
 (defun can-be-added-to-org-mobile-files-p (file)
@@ -28,25 +24,33 @@
        (file-readable-p file)
        (not (file-directory-p file))
        (not (file-in-directory-p file org-mobile-directory))))
-(defun add-recent-org-to-org-mobile-files ()
-  "Backup `org-mobile-files', then add recent org files into it."
-  (setq org-mobile-files-backup org-mobile-files)
-  ;; TODO need copy-list ?
-  ;; `append' will copy
-  (setq org-mobile-files (append org-mobile-files
-                                 (-select 'can-be-added-to-org-mobile-files-p
-                                          recentf-list))))
-(defun recover-org-mobile-files ()
-  "Restore `org-mobile-files'."
-  (setq org-mobile-files org-mobile-files-backup))
 
-(add-hook 'org-mobile-pre-push-hook 'add-recent-org-to-org-mobile-files)
-(add-hook 'org-mobile-post-push-hook 'recover-org-mobile-files)
+(defun get-final-org-mobile-files ()
+  "Decide the `org-mobile-files' used in `kyt/org-mobile-push'."
+  (-uniq (append org-mobile-files
+                 (-select 'can-be-added-to-org-mobile-files-p
+                          recentf-list))))
 
-;; bug: mobileorg.org
-;; remove files in `org-mobile-directory' from `org-mobile-files'
+(defun kyt/org-mobile-push ()
+  "Wrap around `org-mobile-push'.
 
-;; TODO refactor, kyt/org-mobile-push
+Add recent files into `org-mobile-files' before pushing.
+
+Problem: don't want recent files stay in org-mobile-files,
+because I may want to use `org-mobile-files' directly, and simply
+remove all files in recent list from `org-mobile-files' is a bad
+idea."
+  (interactive)
+  (let* ((org-directory temporary-file-directory)
+         (org-mobile-inbox-for-pull (concat org-directory "/index.org"))
+         (org-mobile-files (get-final-org-mobile-files)))
+    (org-mobile-push)))
+
+
+;; TODO
+;; clean up Mobileorg/
+;; rename for uniqueness
+;; recentf, what is "recent"?
 
 (provide 'init-local-org-mobile)
 
