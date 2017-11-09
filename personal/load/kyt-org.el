@@ -13,11 +13,26 @@
             (org-element-property property element))
           properties))
 
+(defmacro with-output-to-org-element-buffer (bufname &rest body)
+  "`with-output-to-temp-buffer', tuned for org-element output.
+BUFNAME, BODY: same as `with-output-to-temp-buffer'."
+  `(let ((temp-buffer-show-hook
+          '((lambda ()
+              (emacs-lisp-mode)
+              (flycheck-mode -1)
+              (read-only-mode)
+              (toggle-truncate-lines 1)
+              (define-key )))))
+     (with-output-to-temp-buffer ,bufname ,@body)))
+;; TODO make a minor mode and add key bindings (q).
+;; print result
+
 (defun kyt/org-element-print-at-point ()
   "Print `org-element-at-point'."
   (interactive)
-  (with-output-to-temp-buffer "*org-element-at-point*"
-    (pp (org-element-at-point))))
+  (with-output-to-org-element-buffer
+   "*org-element-at-point*"
+   (pp (org-element-at-point))))
 
 (defun kyt/org-element-parse (begin end)
   "Recursively parse region between BEGIN and END."
@@ -34,8 +49,9 @@
                    (list (org-element-property :begin element)
                          (org-element-property :end element)))
                  ))
-  (with-output-to-temp-buffer "*org-element-parsed*"
-    (pp (kyt/org-element-parse begin end))))
+  (with-output-to-org-element-buffer
+   "*org-element-parsed*"
+   (pp (kyt/org-element-parse begin end))))
 
 (provide 'kyt-org)
 
