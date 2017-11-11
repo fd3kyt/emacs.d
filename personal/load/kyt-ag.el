@@ -36,7 +36,7 @@
              (-concat '("ag") options '("--") (list pattern) paths)
              " "))
 
-(kyt-ag-construct-ag-command kyt-ag-base-options "hello world" '("~/.emacs.d" "~/Documents"))
+;; (kyt-ag-construct-ag-command kyt-ag-base-options "hello world" '("~/.emacs.d" "~/Documents"))
 
 
 (defun kyt-ag-buffer-name (options pattern paths)
@@ -130,10 +130,10 @@ quotes."
   (prin1 magit-current-popup-args))
 
 
-(ag/get-supported-types)
+;; (ag/get-supported-types)
 
 
-(read-extended-command)
+;; (read-extended-command)
 
 ;; todo ag/get-supported-types, ag/read-file-type
 
