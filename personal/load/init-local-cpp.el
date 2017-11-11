@@ -74,7 +74,7 @@
   (projectile-with-default-dir (projectile-project-root)
     (call-process "gtags")))
 
-(defun kyt/rtags-current-project ()
+(defun kyt/add-to-rtags ()
   "Generate gtags tag files for current project."
   (interactive)
   (projectile-with-default-dir (projectile-project-root)
