@@ -20,6 +20,9 @@
   (toggle-truncate-lines 1))
 (define-key org-element-output-mode-map (kbd "q") 'quit-window)
 
+;; TODO outline the element/object types
+;; temp :: (highlight-phrase "([A-Za-z][A-Za-z-0-9]+" (quote hi-yellow))
+
 (defmacro with-output-to-org-element-buffer (bufname &rest body)
   "`with-output-to-temp-buffer', tuned for org-element output.
 BUFNAME, BODY: same as `with-output-to-temp-buffer'."
@@ -48,17 +51,55 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
    ;; args come from `org-element-parse-buffer'
    'first-section nil nil nil (list 'org-data nil)))
 
+(defun kyt/org-element-range-at-point ()
+  "Return the beginning point and the end point."
+  (if (use-region-p)
+      (list (region-beginning) (region-end))
+    (let ((element (org-element-at-point)))
+      (list (org-element-property :begin element)
+            (org-element-property :end element)))
+    ))
+
 (defun kyt/org-element-print (begin end)
   "Recursively parse region between BEGIN and END and print it."
-  (interactive (if (use-region-p)
-                   (list (region-beginning) (region-end))
-                 (let ((element (org-element-at-point)))
-                   (list (org-element-property :begin element)
-                         (org-element-property :end element)))
-                 ))
+  (interactive (kyt/org-element-range-at-point))
   (print-value-to-org-element-buffer
    "*org-element-parsed*"
    (kyt/org-element-parse begin end)))
+
+
+;; ########## get dicts
+;; (org-element--get-node-properties)  ;; use on headline
+
+(defun org-element-extract-info (node)
+  "Extract the info of NODE."
+  (let ((type (org-element-type node)))
+    (if (eq type 'plain-text)
+        (list type (substring-no-properties node))
+      (list type))))
+
+(defun org-element-tree-skeleton (tree)
+  "Skeleton of TREE."
+  (append (org-element-extract-info tree)
+          (mapcar 'org-element-tree-skeleton
+                  (org-element-contents tree))))
+
+(org-element-tree-skeleton (org-element-parse-buffer))
+(kyt/org-element-parse (point-min) (point-max))
+
+"
+(org-data
+ (section
+  (keyword))
+ (headline
+  (section
+   (property-drawer)))
+ )
+"
+
+
+;;
+
 
 (provide 'kyt-org)
 
