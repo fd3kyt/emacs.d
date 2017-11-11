@@ -13,26 +13,33 @@
             (org-element-property property element))
           properties))
 
+(define-derived-mode org-element-output-mode emacs-lisp-mode
+  "org-element" "Displaying org-element parsed tree."
+  (flycheck-mode -1)
+  (read-only-mode)
+  (toggle-truncate-lines 1))
+(define-key org-element-output-mode-map (kbd "q") 'quit-window)
+
 (defmacro with-output-to-org-element-buffer (bufname &rest body)
   "`with-output-to-temp-buffer', tuned for org-element output.
 BUFNAME, BODY: same as `with-output-to-temp-buffer'."
   `(let ((temp-buffer-show-hook
-          '((lambda ()
-              (emacs-lisp-mode)
-              (flycheck-mode -1)
-              (read-only-mode)
-              (toggle-truncate-lines 1)
-              (define-key )))))
+          (append temp-buffer-show-hook (list 'org-element-output-mode))))
      (with-output-to-temp-buffer ,bufname ,@body)))
-;; TODO make a minor mode and add key bindings (q).
-;; print result
+
+(defmacro print-value-to-org-element-buffer (bufname &rest body)
+  "Print org-element parsed tree to a temp buffer.
+BUFNAME, BODY: same as `with-output-to-temp-buffer'."
+  `(with-output-to-org-element-buffer
+    ,bufname
+    (pp (progn ,@body))))
 
 (defun kyt/org-element-print-at-point ()
   "Print `org-element-at-point'."
   (interactive)
-  (with-output-to-org-element-buffer
+  (print-value-to-org-element-buffer
    "*org-element-at-point*"
-   (pp (org-element-at-point))))
+   (org-element-at-point)))
 
 (defun kyt/org-element-parse (begin end)
   "Recursively parse region between BEGIN and END."
@@ -49,9 +56,9 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
                    (list (org-element-property :begin element)
                          (org-element-property :end element)))
                  ))
-  (with-output-to-org-element-buffer
+  (print-value-to-org-element-buffer
    "*org-element-parsed*"
-   (pp (kyt/org-element-parse begin end))))
+   (kyt/org-element-parse begin end)))
 
 (provide 'kyt-org)
 
