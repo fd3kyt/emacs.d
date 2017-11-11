@@ -22,7 +22,9 @@
   (require 'magit-gitflow)
   (defvar magit-gitflow-mode-map)
   (define-key magit-gitflow-mode-map (kbd "C-f") nil)
-  (define-key magit-gitflow-mode-map (kbd "C-c f") 'magit-gitflow-popup))
+  (define-key magit-gitflow-mode-map (kbd "C-c f") 'magit-gitflow-popup)
+  (defvar magit-log-margin)
+  (setq magit-log-margin '(t "%y-%m-%d %H:%M" magit-log-margin-width t 18)))
 
 (provide 'init-local-git)
 
