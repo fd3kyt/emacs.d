@@ -144,6 +144,17 @@ With an universal argument, choose from all available locations."
 ;; const static volatile
 
 
+(defun gf/mount-sshfs ()
+  "Mount sshfs for goldfish project."
+  (interactive)
+  (shell-command "sshfs kyt@192.168.1.74: /home/74"))
+
+(defun gf/rtags ()
+  "Add QE to rtags."
+  (interactive)
+  (shell-command "cd /home/74/goldfish/QE/QE && add-to-rtags.sh debug"))
+
+
 
 (gf/setup)
 
