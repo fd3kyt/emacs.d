@@ -6,6 +6,8 @@
 ;;; Code:
 
 (require 'org-element)
+(require 'subr-x)
+
 
 (defun org-element-properties (properties element)
   "Extract the values from the PROPERTIES of an ELEMENT."
@@ -114,6 +116,21 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
   (print-value-to-org-element-buffer
    "*org-element-skeleton*"
    (org-element-tree-skeleton tree)))
+
+(defun koe-headline-section (headline)
+  "Get the top level section of HEADLINE.
+
+   Example usage:   (koe-headline-section (org-element-map
+                          (kyt/org-element-parse-at-point)
+                          'headline 'identity nil t))
+
+Note: the output of `kyt/org-element-parse' is wrapped in
+'org-data"
+  (cl-assert (eq 'headline (org-element-type headline)))
+  (let ((first-child (car (org-element-contents headline))))
+    (when (and first-child
+               (eq 'section (org-element-type first-child)))
+      first-child)))
 
 
 (provide 'kyt-org)
