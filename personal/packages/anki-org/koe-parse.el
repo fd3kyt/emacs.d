@@ -67,10 +67,10 @@ TODO: support style."
   (substring-no-properties
    (car (org-element-contents paragraph))))
 
-(defun koe--item-paragraph-string (item)
-  "Get the string of ITEM paragraphs."
+(defun koe--top-level-paragraphs-string (tree)
+  "Get the string of TREE top level paragraphs."
   (apply 'concat
-         (koe-map-top-level item 'paragraph
+         (koe-map-top-level tree 'paragraph
                             'koe--paragraph-string)))
 
 (defun koe--key-value-pair-from-item (item)
@@ -82,7 +82,7 @@ If ITEM has a tag, return (tag . paragraph);"
   (cond
    ((org-element-property :tag item)
     (cons (koe--item-tag-string item)
-          (koe--item-paragraph-string item)))))
+          (koe--top-level-paragraphs-string item)))))
 ;; (koe-run-with-first-match 'koe--key-value-pair-from-item 'item)
 ;; (koe-run-with-first-match 'koe--paragraph-string 'paragraph)
 
@@ -112,6 +112,18 @@ If ITEM has a tag, return (tag . paragraph);"
 
 ;; #################### dict from subtrees
 ;; Only support the simplest form.
+
+(defun koe-headline-subtree-dict (headline)
+  "Create a dict from the top level subtrees of HEADLINE."
+  (koe-map-top-level headline 'headline
+                     'koe--key-value-pair-from-headline))
+
+(defun koe--key-value-pair-from-headline (headline)
+  "Extract a key-value pair from HEADLINE."
+  (cl-assert (eq 'headline (org-element-type headline)))
+  (cons (org-element-property :raw-value headline)
+        (koe--top-level-paragraphs-string
+         (koe-headline-section headline))))
 
 
 (provide 'koe-parse)
