@@ -17,12 +17,11 @@
 
 ;;; Code:
 
-;; ########## get dicts
-;; (org-element--get-node-properties)  ;; use on headline
-
 (require 'subr-x)
 (require 'koe-util)
 
+
+;; ########## dict from list
 (defun koe-headline-section (headline)
   "Get the top level section of HEADLINE."
   (cl-assert (eq 'headline (org-element-type headline)))
@@ -86,6 +85,33 @@ If ITEM has a tag, return (tag . paragraph);"
           (koe--item-paragraph-string item)))))
 ;; (koe-run-with-first-match 'koe--key-value-pair-from-item 'item)
 ;; (koe-run-with-first-match 'koe--paragraph-string 'paragraph)
+
+
+
+;; #################### dict from property
+;; TODO property inheritance
+;; (org-element--get-node-properties)  ;; use on headline
+;;
+;; Problem: upcase property name
+;;
+;; Decision: support local properties only.  Case sensitive.
+;;
+;; How: parse the property-drawer
+
+(defun koe-headline-property-dict (headline)
+  "Create a dict of local properties in HEADLINE."
+  (org-element-map (koe-headline-section headline)
+      'node-property 'koe--key-value-pair-from-node-property))
+
+(defun koe--key-value-pair-from-node-property (node-property)
+  "Extract a key-value pair from NODE-PROPERTY."
+  (cl-assert (eq 'node-property (org-element-type node-property)))
+  (cons (org-element-property :key node-property)
+        (org-element-property :value node-property)))
+
+
+;; #################### dict from subtrees
+;; Only support the simplest form.
 
 
 (provide 'koe-parse)
