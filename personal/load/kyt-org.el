@@ -63,12 +63,15 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
       (list (org-element-property :begin element)
             (org-element-property :end element))))))
 
-(defun kyt/org-element-print (begin end)
-  "Recursively parse region between BEGIN and END and print it."
-  (interactive (kyt/org-element-range-at-point))
-  (print-value-to-org-element-buffer
-   "*org-element-parsed*"
-   (kyt/org-element-parse begin end)))
+(defun kyt/org-element-parse-at-point ()
+  "Parse at point.  Mainly for the argument of `interactive'."
+  (apply 'kyt/org-element-parse
+         (kyt/org-element-range-at-point)))
+
+(defun kyt/org-element-print (tree)
+  "Print TREE."
+  (interactive (list (kyt/org-element-parse-at-point)))
+  (print-value-to-org-element-buffer "*org-element-parsed*" tree))
 
 
 ;; ########## get dicts
@@ -105,13 +108,12 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
           (mapcar 'org-element-tree-skeleton
                   (org-element-contents tree))))
 
-(defun kyt/org-element-print-skeleton (begin end)
-  "Print the skeletopn of parsed tree between BEGIN and END."
-  (interactive (kyt/org-element-range-at-point))
+(defun kyt/org-element-print-skeleton (tree)
+  "Print the skeletopn of TREE."
+  (interactive (list (kyt/org-element-parse-at-point)))
   (print-value-to-org-element-buffer
    "*org-element-skeleton*"
-   (org-element-tree-skeleton
-    (kyt/org-element-parse begin end))))
+   (org-element-tree-skeleton tree)))
 
 
 (provide 'kyt-org)
