@@ -289,6 +289,5 @@ state."
 
 (yas-reload-all)
 
-
 (provide 'init-local)
 ;;; init-local.el ends here
