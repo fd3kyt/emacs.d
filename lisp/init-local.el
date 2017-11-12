@@ -105,9 +105,10 @@
 (yas-global-mode)
 (require 'init-local-snippet)
 
-;; shows errors under point in pos-tip popups
 (with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+  ;; shows errors under point in pos-tip popups
+  (flycheck-pos-tip-mode)
+  (setq flycheck-idle-change-delay 0.2))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")
