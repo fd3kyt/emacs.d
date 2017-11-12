@@ -146,9 +146,11 @@ Find all items, try to extract a key-value pair from it.
 Method 2 is more simple and has more possibility. (Likes checkbox
 to bool)"
 
-(defun koe-dict-from-list (tree)
+(defun koe-dict-from-items (tree)
   "Generate a dict with from lists in TREE."
   (org-element-map tree 'item 'koe--key-value-pair-from-item))
+
+;; (koe-dict-from-items (koe-parse-at-point))
 
 (defun koe--item-tag-string (item)
   "Get the string of ITEM tag.
@@ -180,10 +182,17 @@ TYPES, FUN: same as `org-element-map'."
                             'koe--paragraph-string)))
 
 (defun koe--key-value-pair-from-item (item)
-  "Extract a key-value-pair from ITEM.  Return nil if failed."
+  "Extract a key-value-pair from ITEM.  Return nil if failed.
+
+Situations:
+If ITEM has a tag, return (tag . paragraph);"
   (cl-assert (eq 'item (org-element-type item)))
   (cond
-   ((koe--item-tag-string item))))
+   ((org-element-property :tag item)
+    (cons (koe--item-tag-string item)
+          (koe--item-paragraph-string item)))))
+;; (koe--test-parsing-fun 'koe--key-value-pair-from-item 'item)
+
 
 (defun koe--match-types-p (data types)
   "If the type of DATA is one of TYPES.
