@@ -125,6 +125,29 @@ If ITEM has a tag, return (tag . paragraph);"
         (koe--top-level-paragraphs-string
          (koe-headline-section headline))))
 
+;; #################### `koe-headline-dict' ####################
+(defvar koe-headline-dict-functions
+  (list 'koe-headline-property-dict
+        'koe-headline-top-level-item-dict
+        'koe-headline-subtree-dict)
+  "Functions for extracting key-value pairs from a headline.")
+
+(defun koe-headline--dict (headline)
+  "Create an alist from HEADLINE with `koe-headline-dict-functions'."
+  (apply 'append
+         (mapcar (lambda (fun) (apply fun (list headline)))
+                 koe-headline-dict-functions)))
+
+(defun koe-normalize-key-value-pair (key-value-pair)
+  "Normalize KEY-VALUE-PAIR."
+  (cons (car key-value-pair)
+        (s-trim (cdr key-value-pair))))
+
+(defun koe-headline-dict (headline)
+  "Call `koe-headline--dict' with HEADLINE, normalize the result."
+  (mapcar 'koe-normalize-key-value-pair
+          (koe-headline--dict headline)))
+
 
 (provide 'koe-parse)
 
