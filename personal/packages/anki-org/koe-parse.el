@@ -19,7 +19,7 @@
 
 (require 'subr-x)
 (require 'koe-util)
-
+(require 'org-eldoc)
 
 ;; ########## dict from list
 (defun koe-headline-section (headline)
@@ -127,7 +127,8 @@ If ITEM has a tag, return (tag . paragraph);"
 
 ;; #################### `koe-headline-dict' ####################
 (defvar koe-headline-dict-functions
-  (list 'koe-headline-property-dict
+  (list 'koe-headline-extra-info-dict
+        'koe-headline-property-dict
         'koe-headline-top-level-item-dict
         'koe-headline-subtree-dict)
   "Functions for extracting key-value pairs from a headline.")
@@ -148,6 +149,35 @@ If ITEM has a tag, return (tag . paragraph);"
   (mapcar 'koe-normalize-key-value-pair
           (koe-headline--dict headline)))
 
+;; #################### `koe-headline-extra-info' ####################
+;; Headline id: now preprocess the whole buffer first. When we get
+;; here, we must already have an id.
+;;
+;; For anki, preprocess. Here, we just skip it if we don't have one.
+;; Already done by `koe-headline-property-dict'.
+
+(defvar koe-headline-extra-info-alist
+  ;; don't quote functions inside.
+  '(("BREADCRUMB" . koe-breadcrumb-of-headline)
+    ("FILE" . (lambda (&rest _) (buffer-file-name))))
+  "Alist (KEY . FUN) for `koe-headline-extra-info-dict'.
+An alist, KEY is the key name of the info, FUN is called on the
+headline to get the value.")
+
+(defun koe-breadcrumb-of-headline (headline)
+  "Get the breadcrumb of HEADLINE."
+  (save-excursion
+    (goto-char (org-element-property :begin headline))
+    (org-eldoc-get-breadcrumb)))
+
+(defun koe-headline-extra-info-dict (headline)
+  "Return a dict with extra info of HEADLINE."
+  (mapcar (lambda (pair)
+            (let ((name (car pair))
+                  (fun (cdr pair)))
+              (cons name
+                    (apply fun (list headline)))))
+          koe-headline-extra-info-alist))
 
 (provide 'koe-parse)
 
