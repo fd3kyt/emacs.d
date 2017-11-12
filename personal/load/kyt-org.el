@@ -132,6 +132,110 @@ Note: the output of `kyt/org-element-parse' is wrapped in
                (eq 'section (org-element-type first-child)))
       first-child)))
 
+"Get a dict from lists in tree.
+
+Method 1:
+find definition lists; find all items in it; create the dict.
+
+Method 2:
+Find all items, try to extract a key-value pair from it.
+
+Method 2 is more simple and has more possibility. (Likes checkbox
+to bool)"
+
+(defun koe-dict-from-list (tree)
+  "Generate a dict with from lists in TREE."
+  (org-element-map tree 'item 'koe--key-value-pair-from-item))
+
+(defun koe--item-tag-string (item)
+  "Get the string of ITEM tag.
+
+TODO: support style."
+  (when-let ((tag (org-element-property :tag item)))
+    (substring-no-properties
+     (car tag))))
+
+(defun koe--paragraph-string (paragraph)
+  "PARAGRAPH to string.
+
+TODO: support style."
+  (cl-assert (eq 'paragraph (org-element-type paragraph)))
+  (substring-no-properties
+   (car (org-element-contents paragraph))))
+
+(defun koe-map-top-level (data types fun)
+  "`org-element-map' on top level contents.
+DATA is a parse tree, an element, an object, a string.
+TYPES, FUN: same as `org-element-map'."
+  (org-element-map (org-element-contents data)
+      types fun nil nil org-element-all-elements))
+
+(defun koe--item-paragraph-string (item)
+  "Get the string of ITEM paragraphs."
+  (apply 'concat
+         (koe-map-top-level item 'paragraph
+                            'koe--paragraph-string)))
+
+(defun koe--key-value-pair-from-item (item)
+  "Extract a key-value-pair from ITEM.  Return nil if failed."
+  (cl-assert (eq 'item (org-element-type item)))
+  (cond
+   ((koe--item-tag-string item))))
+
+(defun koe--match-types-p (data types)
+  "If the type of DATA is one of TYPES.
+TYPES can be a list of types or one type."
+  (let ((types (if (listp types)
+                   types
+                 (list types))))
+    (-contains-p types
+                 (org-element-type data))))
+
+(defun koe--first-at-point (types)
+  "Get the first element of TYPES in the parsed tree at point.
+For manual testing.
+
+TYPES can be a type or a list of types."
+  (org-element-map
+      (kyt/org-element-parse-at-point)
+      types 'identity nil t))
+
+(defun koe--context-of-type (types)
+  "Get smallest element or object of TYPES around point."
+  (koe--smallest-contxt-of-type types
+                                (org-element-context)))
+
+;; (koe--context-of-type 'paragraph)
+;; (koe--context-of-type 'headline)
+
+(defun koe--smallest-contxt-of-type (types data)
+  "Return the smallest context of TYPES around DATA."
+  (kyt/org-element-print data)
+  (cond
+   ((null data) nil)
+   ((koe--match-types-p data types)
+    data)
+   (t
+    (koe--smallest-contxt-of-type types
+                                  (org-element-property :parent
+                                                        data)))))
+
+;; (kyt/org-element-parse 637 725)
+;; BUG: parent of plain-list is nil
+
+(defun koe--test-parsing-fun (fun type &rest args)
+  "Call FUN with the first match of TYPE at point.
+Pass ARGS to FUN."
+  (apply fun (cons (koe--first-at-point type) args)))
+
+;; (koe--test-parsing-fun 'koe--paragraph-string 'paragraph)
+;; (koe--test-parsing-fun 'koe--item-paragraph-string 'item)
+
+
+"TODO:
+bold in list item tag
+structure in paragraph
+"
 
 (provide 'kyt-org)
 
