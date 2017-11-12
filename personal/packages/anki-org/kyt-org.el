@@ -5,11 +5,14 @@
 
 ;;; Code:
 
+;; name: aoe, anki, org-element
+;; no. too short, may conflict
+;; koe for now
+
 (require 'org-element)
 (require 'subr-x)
 
-
-(defun org-element-properties (properties element)
+(defun koe-properties (properties element)
   "Extract the values from the PROPERTIES of an ELEMENT."
   (mapcar (lambda (property)
             (org-element-property property element))
@@ -39,21 +42,21 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
     ,bufname
     (pp (progn ,@body))))
 
-(defun kyt/org-element-print-at-point ()
+(defun koe-print-at-point ()
   "Print `org-element-at-point'."
   (interactive)
   (print-value-to-org-element-buffer
    "*org-element-at-point*"
    (org-element-at-point)))
 
-(defun kyt/org-element-parse (begin end)
+(defun koe-parse (begin end)
   "Recursively parse region between BEGIN and END."
   (org-element--parse-elements
    begin end
    ;; args come from `org-element-parse-buffer'
    'first-section nil nil nil (list 'org-data nil)))
 
-(defun kyt/org-element-range-at-point ()
+(defun koe-range-at-point ()
   "Return the beginning point and the end point."
   (cond
    ((eq (point) (point-min))
@@ -65,14 +68,14 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
       (list (org-element-property :begin element)
             (org-element-property :end element))))))
 
-(defun kyt/org-element-parse-at-point ()
+(defun koe-parse-at-point ()
   "Parse at point.  Mainly for the argument of `interactive'."
-  (apply 'kyt/org-element-parse
-         (kyt/org-element-range-at-point)))
+  (apply 'koe-parse
+         (koe-range-at-point)))
 
-(defun kyt/org-element-print (tree)
+(defun koe-print (tree)
   "Print TREE."
-  (interactive (list (kyt/org-element-parse-at-point)))
+  (interactive (list (koe-parse-at-point)))
   (print-value-to-org-element-buffer "*org-element-parsed*" tree))
 
 
@@ -93,8 +96,8 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
         (substring-no-properties tag))))
    ((-contains-p '(keyword node-property) type)
     (s-join ": "
-            (org-element-properties (list :key :value)
-                                    node)))))
+            (koe-properties (list :key :value)
+                            node)))))
 
 (defun org-element-extract-info (node)
   "Extract the info of NODE."
@@ -110,9 +113,9 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
           (mapcar 'org-element-tree-skeleton
                   (org-element-contents tree))))
 
-(defun kyt/org-element-print-skeleton (tree)
+(defun koe-print-skeleton (tree)
   "Print the skeletopn of TREE."
-  (interactive (list (kyt/org-element-parse-at-point)))
+  (interactive (list (koe-parse-at-point)))
   (print-value-to-org-element-buffer
    "*org-element-skeleton*"
    (org-element-tree-skeleton tree)))
@@ -121,10 +124,10 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
   "Get the top level section of HEADLINE.
 
    Example usage:   (koe-headline-section (org-element-map
-                          (kyt/org-element-parse-at-point)
+                          (koe-parse-at-point)
                           'headline 'identity nil t))
 
-Note: the output of `kyt/org-element-parse' is wrapped in
+Note: the output of `koe-parse' is wrapped in
 'org-data"
   (cl-assert (eq 'headline (org-element-type headline)))
   (let ((first-child (car (org-element-contents headline))))
@@ -197,7 +200,7 @@ For manual testing.
 
 TYPES can be a type or a list of types."
   (org-element-map
-      (kyt/org-element-parse-at-point)
+      (koe-parse-at-point)
       types 'identity nil t))
 
 (defun koe--test-parsing-fun (fun type &rest args)
