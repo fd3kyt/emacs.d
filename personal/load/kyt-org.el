@@ -74,9 +74,19 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
 (defun org-element-extract-info (node)
   "Extract the info of NODE."
   (let ((type (org-element-type node)))
-    (if (eq type 'plain-text)
-        (list type (substring-no-properties node))
-      (list type))))
+    (cond
+     ((eq type 'plain-text)
+      (list type (substring-no-properties node)))
+     ((eq type 'headline)
+      (list type
+            (substring-no-properties
+             (car (org-element-property :title node)))))
+     ((eq type 'item)
+      (list type
+            (let ((tag (car (org-element-property :tag node))))
+              (when tag
+                (substring-no-properties tag)))))
+     (t (list type)))))
 
 (defun org-element-tree-skeleton (tree)
   "Skeleton of TREE."
@@ -84,8 +94,6 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
           (mapcar 'org-element-tree-skeleton
                   (org-element-contents tree))))
 
-(org-element-tree-skeleton (org-element-parse-buffer))
-(kyt/org-element-parse (point-min) (point-max))
 
 "
 (org-data
