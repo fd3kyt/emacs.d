@@ -114,20 +114,6 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
     (kyt/org-element-parse begin end))))
 
 
-"
-(org-data
- (section
-  (keyword))
- (headline
-  (section
-   (property-drawer)))
- )
-"
-
-
-;;
-
-
 (provide 'kyt-org)
 
 ;;; kyt-org.el ends here
