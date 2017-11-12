@@ -200,26 +200,6 @@ TYPES can be a type or a list of types."
       (kyt/org-element-parse-at-point)
       types 'identity nil t))
 
-(defun koe--context-of-type (types)
-  "Get smallest element or object of TYPES around point."
-  (koe--smallest-context-of-type types
-                                 (org-element-context)))
-;; (koe--context-of-type 'paragraph)
-;; (koe--context-of-type 'headline)
-(defun koe--smallest-context-of-type (types data)
-  "Return the smallest context of TYPES around DATA."
-  (kyt/org-element-print data)
-  (cond
-   ((null data) nil)
-   ((koe--match-types-p data types)
-    data)
-   (t
-    (koe--smallest-context-of-type types
-                                   (org-element-property :parent
-                                                         data)))))
-;; (kyt/org-element-parse 637 725)
-;; BUG: parent of plain-list is nil
-
 (defun koe--test-parsing-fun (fun type &rest args)
   "Call FUN with the first match of TYPE at point.
 Pass ARGS to FUN."
