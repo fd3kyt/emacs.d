@@ -89,6 +89,11 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
             (let ((tag (car (org-element-property :tag node))))
               (when tag
                 (substring-no-properties tag)))))
+     ((-contains-p '(keyword node-property) type)
+      (list type
+            (s-join ": "
+                    (org-element-properties (list :key :value)
+                                            node))))
      (t (list type)))))
 
 (defun org-element-tree-skeleton (tree)
