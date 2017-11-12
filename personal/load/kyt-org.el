@@ -53,12 +53,15 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
 
 (defun kyt/org-element-range-at-point ()
   "Return the beginning point and the end point."
-  (if (use-region-p)
-      (list (region-beginning) (region-end))
+  (cond
+   ((eq (point) (point-min))
+    (list (point-min) (point-max)))
+   ((use-region-p)
+    (list (region-beginning) (region-end)))
+   (t
     (let ((element (org-element-at-point)))
       (list (org-element-property :begin element)
-            (org-element-property :end element)))
-    ))
+            (org-element-property :end element))))))
 
 (defun kyt/org-element-print (begin end)
   "Recursively parse region between BEGIN and END and print it."
@@ -93,6 +96,14 @@ BUFNAME, BODY: same as `with-output-to-temp-buffer'."
   (append (org-element-extract-info tree)
           (mapcar 'org-element-tree-skeleton
                   (org-element-contents tree))))
+
+(defun kyt/org-element-print-skeleton (begin end)
+  "Print the skeletopn of parsed tree between BEGIN and END."
+  (interactive (kyt/org-element-range-at-point))
+  (print-value-to-org-element-buffer
+   "*org-element-skeleton*"
+   (org-element-tree-skeleton
+    (kyt/org-element-parse begin end))))
 
 
 "
