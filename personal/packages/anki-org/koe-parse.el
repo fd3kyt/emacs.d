@@ -45,8 +45,12 @@ to bool)"
 (defun koe-dict-from-items (tree)
   "Generate a dict with from lists in TREE."
   (org-element-map tree 'item 'koe--key-value-pair-from-item))
-
 ;; (koe-dict-from-items (koe-parse-at-point))
+
+(defun koe-headline-top-level-item-dict (headline)
+  "Generate a dict from the top level list in HEADLINE."
+  (koe-dict-from-items (koe-headline-section headline)))
+
 
 (defun koe--item-tag-string (item)
   "Get the string of ITEM tag.
@@ -83,11 +87,6 @@ If ITEM has a tag, return (tag . paragraph);"
 ;; (koe-run-with-first-match 'koe--key-value-pair-from-item 'item)
 ;; (koe-run-with-first-match 'koe--paragraph-string 'paragraph)
 
-
-"TODO:
-bold in list item tag
-structure in paragraph
-"
 
 (provide 'koe-parse)
 
