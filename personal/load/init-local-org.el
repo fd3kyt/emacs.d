@@ -94,12 +94,6 @@ PREFIX: if not nil, do not minimize."
                         :filter-return
                         #'kyt/get-reasonable-file-name)))
 
-;; (add-to-list 'load-path
-;;              (expand-file-name "kyt-org"
-;;                                kyt/package-dir))
-;; (require 'org-screenshot)
-;; use org-download-screenshot instead
-
 (setq org-ellipsis "↓")
 
 ;; useful tweak
