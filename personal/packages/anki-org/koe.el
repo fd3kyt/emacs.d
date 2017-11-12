@@ -1,4 +1,4 @@
-;;; init-anki-org.el --- Summary
+;;; koe.el --- Summary
 
 ;;; Commentary:
 ;;
@@ -9,7 +9,10 @@
 (add-to-list 'load-path
              (expand-file-name "anki-org"
                                kyt/package-dir))
+(require 'koe-util)
+(require 'koe-skeleton)
+(require 'koe-tree-mode)
 
-(provide 'init-anki-org)
+(provide 'koe)
 
-;;; init-anki-org.el ends here
+;;; koe.el ends here
