@@ -2,15 +2,20 @@
 
 ;;; Commentary:
 ;;
+;; name: aoe, anki, org-element
+;; no.  too short, may conflict
+;; koe for now
+;;
+;; TODO:
+;; bold in list item tag
+;; structure in paragraph
+;;
+;; to-string for each type
+;;
+;; test with `koe-run-with-first-match'
+
 
 ;;; Code:
-
-
-
-;; name: aoe, anki, org-element
-;; no. too short, may conflict
-;; koe for now
-
 
 ;; ########## get dicts
 ;; (org-element--get-node-properties)  ;; use on headline
@@ -19,14 +24,7 @@
 (require 'koe-util)
 
 (defun koe-headline-section (headline)
-  "Get the top level section of HEADLINE.
-
-   Example usage:   (koe-headline-section (org-element-map
-                          (koe-parse-at-point)
-                          'headline 'identity nil t))
-
-Note: the output of `koe-parse' is wrapped in
-'org-data"
+  "Get the top level section of HEADLINE."
   (cl-assert (eq 'headline (org-element-type headline)))
   (let ((first-child (car (org-element-contents headline))))
     (when (and first-child
@@ -35,11 +33,11 @@ Note: the output of `koe-parse' is wrapped in
 
 "Get a dict from lists in tree.
 
-Method 1:
-find definition lists; find all items in it; create the dict.
+Method 1: find definition lists; find all items in it; create the
+dict.
 
-Method 2:
-Find all items, try to extract a key-value pair from it.
+Method 2: Find all items, try to extract a key-value pair from
+it.
 
 Method 2 is more simple and has more possibility. (Likes checkbox
 to bool)"
@@ -83,10 +81,7 @@ If ITEM has a tag, return (tag . paragraph);"
     (cons (koe--item-tag-string item)
           (koe--item-paragraph-string item)))))
 ;; (koe-run-with-first-match 'koe--key-value-pair-from-item 'item)
-
-
 ;; (koe-run-with-first-match 'koe--paragraph-string 'paragraph)
-;; (koe-run-with-first-match 'koe--item-paragraph-string 'item)
 
 
 "TODO:
