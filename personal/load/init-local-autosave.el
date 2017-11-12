@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+(declare-function require-package 'init-elpa)
 (setq auto-save-interval 300
       auto-save-timeout 120)
 
