@@ -147,7 +147,8 @@ With an universal argument, choose from all available locations."
 (defun gf/mount-sshfs ()
   "Mount sshfs for goldfish project."
   (interactive)
-  (shell-command "sshfs kyt@192.168.1.74: /home/74"))
+  (shell-command "sshfs kyt@192.168.1.74: /home/74")
+  (shell-command "sshfs goldfish@192.168.1.74: /home/74.goldfish"))
 
 (defun gf/rtags ()
   "Add QE to rtags."
