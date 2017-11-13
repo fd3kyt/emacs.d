@@ -13,6 +13,9 @@
 (require 'koe-skeleton)
 (require 'koe-tree-mode)
 
+;; TODO
+;; when org is not saved yet
+
 (provide 'koe)
 
 ;;; koe.el ends here
