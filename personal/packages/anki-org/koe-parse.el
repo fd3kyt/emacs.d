@@ -160,6 +160,7 @@ If ITEM has a tag, return (tag . paragraph);"
   ;; don't quote functions inside.
   '(("BREADCRUMB" . koe-breadcrumb-of-headline)
     ("FILE" . (lambda (&rest _) (buffer-file-name))))
+  ;; TODO tag, ID
   "Alist (KEY . FUN) for `koe-headline-extra-info-dict'.
 An alist, KEY is the key name of the info, FUN is called on the
 headline to get the value.")

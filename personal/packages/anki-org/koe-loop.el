@@ -8,8 +8,7 @@
 (require 'org-element)
 
 (defun --point-to-marker (point)
-  "Return value of POINT, as a marker object.
-Do not `save-excursion'."
+  "Return value of POINT, as a marker object."
   (let ((marker (make-marker)))
     (set-marker marker point)
     marker))
