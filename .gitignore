@@ -58,4 +58,4 @@ flycheck_*
 /semanticdb/
 /cnfonts/cnfonts.conf
 /personal/bookmarks.el
-/personal/packages/anki-org/try-anki.org
+/personal/packages/anki-org/*.org
