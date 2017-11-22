@@ -152,6 +152,18 @@ Read a string of filenames, then read a delimiter to split it."
 ;;; end of vertical editing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; TODO move to a right place
+(defun kyt/batch-replace (begin end replace)
+  "Between BEGIN and END, relpace according REPLACE.
+
+REPLACE can be a string or a list of two strings."
+  (dolist (var replace)
+    (if (listp var)
+        (replace-string (car var) (cdr var) nil begin end)
+      (replace-string var "" nil begin end))))
+
+
+
 ;; (require 'kyt-ag)
 (require 'kyt-avy)
 
