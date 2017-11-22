@@ -180,6 +180,12 @@ headline to get the value.")
                     (apply fun (list headline)))))
           koe-headline-extra-info-alist))
 
+(defun test ()
+  "Test code."
+  ;; #################### json ####################
+  (insert (substring-no-properties (json-encode (koe-run-with-first-match 'koe-headline-dict 'headline))))
+  )
+
 (provide 'koe-parse)
 
 ;;; koe-parse.el ends here
