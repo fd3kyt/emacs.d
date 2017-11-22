@@ -184,6 +184,10 @@ headline to get the value.")
   "Test code."
   ;; #################### json ####################
   (insert (substring-no-properties (json-encode (koe-run-with-first-match 'koe-headline-dict 'headline))))
+  (let ((result (substring-no-properties (json-encode (koe-run-with-first-match 'koe-headline-dict 'headline)))))
+    (with-current-buffer (get-buffer-create "*temp*")
+      (insert result)
+      (display-buffer (current-buffer))))
   )
 
 (provide 'koe-parse)
