@@ -168,6 +168,9 @@ PREFIX: if not nil, do not minimize."
 (defvar org-plantuml-jar-path)
 (setq org-plantuml-jar-path "~/local/plantuml.jar")
 
+(defvar plantuml-jar-path)
+(setq plantuml-jar-path org-plantuml-jar-path)
+
 ;; try org-brain
 (require-package 'org-brain)
 (require 'org-brain)
