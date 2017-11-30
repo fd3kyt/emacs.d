@@ -21,6 +21,12 @@
       (error (format "No profiles found in %d" profile-directory)))
     (setq cnfonts-profiles profile-names)))
 
+;; adding fonts
+(setq cnfonts-personal-fontnames
+      '(("DejaVu Sans Mono")
+        ("DejaVu Sans Mono")
+        ("DejaVu Sans Mono")))
+
 (cnfonts-refresh-profile-list)
 (cnfonts-enable)
 (cnfonts--select-profile "small-cn-ok")
