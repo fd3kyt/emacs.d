@@ -288,6 +288,12 @@ state."
 (with-eval-after-load 'ag
   (add-to-list 'ag-arguments "-U"))
 
+;; use M-u C-v instead
+;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
+;; (global-set-key (kbd "C-S-k") 'scroll-down-line)
+(setq next-screen-context-lines 3)
+
+
 (yas-reload-all)
 
 (provide 'init-local)
