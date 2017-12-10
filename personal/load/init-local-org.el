@@ -187,7 +187,7 @@ PREFIX: if not nil, do not minimize."
         (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
         (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
 
-(add-to-list 'org-todo-keyword-faces '("INACTIVE" :inherit font-lock-comment-fac))
+(add-to-list 'org-todo-keyword-faces '("INACTIVE" :inherit font-lock-comment-face))
 (add-to-list 'org-todo-keywords-for-agenda #("INACTIVE" 0 1 (idx 8)) t)
 
 
