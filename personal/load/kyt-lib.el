@@ -162,13 +162,19 @@ REPLACE can be a string or a list of two strings."
         (replace-string (car var) (cdr var) nil begin end)
       (replace-string var "" nil begin end))))
 
-(defun kyt/print-to-temp-buffer (object)
+(defun kyt/print-object-to-temp-buffer (object)
   "Insert OBJECT to a temp buffer and show it."
-  (with-current-buffer (get-buffer-create "*temp*")
+  (with-current-buffer (get-buffer-create "*temp-object*")
     (erase-buffer)
     (pp object (current-buffer))
-    (display-buffer (current-buffer))))
+    (display-buffer (current-buffer))
+    nil))
 
+(defun kyt/print-string-to-temp-buffer (string)
+  "Insert STRING to a temp buffer and show it."
+  (with-output-to-temp-buffer "*temp-string*"
+    (princ string))
+  nil)
 
 
 ;; (require 'kyt-ag)
