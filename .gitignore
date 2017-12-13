@@ -59,3 +59,4 @@ flycheck_*
 /cnfonts/cnfonts.conf
 /personal/bookmarks.el
 /personal/packages/anki-org/*.org
+/request/
