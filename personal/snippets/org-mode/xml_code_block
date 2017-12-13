@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: xml code block
+# key: <sx
+# --
+#+BEGIN_SRC xml
+$0
+#+END_SRC
+
+
+
