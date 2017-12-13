@@ -155,6 +155,23 @@ With an universal argument, choose from all available locations."
   (interactive)
   (shell-command "cd /home/74/goldfish/QE/QE && add-to-rtags.sh debug"))
 
+(defun gf/prepare-for-class-diagram ()
+  "Temp, for class diagram."
+  (interactive)
+  (kyt/batch-replace (point-min) (point-max)
+                     '(
+                       " const"
+                       "virtual "
+                       "const "
+                       ("\t" " ")
+                       ("  " " ")
+                       ("\n\n" "\n")
+                       ("\n \n" "\n")
+                       "IMemoryPool *pmp, "
+                       "IMemoryPool *pmp"
+                       ))
+  (whitespace-cleanup))
+
 
 
 (gf/setup)

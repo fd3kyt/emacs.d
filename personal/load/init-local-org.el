@@ -270,6 +270,7 @@ space), unset `buffer-modified-p' after changes."
 ;; Fix: log note (C-c C-t c), C-c C-c asks for kill confirmation.
 (advice-add 'org-store-log-note :before 'unset-buffer-modified)
 
+(require 'org-archive)
 (defvar org-archive-default-command)
 (setq org-archive-default-command 'org-toggle-archive-tag)
 

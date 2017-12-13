@@ -108,7 +108,7 @@
 (with-eval-after-load 'flycheck
   ;; shows errors under point in pos-tip popups
   (flycheck-pos-tip-mode)
-  (setq flycheck-idle-change-delay 0.3))
+  (setq flycheck-idle-change-ydelay 0.5))
 
 ;; System locale to use for formatting time values.
 (setq system-time-locale "C")
