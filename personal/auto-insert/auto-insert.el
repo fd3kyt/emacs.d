@@ -1,4 +1,4 @@
-;;; `(file-name-nondirectory (buffer-file-name))` --- ${1:Summary}
+;;; `(file-name-nondirectory (buffer-file-name))` --- ${1:Summary} -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;;
