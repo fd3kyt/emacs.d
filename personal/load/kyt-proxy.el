@@ -15,10 +15,10 @@
 (defmacro with-kyt-proxy (&rest body)
   "Execute BODY with proxy settings."
   `(let ((url-proxy-services
-          '(("http"     . (format "%s:%s" kyt-proxy-host kyt-proxy-port))
-            ("https"    . (format "%s:%s" kyt-proxy-host kyt-proxy-port))
-            ;; regular expression, not CSV
-            ("no_proxy" . "\\(localhost\\|127.*.*.*\\)")))
+          (list (cons "http" (format "%s:%s" kyt-proxy-host kyt-proxy-port))
+                (cons "https" (format "%s:%s" kyt-proxy-host kyt-proxy-port))
+                ;; regular expression, not CSV
+                (cons "no_proxy" "\\(localhost\\|127.*.*.*\\)")))
          (process-environment (copy-sequence process-environment)))
      (setenv "http_proxy" (format "http://%s:%s" kyt-proxy-host kyt-proxy-port))
      (setenv "https_proxy" (format "http://%s:%s" kyt-proxy-host kyt-proxy-port))
