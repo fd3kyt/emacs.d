@@ -83,6 +83,15 @@ PREFIX: if not nil, do not minimize."
   (define-key org-mode-map (kbd "C-c M-d")
     'kyt/org-screenshot))
 
+(require 'kyt-lib)
+
+;; TODO This doesn't work. "error in process filter: Symbol’s value as
+;; variable is void: link"
+(defun kyt/org-download-yank ()
+  "`org-download-yank' with proxy."
+  (interactive)
+  (with-kyt-proxy (org-download-yank)))
+
 
 (add-hook 'org-mode-hook
           (lambda ()
@@ -150,7 +159,10 @@ PREFIX: if not nil, do not minimize."
                       :inherit 'org-code)
 
   (set-face-attribute 'org-meta-line nil
-                      :underline dark-color))
+                      :underline dark-color)
+
+  (set-face-attribute 'org-document-title nil  ;low-key
+                      :height 1.0))
 
 
 
@@ -263,7 +275,7 @@ With universal argument ARG, dont't insert newlines."
   "Fix: org-follow-link asks for a confirmation for killing temp buffer.
 If buffer name is like ' *temp*' or ' *temp*-123' (mind the
 space), unset `buffer-modified-p' after changes."
-  (when (s-match "^\\s-*\\*temp\\*" (buffer-name))
+  (when (s-match "^\\s-+\\*temp\\*" (buffer-name))
     (add-hook 'after-change-functions 'unset-buffer-modified t t)))
 (add-hook 'org-mode-hook 'org-supress-kill-confirmation-for-temp-buffer)
 
