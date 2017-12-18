@@ -16,6 +16,10 @@
   "Expected format: csv, First field is the msg name, others are locations."
   )
 (defvar gf/msg-definition-location-alist nil)
+(defvar gf/initialize-script
+  "~/Projects/goldfish/scripts/goldfish_initialize.sh"
+  "Goldfish project initialize script."
+  )
 
 
 ;; (defun gf/highlight ()
@@ -144,13 +148,10 @@ With an universal argument, choose from all available locations."
 ;; const static volatile
 
 
-(defun gf/mount-sshfs ()
-  "Mount sshfs for goldfish project."
+(defun gf/initialize ()
+  "Initialize goldfish project."
   (interactive)
-  (let ((machine "81"))
-    (shell-command (format "sshfs kyt@192.168.1.%s: /home/%s" machine machine))
-    (shell-command "sshfs goldfish@192.168.1.74: /home/74.goldfish"))
-  )
+  (shell-command gf/initialize-script))
 
 (defun gf/rtags ()
   "Add QE to rtags."
