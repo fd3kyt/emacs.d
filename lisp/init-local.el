@@ -286,6 +286,7 @@ state."
       ("l" imagex-sticky-rotate-left "rotate left"))))
 
 (with-eval-after-load "ag"
+  (setq ag-arguments (append ag-arguments '("-U" "--ignore" ".git/"))))
 
 ;; use M-u C-v instead
 ;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
