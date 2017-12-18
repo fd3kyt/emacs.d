@@ -105,7 +105,7 @@
 (yas-global-mode)
 (require 'init-local-snippet)
 
-(with-eval-after-load 'flycheck
+(with-eval-after-load "flycheck"
   ;; shows errors under point in pos-tip popups
   (flycheck-pos-tip-mode)
   (setq flycheck-idle-change-ydelay 0.5))
@@ -269,7 +269,7 @@ state."
 
 ;; image+
 ;; https://github.com/mhayashi1120/Emacs-imagex
-(with-eval-after-load 'image
+(with-eval-after-load "image"
   (require 'image+)
   (imagex-global-sticky-mode 1)
   (imagex-auto-adjust-mode 1)
@@ -285,8 +285,7 @@ state."
       ("r" imagex-sticky-rotate-right "rotate right")
       ("l" imagex-sticky-rotate-left "rotate left"))))
 
-(with-eval-after-load 'ag
-  (add-to-list 'ag-arguments "-U"))
+(with-eval-after-load "ag"
 
 ;; use M-u C-v instead
 ;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
