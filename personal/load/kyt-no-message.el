@@ -20,9 +20,10 @@
 (defmacro save-message (&rest body)
   "Save the message in minibuffer; execute BODY; restore the message."
   (let ((saved-message-symbol (make-symbol "saved-message")))
-    `(let ((,saved-message-symbol (current-message)))
-       (progn ,@body)
-       (message ,saved-message-symbol))))
+    `(let ((,saved-message-symbol (current-message))
+           (return (progn ,@body)))
+       (message ,saved-message-symbol)
+       return)))
 
 
 (defun save-message-advice-around (oldfun rest)
