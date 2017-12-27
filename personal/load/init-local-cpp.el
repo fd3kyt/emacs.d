@@ -16,13 +16,14 @@
 ;;(add-hook 'c-mode-common-hook 'google-set-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-(defvar c-basic-offset)
-(setq c-basic-offset 4)
+;; (defvar c-basic-offset)
+;; (setq c-basic-offset 4)
 
 (defun kyt/set-c-style ()
   "Set up c style.  注意, \"add-hook\" 时, 是加在现有 hook 的前面.
 容易搞混.  这里直接写一个完整的 style 设置"
   (google-set-c-style)
+  (c-add-style "Google" '((c-basic-offset . 4)) t)
   (google-make-newline-indent))
 (add-hook 'c-mode-common-hook #'kyt/set-c-style)
 
