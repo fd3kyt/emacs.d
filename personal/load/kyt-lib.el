@@ -85,11 +85,14 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
     (message "Current buffer is not a file!")))
 
 
-(defun kyt/copy-buffer-file-name ()
-  "Insert buffer file name to kill ring."
-  (interactive)
+(defun kyt/copy-buffer-file-name (&optional arg)
+  "Add buffer file name to kill ring.
+With `universal-argument' ARG, only the nondirectory part."
+  (interactive "P")
   (if (buffer-file-name)
-      (kill-new (buffer-file-name))
+      (kill-new (if arg
+                    (file-name-nondirectory (buffer-file-name))
+                  (buffer-file-name)))
     (message "Current buffer is not a file.")))
 
 
