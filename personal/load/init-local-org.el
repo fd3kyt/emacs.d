@@ -293,6 +293,14 @@ space), unset `buffer-modified-p' after changes."
 (setq org-image-actual-width (list 300))
 
 
+;; <2017-12-30> bug patch: `org-table-align' makes table look weird
+;; because of wrong text properties
+(defun kyt/remove-org-table-properties (&rest _)
+  "Remove text properties of current table."
+  (set-text-properties (org-table-begin) (org-table-end) nil))
+(advice-add 'org-table-align :after 'kyt/remove-org-table-properties)
+
+
 (require 'init-local-org-mobile)
 
 (provide 'init-local-org)
