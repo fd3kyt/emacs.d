@@ -86,6 +86,15 @@
   (require 'init-local-cpp)
   (require 'init-local-ycmd)
   (require 'init-local-rtags)
+  ;; (if (and (-contains-p 'company-rtags company-backends)
+  ;;          (-contains-p 'company-ycmd company-backends))
+  ;;     (let ((new-group (list 'company-rtags 'company-ycmd)))
+  ;;       (setq company-backends
+  ;;             (cons new-group
+  ;;                   (-remove (lambda (element)
+  ;;                              (-contains-p new-group element))
+  ;;                            company-backends))))
+  ;;   )
   )
 
 (require 'init-local-python)
