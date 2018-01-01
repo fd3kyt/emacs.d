@@ -15,13 +15,6 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
-(setq inhibit-startup-echo-area-message t)
-
-
-;;----------------------------------------------------------------------------
-;; Show a marker in the left fringe for lines not in the buffer
-;;----------------------------------------------------------------------------
-(setq indicate-empty-lines t)
 
 
 ;;----------------------------------------------------------------------------
@@ -31,8 +24,18 @@
   (tool-bar-mode -1))
 (when (fboundp 'set-scroll-bar-mode)
   (set-scroll-bar-mode nil))
-(when (fboundp 'menu-bar-mode)
-  (menu-bar-mode -1))
+
+;; I generally prefer to hide the menu bar, but doing this on OS X
+;; simply makes it update unreliably in GUI frames, so we make an
+;; exception.
+(if *is-a-mac*
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (set-frame-parameter frame 'menu-bar-lines
+                                     (if (display-graphic-p frame)
+                                         1 0))))
+  (when (fboundp 'menu-bar-mode)
+    (menu-bar-mode -1)))
 
 (let ((no-border '(internal-border-width . 0)))
   (add-to-list 'default-frame-alist no-border)
