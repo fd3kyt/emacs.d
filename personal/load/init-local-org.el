@@ -301,6 +301,54 @@ space), unset `buffer-modified-p' after changes."
 (advice-add 'org-table-align :after 'kyt/remove-org-table-properties)
 
 
+(defvar org-clock-heading-function)
+(defun kyt/update-org-clock-heading-with-heading-at-point ()
+  "Update `org-clock-heading'.  Copy from `org-clock-in'."
+  (setq org-clock-heading
+        (save-match-data
+          (cond ((and org-clock-heading-function
+                      (functionp org-clock-heading-function))
+                 (funcall org-clock-heading-function))
+                ((nth 4 (org-heading-components))
+                 (replace-regexp-in-string
+                  "\\[\\[.*?\\]\\[\\(.*?\\)\\]\\]" "\\1"
+                  (match-string-no-properties 4)))
+                (t "???"))))
+  (org-clock-update-mode-line))
+
+(defun kyt/org-clock-at-clocking-heading-p ()
+  "Return t if at the heading that if currently clocking."
+  (and (org-at-heading-p)
+       (org-clocking-p)
+       org-clock-marker
+       (eq (org-base-buffer (current-buffer))
+           (marker-buffer org-clock-marker))
+       (< (point) org-clock-marker)
+       (condition-case-unless-debug _
+           (save-excursion
+             (eq (with-current-buffer (marker-buffer org-clock-marker)
+                   (goto-char org-clock-marker)
+                   (org-back-to-heading)
+                   (point))
+                 (line-beginning-position)))
+         (error nil))))
+
+(defun kyt/update-clocking-heading-on-edit (begin &rest _)
+  "Update `org-clock-heading' if BEGIN is at the clocking heading."
+  (save-excursion
+    (goto-char begin)
+    (when (kyt/org-clock-at-clocking-heading-p)
+      (kyt/update-org-clock-heading-with-heading-at-point))))
+
+(defun kyt/org-capture-udpate-heading-after-change ()
+  "Update `org-clock-heading' when editing the clocking heading."
+  (add-hook 'after-change-functions 'kyt/update-clocking-heading-on-edit
+            nil t))
+
+(add-hook 'org-capture-mode-hook
+          'kyt/org-capture-udpate-heading-after-change)
+
+
 (require 'init-local-org-mobile)
 
 (provide 'init-local-org)
