@@ -28,7 +28,7 @@
                         'load)
 
 (defvar ycmd-startup-timeout)
-(setq ycmd-startup-timeout 10)
+(setq ycmd-startup-timeout 20)
 
 (require-package 'company-ycmd)
 (company-ycmd-setup)
