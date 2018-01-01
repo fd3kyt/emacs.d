@@ -40,6 +40,10 @@
          (file+datetree "~/Documents/time_log.org")
          (file "~/.emacs.d/personal/templates/org-capture-note.org")
          :clock-in t :clock-keep t)
+        ("j" "journal" entry
+         (file+olp+datetree "~/Documents/journal.org")
+         (file "~/.emacs.d/personal/templates/org-capture-journal.org")
+         :clock-in t :clock-resume t :tree-type 'week)
         ("w" "link in other window" plain
          (function switch-window)
          (file "~/.emacs.d/personal/templates/file-link.org")
