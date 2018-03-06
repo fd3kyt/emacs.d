@@ -283,6 +283,7 @@ state."
 
 ;; image+
 ;; https://github.com/mhayashi1120/Emacs-imagex
+(require-package 'image+)
 (with-eval-after-load "image"
   (require 'image+)
   (imagex-global-sticky-mode 1)
