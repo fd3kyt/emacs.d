@@ -24,12 +24,6 @@
 ;;                          ("gnu"   . "http://elpa.emacs-china.org/gnu/")
 ;;                          ))
 
-;; tsinghua                                        ;
-(setq package-archives '(("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                         ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                         ))
-
 (require-package 'benchmark-init)
 (require 'benchmark-init-modes)
 (benchmark-init/activate)
