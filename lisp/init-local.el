@@ -201,11 +201,11 @@
 (global-auto-revert-mode t)             ; won't revert modified buffers
 
 
-;; dired
-(add-hook 'dired-mode-hook 'dired-omit-mode)
-(setq dired-omit-verbose nil)
-(setq dired-omit-extensions (list ))
-(setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
+;; ;; dired
+;; (add-hook 'dired-mode-hook 'dired-omit-mode)
+;; (setq dired-omit-verbose nil)
+;; (setq dired-omit-extensions (list ))
+;; (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
 
 ;; try annotate
 (require-package 'annotate)
@@ -234,8 +234,8 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
 (after-load 'projectile
   (setq projectile-enable-caching t))
 
-(require-package 'bookmark+)
-(require 'bookmark+)
+;; (require-package 'bookmark+)
+;; (require 'bookmark+)
 (setq bookmark-version-control t)
 (setq bookmark-save-flag 1)             ; save on every modification
 (setq bookmark-default-file (expand-file-name "bookmarks.el"

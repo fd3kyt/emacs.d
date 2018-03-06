@@ -173,7 +173,6 @@ PREFIX: if not nil, do not minimize."
  '((R . t)
    (emacs-lisp . t)
    (C . t)
-   (shell . t)
    (plantuml . t)
    ))
 
