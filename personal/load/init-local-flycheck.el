@@ -10,7 +10,9 @@
 (after-load 'flycheck
   (defvar flycheck-emacs-lisp-load-path)
   (defvar kyt/init-dir)
-  (setq flycheck-emacs-lisp-load-path (list kyt/init-dir)))
+  ;; (setq flycheck-emacs-lisp-load-path (list kyt/init-dir))
+  (setq flycheck-emacs-lisp-load-path 'inherit)
+  )
 
 (provide 'init-local-flycheck)
 
