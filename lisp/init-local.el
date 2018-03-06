@@ -356,5 +356,7 @@ state."
 
 (yas-reload-all)
 
+(after-load 'flycheck (require 'init-local-flycheck))
+
 (provide 'init-local)
 ;;; init-local.el ends here
