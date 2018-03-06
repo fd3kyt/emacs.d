@@ -183,13 +183,6 @@ PREFIX: if not nil, do not minimize."
 (defvar plantuml-jar-path)
 (setq plantuml-jar-path org-plantuml-jar-path)
 
-;; try org-brain
-(require-package 'org-brain)
-(require 'org-brain)
-(setq org-id-track-globally t)
-(setq org-brain-path "~/Documents/")
-
-
 
 ;; org agenda
 (add-to-list 'org-agenda-files "~/Projects/goldfish/")
