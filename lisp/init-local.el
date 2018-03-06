@@ -89,15 +89,16 @@
   (require 'init-local-cpp)
   (require 'init-local-ycmd)
   (require 'init-local-rtags)
-  ;; (if (and (-contains-p 'company-rtags company-backends)
-  ;;          (-contains-p 'company-ycmd company-backends))
-  ;;     (let ((new-group (list 'company-rtags 'company-ycmd)))
-  ;;       (setq company-backends
-  ;;             (cons new-group
-  ;;                   (-remove (lambda (element)
-  ;;                              (-contains-p new-group element))
-  ;;                            company-backends))))
-  ;;   )
+
+  ;; make use of the completions from rtags and ycmd at the same time
+  ;; (if (and (-contains-p company-backends 'company-rtags)
+  ;;          (-contains-p company-backends 'company-ycmd))
+  ;;     (let ((new-group (list 'company-rtags 'company-ycmd :separate)))
+  ;;       (push new-group company-backends)))
+
+  ;; only use ycmd for completions. Fast, have fuzzy completions
+  (setq company-backends (remove 'company-rtags company-backends))
+  (setq rtags-completions-enabled nil)
   )
 
 (require 'init-local-python)
@@ -300,15 +301,40 @@ state."
       ("r" imagex-sticky-rotate-right "rotate right")
       ("l" imagex-sticky-rotate-left "rotate left"))))
 
+(setq flycheck-temp-prefix "flycheck_temp")
 
 ;;It seems that `with-eval-after-load' doesn't work here.
 (require 'ag)
-(setq ag-arguments (append ag-arguments '("-U" "--ignore" ".git/")))
+(with-eval-after-load "ag"
+  (setq ag-arguments
+        (append ag-arguments (list "-U" "--ignore" ".git/"
+                                   "--ignore"
+                                   (concat "^" flycheck-temp-prefix)
+                                   "--ignore" "^#"
+                                   "--ignore" "^\\.#"))))
 
 ;; use M-u C-v instead
 ;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
 ;; (global-set-key (kbd "C-S-k") 'scroll-down-line)
 (setq next-screen-context-lines 3)
+
+
+;; #################### extra warning message ####################
+(advice-add 'run-hooks :around 'kyt/warn-when-error)
+;; (advice-remove 'run-hooks 'kyt/warn-when-error)
+
+;; test this:
+
+;; (defun my-throw-error ()
+;;   "A testing error."
+;;   (error "This is my-throw-error"))
+;; (defvar my-hook nil)
+;; (add-hook 'my-hook 'my-throw-error)
+;; (advice-add 'run-hooks :around 'kyt/warn-when-error)
+;; (run-hooks 'my-hook)
+
+
+
 
 (setq flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
 
@@ -323,6 +349,10 @@ state."
 ;; append so that this happens after `guide-key-mode' from `init-editing-utils'
 (add-hook 'after-init-hook 'setup-which-key t)
 
+;; fix: `projectile-rails-global-mode-enable-in-buffers' in
+;; `after-change-major-mode-hook' causes error.
+(remove-hook 'after-change-major-mode-hook
+             'projectile-rails-global-mode-enable-in-buffers)
 
 (yas-reload-all)
 

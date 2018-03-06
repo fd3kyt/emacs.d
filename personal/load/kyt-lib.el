@@ -197,6 +197,17 @@ REPLACE can be a string or a list of two strings."
   (-keep (lambda (buffer) (buffer-file-name buffer)) (kyt/visible-buffers)))
 
 
+(defun kyt/warn-when-error (fun &rest args)
+  "Run FUN with ARGS show warning (and rethrow) when error."
+  (condition-case err
+      (apply fun args)
+    (error
+     (display-warning 'warn-when-error
+                      (format "Error when running %S"
+                              (cons fun args)))
+     (signal (car err) (cdr err)))))
+;; (kyt/warn-when-error 'signal 'error (list "errbody"))
+
 
 (provide 'kyt-lib)
 
