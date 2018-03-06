@@ -5,12 +5,15 @@
 
 
 ;;; Code:
-(require-package 'org)
+(require 'kyt-proxy)
+(require 'org)
+(require 'org-clock)
 
-(require-package 'org-download)
-
-(declare-function org-save-all-org-buffers 'org)
+(declare-function after-load 'init-utils)
 (declare-function require-package 'init-elpa)
+
+(require-package 'org)
+(require-package 'org-download)
 
 (defun org-hide-starting-star ()
   "Hide starting star when using org indent."
