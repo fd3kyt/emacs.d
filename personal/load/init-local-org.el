@@ -112,12 +112,6 @@ PREFIX: if not nil, do not minimize."
 
 (setq org-hide-emphasis-markers nil)
 
-(defun org-refile-goto ()
-  "Go to heading using `org-refile'."
-  (interactive)
-  (org-refile '(4)))
-(define-key org-mode-map (kbd "C-\\") 'org-refile-goto)
-
 
 ;; set the faces
 
@@ -279,7 +273,13 @@ space), unset `buffer-modified-p' after changes."
 (defvar org-archive-default-command)
 (setq org-archive-default-command 'org-toggle-archive-tag)
 
-;; setup `org-refile'
+;; #################### `org-refile' ####################
+(defun org-refile-goto ()
+  "Go to heading using `org-refile'."
+  (interactive)
+  (org-refile '(4)))
+(define-key org-mode-map (kbd "C-\\") 'org-refile-goto)
+
 (defvar kyt/org-refile-target-max-level 30)
 (setq org-refile-targets
       `((nil :maxlevel . ,kyt/org-refile-target-max-level)))
@@ -292,6 +292,9 @@ space), unset `buffer-modified-p' after changes."
                org-refile-targets)))
     (apply fun args)))
 (advice-add 'org-refile :around 'with-visible-files-in-refile-targets)
+
+(setq org-refile-use-outline-path 'file)
+
 
 
 (setq org-image-actual-width (list 300))
