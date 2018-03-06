@@ -271,8 +271,6 @@ state."
 (advice-add 'bookmark-write-file :around 'without-aggressive-indent-mode)
 
 
-(setq guide-key/guide-key-sequence t)
-
 (require 'init-local-goldfish)
 
 (defun use-bash-when-zsh ()
@@ -311,6 +309,17 @@ state."
 ;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
 ;; (global-set-key (kbd "C-S-k") 'scroll-down-line)
 (setq next-screen-context-lines 3)
+
+(defun setup-which-key ()
+  "Setup `which-key' during init."
+  (when guide-key-mode
+    (guide-key-mode -1))
+  (require-package 'which-key)
+  (require 'which-key)
+  (which-key-setup-side-window-right)
+  (which-key-mode 1))
+;; append so that this happens after `guide-key-mode' from `init-editing-utils'
+(add-hook 'after-init-hook 'setup-which-key t)
 
 
 (yas-reload-all)
