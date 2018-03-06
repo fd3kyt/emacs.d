@@ -49,7 +49,6 @@ site-lisp/package/
 /.uptimes.el
 /rake.cache
 /plantuml.jar
-
 # kyt
 flycheck_*
 # personal/packages/fcitx/
@@ -61,3 +60,4 @@ flycheck_*
 /personal/bookmarks.el
 /personal/packages/anki-org/*.org
 /request/
+/magithub
