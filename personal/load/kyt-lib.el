@@ -183,6 +183,21 @@ REPLACE can be a string or a list of two strings."
 ;; (require 'kyt-ag)
 (require 'kyt-avy)
 
+
+(defun kyt/visible-buffers ()
+  "Return a list of visible buffers.  Copy from rtags.el."
+  (let (buffers)
+    (dolist (frame (frame-list))
+      (dolist (window (window-list frame))
+        (cl-pushnew (window-buffer window) buffers)))
+    buffers))
+
+(defun kyt/visible-buffer-files ()
+  "Return a list of files in visible buffers."
+  (-keep (lambda (buffer) (buffer-file-name buffer)) (kyt/visible-buffers)))
+
+
+
 (provide 'kyt-lib)
 
 ;;; kyt-lib.el ends here

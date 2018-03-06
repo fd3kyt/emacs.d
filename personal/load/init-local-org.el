@@ -279,8 +279,19 @@ space), unset `buffer-modified-p' after changes."
 (defvar org-archive-default-command)
 (setq org-archive-default-command 'org-toggle-archive-tag)
 
+;; setup `org-refile'
+(defvar kyt/org-refile-target-max-level 30)
 (setq org-refile-targets
-      '((nil :maxlevel . 15) (org-agenda-files :maxlevel . 15)))
+      `((nil :maxlevel . ,kyt/org-refile-target-max-level)))
+
+(defun with-visible-files-in-refile-targets (fun &rest args)
+  "Add visible files into `org-refile-targets', then call FUN with ARGS."
+  (let ((org-refile-targets
+         (cons `(,(kyt/visible-buffer-files)
+                 :maxlevel . ,kyt/org-refile-target-max-level)
+               org-refile-targets)))
+    (apply fun args)))
+(advice-add 'org-refile :around 'with-visible-files-in-refile-targets)
 
 
 (setq org-image-actual-width (list 300))
