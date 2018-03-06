@@ -174,6 +174,7 @@ PREFIX: if not nil, do not minimize."
    (emacs-lisp . t)
    (C . t)
    (plantuml . t)
+   (python . t)
    ))
 
 (defvar org-plantuml-jar-path)

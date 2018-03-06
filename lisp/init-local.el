@@ -310,6 +310,8 @@ state."
 ;; (global-set-key (kbd "C-S-k") 'scroll-down-line)
 (setq next-screen-context-lines 3)
 
+(setq flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+
 (defun setup-which-key ()
   "Setup `which-key' during init."
   (when guide-key-mode
