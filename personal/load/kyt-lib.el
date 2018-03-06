@@ -144,6 +144,7 @@ Read a string of filenames, then read a delimiter to split it."
       (split-string string delimiter)))
   )
 
+(declare-function dired-mark-files-regexp "dired")
 (defun kyt/dired-mark-list (list)
   "Mark all file names in LIST."
   (interactive (list (kyt/read-list)))
