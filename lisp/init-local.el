@@ -43,6 +43,8 @@
 (when *is-a-cygwin*
   (require 'init-local-cygwin))
 
+(setq desktop-save t)
+
 ;; install packages
 (require-package 'realgud)
 
