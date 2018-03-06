@@ -35,10 +35,11 @@
 (require-package 'flycheck-rtags)
 ;; flycheck
 (defun my-flycheck-rtags-setup ()
-  (require 'flycheck-rtags)
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
+  (unless (eq major-mode 'java-mode)
+    (require 'flycheck-rtags)
+    (flycheck-select-checker 'rtags)
+    (setq-local flycheck-highlighting-mode nil)  ;; RTags creates more accurate overlays.
+    (setq-local flycheck-check-syntax-automatically nil)))
 ;; c-mode-common-hook is also called by c++-mode
 (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
