@@ -6,8 +6,8 @@
 ;;; Code:
 
 (declare-function require-package "init-elpa")
-(require-package 'chinese-fonts-setup)
-(require 'chinese-fonts-setup)          ;still need to require
+(require-package 'cnfonts)
+(require 'cnfonts)          ;still need to require
 
 (defun cnfonts-refresh-profile-list ()
   "Set `cnfonts-profiles' by finding files under the profile directory."
