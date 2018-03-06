@@ -30,7 +30,7 @@
                          ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ))
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/benchmark-init-el/")
+(require-package 'benchmark-init)
 (require 'benchmark-init-modes)
 (benchmark-init/activate)
 
