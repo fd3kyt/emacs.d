@@ -17,8 +17,9 @@
     (setenv "LANG" "en_US")
     ad-do-it))
 
+(require-package 'magit-gitflow)
+
 (after-load 'magit
-  (require-package 'magit-gitflow)
   (require 'magit-gitflow)
   (defvar magit-gitflow-mode-map)
   (define-key magit-gitflow-mode-map (kbd "C-f") nil)

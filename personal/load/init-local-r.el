@@ -6,17 +6,16 @@
 ;;; Code:
 
 
+(declare-function require-package "init-elpa")
 (require-package 'ess)
 (require-package 'ess-view)
-(require-package 'ess-R-object-popup)
+;; remove this because it is not on melpa for now
+;; (require-package 'ess-R-object-popup)
 (require-package 'ess-smart-underscore)
 
 (defvar inferior-ess-mode-map)
 (add-hook 'inferior-ess-mode-hook
           (lambda ()
-            (require-package 'ess-view)
-            (require-package 'ess-R-object-popup)
-            (require-package 'ess-smart-underscore)
             (defvar ess-S-underscore-when-last-character-is-a-space)
             (setq ess-S-underscore-when-last-character-is-a-space t)
             (define-key inferior-ess-mode-map (kbd "C-c C-g") 'ess-R-object-popup)))

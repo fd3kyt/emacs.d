@@ -68,6 +68,7 @@
 ;;(require 'init-local-verilog)
 
 
+(require-package 'graphviz-dot-mode)
 (require 'graphviz-dot-mode)
 
 ;; 解决 daemon 中设置 font 的问题
@@ -113,6 +114,9 @@
 (require-package 'yasnippet)
 (yas-global-mode)
 (require 'init-local-snippet)
+
+(require-package 'flycheck-pos-tip)
+(require 'flycheck-pos-tip)
 
 (with-eval-after-load "flycheck"
   ;; shows errors under point in pos-tip popups

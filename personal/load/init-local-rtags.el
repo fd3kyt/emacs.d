@@ -6,6 +6,7 @@
 
 ;;; Code:
 (require-package 'rtags)
+(require 'rtags)
 
 ;; (setq rtags-path "~/Sources/rtags/bin")
 ;; "sudo make install", don't need to set the path.
