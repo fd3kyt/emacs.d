@@ -369,6 +369,8 @@ space), unset `buffer-modified-p' after changes."
 
 (require 'init-local-org-mobile)
 
+(customize-set-variable 'org-footnote-section nil)
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
