@@ -358,5 +358,7 @@ state."
 
 (after-load 'flycheck (require 'init-local-flycheck))
 
+(require 'init-local-koe)
+
 (provide 'init-local)
 ;;; init-local.el ends here
