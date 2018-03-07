@@ -287,10 +287,18 @@ space), unset `buffer-modified-p' after changes."
 (setq org-refile-targets
       `((nil :maxlevel . ,kyt/org-refile-target-max-level)))
 
+(defun kyt/visible-org-mode-files ()
+  "Return a list of visible files in `org-mode'."
+  (-keep (lambda (buffer)
+           (and (with-current-buffer buffer
+                  (eq major-mode 'org-mode))
+                (buffer-file-name buffer)))
+         (kyt/visible-buffers)))
+
 (defun with-visible-files-in-refile-targets (fun &rest args)
   "Add visible files into `org-refile-targets', then call FUN with ARGS."
   (let ((org-refile-targets
-         (cons `(,(kyt/visible-buffer-files)
+         (cons `(,(kyt/visible-org-mode-files)
                  :maxlevel . ,kyt/org-refile-target-max-level)
                org-refile-targets)))
     (apply fun args)))

@@ -193,10 +193,6 @@ REPLACE can be a string or a list of two strings."
         (cl-pushnew (window-buffer window) buffers)))
     buffers))
 
-(defun kyt/visible-buffer-files ()
-  "Return a list of files in visible buffers."
-  (-keep (lambda (buffer) (buffer-file-name buffer)) (kyt/visible-buffers)))
-
 
 (defun kyt/warn-when-error (fun &rest args)
   "Run FUN with ARGS show warning (and rethrow) when error."
