@@ -26,7 +26,8 @@
   )
 
 
-(after-load 'anaconda
+(after-load 'anaconda-mode
+  (defvar anaconda-mode-map)
   (advice-add 'anaconda-mode-create-response-handler
               :after (lambda (&rest args) (if (window-minibuffer-p)
                                          (message nil))))
@@ -36,6 +37,8 @@
   (add-hook 'anaconda-mode-process-fail-hook 'anaconda-mode-start)
   (add-hook 'anaconda-mode-response-read-fail-hook 'anaconda-mode-start)
   ;; (add-hook 'anaconda-mode-hook 'kyt/register-anaconda-autorestart)
+  (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
+  (define-key anaconda-mode-map (kbd "M-*") 'anaconda-mode-find-assignments)
   )
 
 ;; (after-load 'flycheck
