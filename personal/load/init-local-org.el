@@ -172,6 +172,7 @@ PREFIX: if not nil, do not minimize."
    (C . t)
    (plantuml . t)
    (python . t)
+   (shell . t)
    ))
 
 (defvar org-plantuml-jar-path)
