@@ -86,6 +86,8 @@
   (projectile-with-default-dir (projectile-project-root)
     (call-process "add-to-rtags.sh")))
 
+;;; fix: some goldfish cpp files seem to disable undo by default
+(add-hook 'c-mode-common-hook 'buffer-enable-undo)
 
 (provide 'init-local-cpp)
 
