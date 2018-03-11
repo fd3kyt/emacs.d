@@ -364,5 +364,7 @@ state."
 
 (require 'init-local-koe)
 
+(global-set-key (kbd "C-x C-g") 'revert-buffer)
+
 (provide 'init-local)
 ;;; init-local.el ends here
