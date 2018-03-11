@@ -366,5 +366,8 @@ state."
 
 (global-set-key (kbd "C-x C-g") 'revert-buffer)
 
+(setq uptimes-keep-count 50)
+(setq uptimes-auto-save-interval (* 60 60))
+
 (provide 'init-local)
 ;;; init-local.el ends here
