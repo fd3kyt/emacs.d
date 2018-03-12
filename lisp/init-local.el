@@ -364,7 +364,7 @@ state."
 
 (require 'init-local-koe)
 
-(global-set-key (kbd "C-x C-g") 'revert-buffer)
+(global-set-key (kbd "C-x R") 'revert-buffer)
 
 (setq uptimes-keep-count 50)
 (setq uptimes-auto-save-interval (* 60 60))
