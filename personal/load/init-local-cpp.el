@@ -89,6 +89,8 @@
 ;;; fix: some goldfish cpp files seem to disable undo by default
 (add-hook 'c-mode-common-hook 'buffer-enable-undo)
 
+(require 'realgud)
+
 (provide 'init-local-cpp)
 
 ;;; init-local-cpp.el ends here

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: leetcode io speedup
+# key: lkio
+# --
+static const auto _ = []()
+{
+    // the code you want to run
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    // end of your code
+
+    return nullptr;
+}();
+$0

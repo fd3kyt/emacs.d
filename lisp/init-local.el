@@ -369,5 +369,9 @@ state."
 (setq uptimes-keep-count 50)
 (setq uptimes-auto-save-interval (* 60 60))
 
+(setq company-dabbrev-ignore-case nil
+      company-dabbrev-downcase nil)
+(setq company-dabbrev-code-everywhere t)
+
 (provide 'init-local)
 ;;; init-local.el ends here

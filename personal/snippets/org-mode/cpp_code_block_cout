@@ -2,7 +2,7 @@
 # name: cpp code block cout
 # key: <scout
 # --
-#+BEGIN_SRC cpp :results drawer :includes '("<iostream>" "<string>")
+#+BEGIN_SRC cpp :results drawer :includes '("<iostream>" "<string>") :flags -std=c++11
 using namespace std;
 std::cout << $0 << std::endl;
 #+END_SRC

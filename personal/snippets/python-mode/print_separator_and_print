@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: print_separator_and_print
+# key: pp=
+# --
+print("========== {} ==========".format("$1"))
+pprint($1)$0

@@ -5,18 +5,20 @@
 
 ;;; Code:
 
+(defvar kyt/auto-save-interval 600)
+
 (declare-function require-package 'init-elpa)
-(setq auto-save-interval 300
+(setq auto-save-interval kyt/auto-save-interval
       auto-save-timeout 120)
 
 (require-package 'real-auto-save)
 (require 'real-auto-save)
-(setq real-auto-save-interval 300)
+(setq real-auto-save-interval kyt/auto-save-interval)
 
 ;;;; org mode auto save
 (defun kyt/org-setup-autosave ()
   "Setup autosave for `org-mode'."
-  (setq-local real-auto-save-interval 300)
+  (setq-local real-auto-save-interval kyt/auto-save-interval)
   (real-auto-save-mode))
 (add-hook 'org-mode-hook 'kyt/org-setup-autosave)
 

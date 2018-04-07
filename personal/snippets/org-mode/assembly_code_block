@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: assembly code block
+# key: <sa
+# --
+#+BEGIN_SRC asm
+$0
+#+END_SRC

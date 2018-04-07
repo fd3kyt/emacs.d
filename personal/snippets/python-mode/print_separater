@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: print_separater
+# key: p==
+# --
+print("========== {} ==========".format("$0"))

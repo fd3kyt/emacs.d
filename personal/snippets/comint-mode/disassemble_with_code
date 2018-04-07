@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: disassemble with code
+# key: dm
+# --
+disas /m $0
