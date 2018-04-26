@@ -266,7 +266,8 @@ With universal argument ARG, dont't insert newlines."
   "Fix: org-follow-link asks for a confirmation for killing temp buffer.
 If buffer name is like ' *temp*' or ' *temp*-123' (mind the
 space), unset `buffer-modified-p' after changes."
-  (when (s-match "^\\s-+\\*temp\\*" (buffer-name))
+  (when (or (s-match "^\\s-+\\*temp\\*" (buffer-name))
+            (s-equals? "*Org Table Edit Field*" (buffer-name)))
     (add-hook 'after-change-functions 'unset-buffer-modified t t)))
 (add-hook 'org-mode-hook 'org-supress-kill-confirmation-for-temp-buffer)
 
