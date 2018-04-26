@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: file_header
-# key: #fh
-# --
-#+OPTIONS: ^:nil toc:nil
-#+PROPERTY: ANKI_DEFAULT_DECK $0

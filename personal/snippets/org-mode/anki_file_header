@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: anki_file_header
+# key: #ah
+# --
+#+OPTIONS: ^:nil toc:nil
+#+PROPERTY: ANKI_DEFAULT_DECK $1
+#+FILETAGS: $2
+$0
