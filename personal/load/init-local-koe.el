@@ -7,6 +7,7 @@
 
 
 (add-to-list 'load-path "/home/XXD/Projects/org2anki/anki-org/")
+(require 'paredit)
 (require 'koe)
 
 (defvar koe-anki-deck-alias-under-cs nil)
@@ -25,6 +26,20 @@
             (cons "Basic" 'koe-model-dict-basic)
             (cons "org:basic_with_reverse" 'koe-model-dict-basic)))
 
+
+(defun koe-mark-ankigroup-set-context ()
+  "Mark as ankigroup and use title as ANKI_CONTEXT.
+Mark current heading as ankigroup and use its title as the value
+of ANKI_CONTEXT property."
+  (interactive)
+  (let ((tags (-remove (lambda (tag) (s-equals-p tag ""))
+                       (org-get-tags)))
+        (title (org-element-property :raw-value
+                                     (org-element-at-point))))
+    (unless (-contains-p tags "@ankigroup")
+      (push "@ankigroup" tags))
+    (org-set-property koe-dict-context-property-name title)
+    (org-set-tags-to tags)))
 
 (provide 'init-local-koe)
 
