@@ -42,7 +42,9 @@ of ANKI_CONTEXT property."
         (push "@ankigroup" tags))
       (org-set-property koe-dict-context-property-name title)
       (org-set-tags-to tags)
-      (org-align-all-tags))))
+      (save-restriction
+        (org-narrow-to-subtree)
+        (org-align-all-tags)))))
 
 (add-to-list 'koe-anki-exclude-tags org-archive-tag)
 (setq koe-anki-exclude-tags  (append org-export-exclude-tags
