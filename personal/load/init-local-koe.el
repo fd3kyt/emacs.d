@@ -32,14 +32,18 @@
 Mark current heading as ankigroup and use its title as the value
 of ANKI_CONTEXT property."
   (interactive)
-  (let ((tags (-remove (lambda (tag) (s-equals-p tag ""))
-                       (org-get-tags)))
-        (title (org-element-property :raw-value
-                                     (org-element-at-point))))
-    (unless (-contains-p tags "@ankigroup")
-      (push "@ankigroup" tags))
-    (org-set-property koe-dict-context-property-name title)
-    (org-set-tags-to tags)))
+  (save-excursion
+    (org-back-to-heading)
+    (let ((tags (-remove (lambda (tag) (s-equals-p tag ""))
+                         (org-get-tags)))
+          (title (org-element-property :raw-value
+                                       (org-element-at-point))))
+      (unless (-contains-p tags "@ankigroup")
+        (push "@ankigroup" tags))
+      (org-set-property koe-dict-context-property-name title)
+      (org-set-tags-to tags)
+      (org-align-all-tags))))
+
 
 (provide 'init-local-koe)
 
