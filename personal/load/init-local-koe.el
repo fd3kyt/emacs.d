@@ -47,9 +47,11 @@ of ANKI_CONTEXT property."
         (org-align-all-tags)))))
 
 (add-to-list 'koe-anki-exclude-tags org-archive-tag)
-(setq koe-anki-exclude-tags  (append org-export-exclude-tags
-                                     koe-anki-exclude-tags))
+(setq koe-anki-exclude-tags (append org-export-exclude-tags
+                                    koe-anki-exclude-tags))
 (cl-delete-duplicates koe-anki-exclude-tags)
+
+(add-to-list 'koe-anki-exclude-todo-states "TODO")
 
 (provide 'init-local-koe)
 
