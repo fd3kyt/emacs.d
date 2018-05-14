@@ -44,7 +44,8 @@ of ANKI_CONTEXT property."
       (org-set-tags-to tags)
       (save-restriction
         (org-narrow-to-subtree)
-        (org-align-all-tags)))))
+        (org-align-all-tags))))
+  (save-buffer))
 
 (add-to-list 'koe-anki-exclude-tags org-archive-tag)
 (setq koe-anki-exclude-tags (append org-export-exclude-tags
