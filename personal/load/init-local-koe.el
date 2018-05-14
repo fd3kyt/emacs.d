@@ -19,12 +19,14 @@
 
 (setq koe-anki-model-alias
       `(("basic" . "org:basic")
-        ("basic_r" . "org:basic_with_reverse")))
+        ("basic_r" . "org:basic_with_reverse")
+        ("cloze" . "org:cloze")))
 
 (setq koe-model-dict-alist
       (list (cons "org:basic" 'koe-model-dict-basic)
             (cons "Basic" 'koe-model-dict-basic)
-            (cons "org:basic_with_reverse" 'koe-model-dict-basic)))
+            (cons "org:basic_with_reverse" 'koe-model-dict-basic)
+            (cons "org:cloze" 'koe-model-dict-basic)))
 
 
 (defun koe-mark-ankigroup-set-context ()
