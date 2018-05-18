@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: echo_separator
+# key: e==
+# --
+echo "#################### $0 ####################"
