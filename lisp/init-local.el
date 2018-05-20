@@ -376,5 +376,7 @@ state."
 (after-load 'historian
   (setq historian-history-length 50))
 
+(require 'kyt-blogging)
+
 (provide 'init-local)
 ;;; init-local.el ends here
