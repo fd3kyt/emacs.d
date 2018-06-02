@@ -22,6 +22,8 @@
 (require-package 'git-auto-commit-mode)
 (require 'git-auto-commit-mode)
 
+(add-to-list 'safe-local-eval-forms
+             '(add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local))
 
 (provide 'kyt-blogging)
 
