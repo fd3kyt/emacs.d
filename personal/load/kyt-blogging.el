@@ -25,6 +25,8 @@
 (add-to-list 'safe-local-eval-forms
              '(add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local))
 
+(setq org-export-with-archived-trees nil)
+
 (provide 'kyt-blogging)
 
 ;;; kyt-blogging.el ends here
