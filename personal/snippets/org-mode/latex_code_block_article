@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: latex code block article
+# key: <sla
+# --
+#+BEGIN_SRC latex
+\documentclass{article}
+
+\begin{document}
+$0
+\end{document}
+#+END_SRC

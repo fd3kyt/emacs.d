@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex code block
+# key: <sl
+# --
+#+BEGIN_SRC latex
+$0
+#+END_SRC
