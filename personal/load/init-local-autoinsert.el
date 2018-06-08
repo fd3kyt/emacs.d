@@ -42,6 +42,7 @@ FUNCTIONS: extra functions to run after expanding the snippet."
 (kyt/define-auto-insert "\\.el$" "auto-insert.el")
 (kyt/define-auto-insert "\\.sh$" "auto-insert.sh"
                         '(lambda () (sh-set-shell "bash")))
+(kyt/define-auto-insert "\\.tex$" "auto-insert.tex")
 
 
 (provide 'init-local-autoinsert)
