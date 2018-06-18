@@ -61,3 +61,4 @@ flycheck_*
 /personal/packages/anki-org/*.org
 /request/
 /magithub
+/srecode-map.el
