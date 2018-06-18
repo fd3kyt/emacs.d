@@ -67,68 +67,58 @@
               (kyt/org-get-data-directory-name)))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
-
-;; (url-retrieve "file:///cygdrive/c/fd3kyt/snipaste.emacs.png" (lambda (&rest r) (message "haha")))
-;; (org-download-image "file:///cygdrive/c/fd3kyt/snipaste.emacs.png")
-;; (org-download-image org-download-screenshot-file)
-
-(with-timeout (1 nil)
-  (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.pngkk"))
-    (message "sleep 1")
-    (sleep-for 0.1))
-  t)
-
-(with-timeout (2 (progn (message "not found" nil)))
-  (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
-    (message "sleep 1")
-    (sleep-for 0.1))
-  (message "found")
-  t)
-
 (require-package 'org-download)
 (require 'org-download)
 
-(progn
-  (sleep-for 5)
-  (selected-frame))
+(defun kyt/org-download-screenshot-snipaste--focus-in ()
+  "Used by `kyt/org-download-screenshot-snipaste', in `focus-in-hook'."
+  ;; remove itself from the hook
+  (remove-hook 'focus-in-hook 'kyt/org-download-screenshot-snipaste--focus-in)
+  (if (with-timeout (1)
+        (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
+          (sleep-for 0.2))
+        t)
+      (progn
+        (org-download-image org-download-screenshot-file)
+        (message "Captured"))
+    (message "No image captured at %s" org-download-screenshot-file)))
 
-(defun org-download-screenshot ()
-  "Capture screenshot and insert the resulting file.
-The screenshot tool is determined by `org-download-screenshot-method'."
+(defun kyt/org-download-screenshot-snipaste ()
+  "In Windows (cygwin), use snipaste to capture screenshot."
   (interactive)
+  ;; snipaste will do auto-rename when already exists
+  (when (file-exists-p org-download-screenshot-file)
+    (delete-file org-download-screenshot-file))
   (shell-command (format org-download-screenshot-method
                          org-download-screenshot-file))
-  ;; bug?: time go faster than it should.
+  ;; Problem: snipaste command always returns immediately, and has
+  ;; exit status 0. `shell-command' here doesn't block or provide any
+  ;; useful info.
   ;;
-  ;; no, problem is, the timeout count in the time in snipaste
-  (if (with-timeout (3)
-        (message "with-timeout start")
-        (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
-          (message "sleep 0.1")
-          (sleep-for 1))
-        t)
-      (org-download-image org-download-screenshot-file)
-    (message "No image captured at %s" org-download-screenshot-file)))
+  ;; Here, add to the hook after a short interval to avoid the
+  ;; immediate focus-in event that happens sometimes.
+  (run-at-time "0.5 sec" nil
+               (lambda ()
+                 (add-hook 'focus-in-hook
+                           'kyt/org-download-screenshot-snipaste--focus-in))))
+
+(when *is-a-cygwin*
+  (setq org-download-screenshot-method
+        "/cygdrive/c/fd3kyt/Snipaste-1.16.2-x64.emacs/Snipaste.exe snip -o")
+  (setq org-download-screenshot-file "/cygdrive/c/fd3kyt/snipaste.emacs.png")
+  (advice-add 'org-download-screenshot :override 'kyt/org-download-screenshot-snipaste))
 
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."
   (interactive "P")
-  (if *is-a-cygwin*
-      (progn
-        (when (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png")
-          (delete-file "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
-        (setq org-download-screenshot-method "/cygdrive/c/fd3kyt/Snipaste-1.16.2-x64.emacs/Snipaste.exe snip -o")
-        (setq org-download-screenshot-file "file:///cygdrive/c/fd3kyt/snipaste.emacs.png")
+  (if prefix
+      (org-download-screenshot)
+    (progn
+      (iconify-frame)
+      (with-demoted-errors "Error: %S"
         (org-download-screenshot))
-    (if prefix
-        (org-download-screenshot)
-      (progn
-        (make-frame-invisible nil t)
-        (with-demoted-errors "Error: %S"
-          (org-download-screenshot))
-        (make-frame-visible))
-      )))
+      (make-frame-visible))))
 
 (after-load 'org
   (define-key org-mode-map (kbd "C-c M-d")
