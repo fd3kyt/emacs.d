@@ -10,8 +10,6 @@
 ;; ATTENTION: don't put any code here, before setting the vars.
 
 ;; ===== personal global vars =====
-(defconst *is-a-cygwin* (eq system-type 'cygwin))
-
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 

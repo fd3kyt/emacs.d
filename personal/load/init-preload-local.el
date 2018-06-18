@@ -28,6 +28,12 @@
 (require 'benchmark-init-modes)
 (benchmark-init/activate)
 
+(defconst *is-a-cygwin* (eq system-type 'cygwin))
+(defmacro unless-cygwin (&rest body)
+  "Run BODY unless it is cygwin."
+  `(unless *is-a-cygwin*
+     ,@body))
+
 (provide 'init-preload-local)
 
 ;;; init-preload-local.el ends here
