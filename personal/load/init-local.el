@@ -1,0 +1,1 @@
+/home/fd3kyt/.emacs.d/lisp/init-local.el
