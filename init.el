@@ -44,6 +44,8 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
+(declare-function unless-cygwin "init-preload-local")
+
 (require-package 'wgrep)
 (require-package 'diminish)
 (require-package 'scratch)
@@ -87,9 +89,9 @@
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
-(require 'init-erlang)
+(unless-cygwin (require 'init-erlang))
 (require 'init-javascript)
-(require 'init-php)
+(unless-cygwin (require 'init-php))
 (require 'init-org)
 (require 'init-nxml)
 (require 'init-html)
@@ -97,26 +99,26 @@
 (require 'init-haml)
 (require 'init-http)
 (require 'init-python)
-(require 'init-haskell)
+(unless-cygwin (require 'init-haskell))
 (require 'init-elm)
-(require 'init-purescript)
-(require 'init-ruby)
-(require 'init-rails)
+(unless-cygwin (require 'init-purescript))
+(unless-cygwin (require 'init-ruby))
+(unless-cygwin (require 'init-rails))
 (require 'init-sql)
-(require 'init-rust)
+(unless-cygwin (require 'init-rust))
 (require 'init-toml)
 (require 'init-yaml)
-(require 'init-docker)
-(require 'init-terraform)
+(unless-cygwin (require 'init-docker))
+(unless-cygwin (require 'init-terraform))
 ;;(require 'init-nix)
 (maybe-require-package 'nginx-mode)
 
 (require 'init-paredit)
 (require 'init-lisp)
 (require 'init-slime)
-(require 'init-clojure)
-(require 'init-clojure-cider)
-(require 'init-common-lisp)
+(unless-cygwin (require 'init-clojure))
+(unless-cygwin (require 'init-clojure-cider))
+(unless-cygwin (require 'init-common-lisp))
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
@@ -128,11 +130,11 @@
 
 ;;(require 'init-twitter)
 ;; (require 'init-mu)
-(require 'init-ledger)
+(unless-cygwin (require 'init-ledger))
 ;; Extra packages which don't require any configuration
 
-(require-package 'gnuplot)
-(require-package 'lua-mode)
+(unless-cygwin (require-package 'gnuplot))
+(unless-cygwin (require-package 'lua-mode))
 (require-package 'htmlize)
 (require-package 'dsvn)
 (when *is-a-mac*
