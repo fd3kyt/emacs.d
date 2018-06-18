@@ -6,8 +6,12 @@
 ;;; Code:
 
 
-(add-to-list 'load-path "/home/XXD/Projects/org2anki/anki-org/")
+(add-to-list 'load-path
+             (if (eq system-type 'cygwin)
+                 "/home/fd3kyt/Projects/org2anki/anki-org/"
+               "/home/XXD/Projects/org2anki/anki-org/"))
 (require 'paredit)
+
 (require 'koe)
 
 (defvar koe-anki-deck-alias-under-cs nil)

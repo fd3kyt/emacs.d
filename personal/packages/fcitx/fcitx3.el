@@ -71,7 +71,7 @@
   (and (not buffer-read-only)
        (fcitx/typeable-p)
        (not (window-minibuffer-p))
-       (not hydra-curr-map)
+       (not (and (boundp 'hydra-curr-map) hydra-curr-map))
        (not (last-char-is-a-letter-p))
        (not (after-chinese-and-space-p))))
 

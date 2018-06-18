@@ -6,6 +6,7 @@
 ;;; Code:
 
 
+(require-package 'request)
 (require 'request)
 (require 'url-vars)
 

@@ -10,7 +10,7 @@
 ;; ATTENTION: don't put any code here, before setting the vars.
 
 ;; ===== personal global vars =====
-(defconst *is-a-cygwin* (eq system-type 'darwin))
+(defconst *is-a-cygwin* (eq system-type 'cygwin))
 
 
 (defvar kyt/debug-var)
@@ -62,6 +62,8 @@
 (ispell-change-dictionary "american" t)
 
 ;; org-mode
+(require-package 'org)
+(require-package 'org-plus-contrib)
 (after-load 'org (require 'init-local-org))
 
 ;; save and recover setting
@@ -91,8 +93,9 @@
 
 (after-load 'cc-mode
   (require 'init-local-cpp)
-  (require 'init-local-ycmd)
-  (require 'init-local-rtags)
+  (unless *is-a-cygwin*
+    (require 'init-local-ycmd)
+    (require 'init-local-rtags))
 
   ;; make use of the completions from rtags and ycmd at the same time
   ;; (if (and (-contains-p company-backends 'company-rtags)
@@ -184,8 +187,11 @@
   (add-hook 'nxml-mode-hook 'setup-nxml-header-line))
 
 
-(require-package 'ace-pinyin)
-(ace-pinyin-global-mode)
+;; (require-package 'pinyinlib)
+;; (require 'pinyinlib) ;used by 'ace-pinyin
+;;;; not provided?
+;; (require-package 'ace-pinyin)
+;; (ace-pinyin-global-mode)
 
 (require 'init-local-image)
 (require 'init-local-paredit)
@@ -362,7 +368,7 @@ state."
 
 (after-load 'flycheck (require 'init-local-flycheck))
 
-(require 'init-local-koe)
+(after-load 'org (require 'init-local-koe))
 
 (global-set-key (kbd "C-x R") 'revert-buffer)
 

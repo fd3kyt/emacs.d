@@ -73,14 +73,16 @@
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."
   (interactive "P")
-  (if prefix
-      (org-download-screenshot)
-    (progn
-      (make-frame-invisible nil t)
-      (with-demoted-errors "Error: %S"
-        (org-download-screenshot))
-      (make-frame-visible))
-    ))
+  (if *is-a-cygwin*
+      (message "Not available under cygwin")
+    (if prefix
+        (org-download-screenshot)
+      (progn
+        (make-frame-invisible nil t)
+        (with-demoted-errors "Error: %S"
+          (org-download-screenshot))
+        (make-frame-visible))
+      )))
 
 (after-load 'org
   (define-key org-mode-map (kbd "C-c M-d")

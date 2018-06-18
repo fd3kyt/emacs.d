@@ -20,7 +20,7 @@
   (kill-new (kyt/org-link-at-point)))
 
 (require-package 'git-auto-commit-mode)
-(require 'git-auto-commit-mode)
+;; (require 'git-auto-commit-mode) ; not found
 
 (add-to-list 'safe-local-eval-forms
              '(add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local))

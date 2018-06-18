@@ -27,6 +27,7 @@
 ;;   (highlight-regexp "\\b\\w+_\\b"))
 
 
+(require-package 'ag)
 (require 'ag)
 (defun gf/ag-cpp-no-pb (string directory)
   "Ag, cpp only, ignore files compiled from protobuf.
