@@ -64,3 +64,4 @@ flycheck_*
 /srecode-map.el
 /*.stackdump
 /.uptimes*.el
+/.uptimes
