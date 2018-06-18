@@ -89,7 +89,9 @@
 ;;; fix: some goldfish cpp files seem to disable undo by default
 (add-hook 'c-mode-common-hook 'buffer-enable-undo)
 
-(require 'realgud)
+(declare-function unless-cygwin "init-preload-local")
+(unless-cygwin
+ (require 'realgud))
 
 (provide 'init-local-cpp)
 
