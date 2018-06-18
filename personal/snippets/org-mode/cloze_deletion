@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cloze deletion
+# key: cz
+# --
+{{c$1::$2}}
