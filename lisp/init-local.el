@@ -317,7 +317,8 @@ state."
                                    "--ignore"
                                    (concat "^" flycheck-temp-prefix)
                                    "--ignore" "^#"
-                                   "--ignore" "^\\.#"))))
+                                   "--ignore" "^\\.#"
+                                   "-f"))))
 
 ;; use M-u C-v instead
 ;; (global-set-key (kbd "C-S-j") 'scroll-up-line)
