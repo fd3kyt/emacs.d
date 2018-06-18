@@ -371,7 +371,7 @@ state."
 
 (setq uptimes-keep-count 50)
 (setq uptimes-auto-save-interval (* 60 60))
-(setq uptimes-database "~/.emacs.d/.uptimes")
+(setq uptimes-database "~/.emacs.d/uptimes.uptimes")
 
 (setq company-dabbrev-ignore-case nil
       company-dabbrev-downcase nil)
