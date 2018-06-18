@@ -65,3 +65,4 @@ flycheck_*
 /*.stackdump
 /.uptimes*.el
 /*.uptimes
+/history-NS*
