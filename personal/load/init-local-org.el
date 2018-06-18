@@ -67,14 +67,60 @@
               (kyt/org-get-data-directory-name)))
 (add-hook 'org-mode-hook 'kyt/org-attach-init)
 
+
+;; (url-retrieve "file:///cygdrive/c/fd3kyt/snipaste.emacs.png" (lambda (&rest r) (message "haha")))
+;; (org-download-image "file:///cygdrive/c/fd3kyt/snipaste.emacs.png")
+;; (org-download-image org-download-screenshot-file)
+
+(with-timeout (1 nil)
+  (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.pngkk"))
+    (message "sleep 1")
+    (sleep-for 0.1))
+  t)
+
+(with-timeout (2 (progn (message "not found" nil)))
+  (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
+    (message "sleep 1")
+    (sleep-for 0.1))
+  (message "found")
+  t)
+
 (require-package 'org-download)
 (require 'org-download)
+
+(progn
+  (sleep-for 5)
+  (selected-frame))
+
+(defun org-download-screenshot ()
+  "Capture screenshot and insert the resulting file.
+The screenshot tool is determined by `org-download-screenshot-method'."
+  (interactive)
+  (shell-command (format org-download-screenshot-method
+                         org-download-screenshot-file))
+  ;; bug?: time go faster than it should.
+  ;;
+  ;; no, problem is, the timeout count in the time in snipaste
+  (if (with-timeout (3)
+        (message "with-timeout start")
+        (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
+          (message "sleep 0.1")
+          (sleep-for 1))
+        t)
+      (org-download-image org-download-screenshot-file)
+    (message "No image captured at %s" org-download-screenshot-file)))
+
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."
   (interactive "P")
   (if *is-a-cygwin*
-      (message "Not available under cygwin")
+      (progn
+        (when (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png")
+          (delete-file "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
+        (setq org-download-screenshot-method "/cygdrive/c/fd3kyt/Snipaste-1.16.2-x64.emacs/Snipaste.exe snip -o")
+        (setq org-download-screenshot-file "file:///cygdrive/c/fd3kyt/snipaste.emacs.png")
+        (org-download-screenshot))
     (if prefix
         (org-download-screenshot)
       (progn
