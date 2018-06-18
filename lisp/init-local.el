@@ -12,7 +12,6 @@
 ;; ===== personal global vars =====
 (defconst *is-a-cygwin* (eq system-type 'cygwin))
 
-
 (defvar kyt/debug-var)
 (set-variable 'kyt/debug-var "start")
 
@@ -93,25 +92,24 @@
 
 (after-load 'cc-mode
   (require 'init-local-cpp)
+
   (unless *is-a-cygwin*
     (require 'init-local-ycmd)
-    (require 'init-local-rtags))
+    (require 'init-local-rtags)
+    ;; make use of the completions from rtags and ycmd at the same time
+    ;; (if (and (-contains-p company-backends 'company-rtags)
+    ;;          (-contains-p company-backends 'company-ycmd))
+    ;;     (let ((new-group (list 'company-rtags 'company-ycmd :separate)))
+    ;;       (push new-group company-backends)))
 
-  ;; make use of the completions from rtags and ycmd at the same time
-  ;; (if (and (-contains-p company-backends 'company-rtags)
-  ;;          (-contains-p company-backends 'company-ycmd))
-  ;;     (let ((new-group (list 'company-rtags 'company-ycmd :separate)))
-  ;;       (push new-group company-backends)))
-
-  ;; only use ycmd for completions. Fast, have fuzzy completions
-  (setq company-backends (remove 'company-rtags company-backends))
-  (setq rtags-completions-enabled nil)
-  )
+    ;; only use ycmd for completions. Fast, have fuzzy completions
+    (setq company-backends (remove 'company-rtags company-backends))
+    (setq rtags-completions-enabled nil)))
 
 (require 'init-local-python)
 
-(require 'init-local-fcitx)
-
+(unless *is-a-cygwin*
+  (require 'init-local-fcitx))
 
 (require 'init-local-git)
 (require 'init-local-r)
@@ -374,6 +372,7 @@ state."
 
 (setq uptimes-keep-count 50)
 (setq uptimes-auto-save-interval (* 60 60))
+(setq uptimes-database "~/.emacs.d/.uptimes")
 
 (setq company-dabbrev-ignore-case nil
       company-dabbrev-downcase nil)
