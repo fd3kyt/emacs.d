@@ -406,6 +406,16 @@ space), unset `buffer-modified-p' after changes."
 (add-hook 'org-capture-mode-hook
           'kyt/org-capture-udpate-heading-after-change)
 
+(setq org-babel-default-header-args
+      '((:session . "none")
+        (:results . "drawer")
+        (:exports . "both")
+        (:eval . "no-export")
+        (:cache . "no")
+        (:noweb . "no")
+        (:hlines . "no")
+        (:tangle . "no")))
+
 
 (require 'init-local-org-mobile)
 
