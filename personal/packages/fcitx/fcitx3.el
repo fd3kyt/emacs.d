@@ -72,8 +72,9 @@
        (fcitx/typeable-p)
        (not (window-minibuffer-p))
        (not (and (boundp 'hydra-curr-map) hydra-curr-map))
-       (not (last-char-is-a-letter-p))
-       (not (after-chinese-and-space-p))))
+       ;; (not (last-char-is-a-letter-p))
+       ;; (not (after-chinese-and-space-p))
+       ))
 
 ;; TODO refactor
 (defun last-char-is-a-letter-p ()
