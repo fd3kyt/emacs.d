@@ -365,7 +365,10 @@ state."
 
 (after-load 'flycheck (require 'init-local-flycheck))
 
-(after-load 'org (require 'init-local-koe))
+(after-load 'org
+  (require-package 'deferred)
+  (require-package 'request-deferred)
+  (require 'init-local-koe))
 
 (global-set-key (kbd "C-x R") 'revert-buffer)
 
