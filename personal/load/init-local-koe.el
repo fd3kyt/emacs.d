@@ -59,6 +59,7 @@ of ANKI_CONTEXT property."
 (cl-delete-duplicates koe-anki-exclude-tags)
 
 (add-to-list 'koe-anki-exclude-todo-states "TODO")
+(add-to-list 'koe-anki-exclude-todo-states "CANCELLED")
 
 (provide 'init-local-koe)
 
