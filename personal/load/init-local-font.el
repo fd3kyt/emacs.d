@@ -29,7 +29,7 @@
 
 (cnfonts-refresh-profile-list)
 (cnfonts-enable)
-(cnfonts--select-profile "small-cn-ok")
+(cnfonts--select-profile "dejavu")
 
 
 (global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
