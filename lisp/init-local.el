@@ -327,7 +327,7 @@ state."
 
 
 ;; #################### extra warning message ####################
-(advice-add 'run-hooks :around 'kyt/warn-when-error)
+;; (advice-add 'run-hooks :around 'kyt/warn-when-error)
 ;; (advice-remove 'run-hooks 'kyt/warn-when-error)
 
 ;; test this:
