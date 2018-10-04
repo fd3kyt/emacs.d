@@ -408,8 +408,8 @@ space), unset `buffer-modified-p' after changes."
 
 (setq org-babel-default-header-args
       '((:session . "none")
-        (:results . "drawer")
-        (:exports . "both")
+        (:results . "replace drawer")
+        (:exports . "code")
         (:eval . "no-export")
         (:cache . "no")
         (:noweb . "no")
