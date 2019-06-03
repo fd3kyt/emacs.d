@@ -178,7 +178,11 @@
 ;;----------------------------------------------------------------------------
 (require 'init-local nil t)
 
+;; post-init
 
+;; for rtags?
+(put 'set-goal-column 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
 
 (provide 'init)
 
@@ -186,9 +190,4 @@
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
-<<<<<<< HEAD
-(put 'set-goal-column 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
-=======
 ;;; init.el ends here
->>>>>>> master
