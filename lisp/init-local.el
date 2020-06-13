@@ -44,6 +44,9 @@
 (when *is-a-cygwin*
   (require 'init-local-cygwin))
 
+(when *is-a-windows*
+  (require 'init-local-windows))
+
 (setq desktop-save nil)
 
 ;; install packages
@@ -91,7 +94,7 @@
 (after-load 'cc-mode
   (require 'init-local-cpp)
 
-  (unless *is-a-cygwin*
+  (when *is-a-linux*
     (require 'init-local-ycmd)
     (require 'init-local-rtags)
     ;; make use of the completions from rtags and ycmd at the same time
@@ -106,7 +109,7 @@
 
 (require 'init-local-python)
 
-(unless (or *is-a-cygwin* *is-a-windows*)
+(when *is-a-linux*
   (require 'init-local-fcitx))
 
 (require 'init-local-git)

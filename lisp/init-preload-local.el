@@ -28,6 +28,12 @@
 (require 'benchmark-init-modes)
 (benchmark-init/activate)
 
+(defconst *is-a-linux* (eq system-type 'gnu/linux))
+(defmacro unless-linux (&rest body)
+  "Run BODY unless it is linux."
+  `(unless *is-a-linux*
+     ,@body))
+
 (defconst *is-a-cygwin* (eq system-type 'cygwin))
 (defmacro unless-cygwin (&rest body)
   "Run BODY unless it is cygwin."
