@@ -23,14 +23,20 @@
 
 ;; adding fonts
 (setq cnfonts-personal-fontnames
-      '(("DejaVu Sans Mono")
-        ("DejaVu Sans Mono")
-        ("DejaVu Sans Mono")))
+      '(("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")
+        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")
+        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")))
 
 (cnfonts-refresh-profile-list)
 (cnfonts-enable)
-(cnfonts--select-profile "dejavu")
 
+(defvar *is-a-cygwin*)
+(if *is-a-cygwin*
+    (cnfonts--select-profile "cygwin")
+  (cnfonts--select-profile "dejavu"))
+
+;; (when *is-a-cygwin*
+;;   (set-frame-font "DejaVuSansMono YaHei NF"))
 
 (global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
 (global-set-key (kbd "C-M-=") 'cnfonts-increase-fontsize)
