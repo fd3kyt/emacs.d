@@ -278,7 +278,7 @@ state."
 (advice-add 'bookmark-write-file :around 'without-aggressive-indent-mode)
 
 
-(require 'init-local-goldfish)
+;; (require 'init-local-goldfish)
 
 (defun use-bash-when-zsh ()
   "Set shell to 'bash' if is a zsh file.  Why: shellcheck doesn't support zsh."
@@ -368,7 +368,8 @@ state."
 (after-load 'org
   (require-package 'deferred)
   (require-package 'request-deferred)
-  (require 'init-local-koe))
+  ;; (require 'init-local-koe)
+  )
 
 (global-set-key (kbd "C-x R") 'revert-buffer)
 
@@ -383,7 +384,16 @@ state."
 (after-load 'historian
   (setq historian-history-length 50))
 
-(require 'kyt-blogging)
+;; (require 'kyt-blogging)
+
+
+;;; temp setting for graduation design
+;; C-. doesn't work under sogou input
+(global-set-key (kbd "C-'") 'cua-set-mark)
+(after-load 'org
+  (define-key org-mode-map
+    (kbd "C-.")
+    'cua-set-mark))
 
 (provide 'init-local)
 ;;; init-local.el ends here

@@ -70,12 +70,20 @@
 (require-package 'org-download)
 (require 'org-download)
 
+;;; note: for this to work, snipaste need to be already running.
+
+;;; still have problem. do I need to pass win path to snipaste?
+(defvar kyt/org-download-screenshot-snipaste/method
+  "~/Snipaste/Snipaste.exe snip -o")
+(defvar kyt/org-download-screenshot-snipaste/output-file
+  "~/tmp/snipaste.emacs.png")
+
 (defun kyt/org-download-screenshot-snipaste--focus-in ()
   "Used by `kyt/org-download-screenshot-snipaste', in `focus-in-hook'."
   ;; remove itself from the hook
   (remove-hook 'focus-in-hook 'kyt/org-download-screenshot-snipaste--focus-in)
   (if (with-timeout (1)
-        (while (not (file-exists-p "/cygdrive/c/fd3kyt/snipaste.emacs.png"))
+        (while (not (file-exists-p kyt/org-download-screenshot-snipaste/output-file))
           (sleep-for 0.2))
         t)
       (progn
@@ -89,23 +97,23 @@
   ;; snipaste will do auto-rename when already exists
   (when (file-exists-p org-download-screenshot-file)
     (delete-file org-download-screenshot-file))
-  (shell-command (format org-download-screenshot-method
-                         org-download-screenshot-file))
+  (shell-command (format "%s %s" org-download-screenshot-method
+                         "\"D:/windows/cygwin/home/fd3kyt/tmp/snipaste.emacs.png\""))
   ;; Problem: snipaste command always returns immediately, and has
   ;; exit status 0. `shell-command' here doesn't block or provide any
   ;; useful info.
   ;;
   ;; Here, add to the hook after a short interval to avoid the
   ;; immediate focus-in event that happens sometimes.
-  (run-at-time "0.5 sec" nil
+  (run-at-time "1.0 sec" nil
                (lambda ()
                  (add-hook 'focus-in-hook
                            'kyt/org-download-screenshot-snipaste--focus-in))))
 
 (when *is-a-cygwin*
-  (setq org-download-screenshot-method
-        "/cygdrive/c/fd3kyt/Snipaste-1.16.2-x64.emacs/Snipaste.exe snip -o")
-  (setq org-download-screenshot-file "/cygdrive/c/fd3kyt/snipaste.emacs.png")
+  ;; need to config snipaste like this first.
+  (setq org-download-screenshot-method kyt/org-download-screenshot-snipaste/method)
+  (setq org-download-screenshot-file kyt/org-download-screenshot-snipaste/output-file)
   (advice-add 'org-download-screenshot :override 'kyt/org-download-screenshot-snipaste))
 
 (defun kyt/org-screenshot (prefix)

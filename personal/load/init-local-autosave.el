@@ -6,7 +6,7 @@
 ;;; Code:
 
 (defvar kyt/auto-save-interval 600)
-(defvar kyt/org-auto-save-interval 10)
+(defvar kyt/org-auto-save-interval 300)
 
 (declare-function require-package 'init-elpa)
 (setq auto-save-interval kyt/auto-save-interval
