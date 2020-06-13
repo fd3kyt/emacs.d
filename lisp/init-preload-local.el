@@ -34,6 +34,12 @@
   `(unless *is-a-cygwin*
      ,@body))
 
+(defconst *is-a-windows* (eq system-type 'windows-nt))
+(defmacro unless-windows (&rest body)
+  "Run BODY unless it is windows."
+  `(unless *is-a-windows*
+     ,@body))
+
 (provide 'init-preload-local)
 
 ;;; init-preload-local.el ends here

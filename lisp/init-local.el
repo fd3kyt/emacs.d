@@ -106,7 +106,7 @@
 
 (require 'init-local-python)
 
-(unless *is-a-cygwin*
+(unless (or *is-a-cygwin* *is-a-windows*)
   (require 'init-local-fcitx))
 
 (require 'init-local-git)

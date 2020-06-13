@@ -31,9 +31,10 @@
 (cnfonts-enable)
 
 (defvar *is-a-cygwin*)
-(if *is-a-cygwin*
-    (cnfonts--select-profile "cygwin")
-  (cnfonts--select-profile "dejavu"))
+(defvar *is-a-windows*)
+(cond (*is-a-cygwin* (cnfonts--select-profile "cygwin"))
+      (*is-a-windows* (cnfonts--select-profile "windows"))
+      (t (cnfonts--select-profile "dejavu")))
 
 ;; (when *is-a-cygwin*
 ;;   (set-frame-font "DejaVuSansMono YaHei NF"))
