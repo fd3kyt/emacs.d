@@ -10,5 +10,5 @@ if [ -f ${LOCK_PATH} ]; then
     echo "Maybe you need to remove ${LOCK_PATH} manually."
     sleep 3
 fi
-LANG="zh_CN.UTF-8" emacs --daemon # --no-desktop # --debug-init
+LC_CTYPE="zh_CN.UTF-8" emacs --daemon # --no-desktop # --debug-init
 emacsclient -c -n
