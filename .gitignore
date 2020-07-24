@@ -13,11 +13,9 @@ CVS
 .*.lock
 /tramp
 /TODO
-/anything-c-adaptive-history
 /.org-id-locations
 cookies
 /newsticker
-/ac-comphist.dat
 \#*
 /elpa
 /elpa-*
@@ -66,3 +64,6 @@ flycheck_*
 /.uptimes*.el
 /*.uptimes
 /history-NS*
+.cache/
+/forge-database.sqlite
+/transient
