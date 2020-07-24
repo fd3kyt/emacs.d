@@ -169,12 +169,14 @@
 (require 'init-local-simple-util)
 (require 'init-local-file-type)
 
+(require-package 'company-shell)
 
 (add-hook 'sh-mode-hook
           '(lambda ()
              (make-local-variable 'company-backends)
              (push 'company-shell company-backends)
-             (push 'company-files company-backends)))
+             ;; (push 'company-files company-backends)
+             ))
 
 (setq delete-by-moving-to-trash t
       trash-directory "/home/fd3kyt/.local/share/Trash/files/")
