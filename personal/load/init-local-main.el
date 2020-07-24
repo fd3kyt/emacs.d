@@ -292,6 +292,7 @@ state."
                                    (concat "^" flycheck-temp-prefix)
                                    "--ignore" "^#"
                                    "--ignore" "^\\.#"
+                                   "--width" "300"
                                    "-f"))))
 
 ;; use M-u C-v instead
