@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: gra-latex-table
+# key: @t
+# --
+如表\ref{$1}所示
+
+\begin{table}[H]
+\caption{$0}
+\begin{tabular}{|c|c|}
+
+\hline
+表名&行数\\
+
+\hline
+\end{tabular}
+\label{$1}
+\end{table}

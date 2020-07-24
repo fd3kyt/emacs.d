@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: gra-enumerate
+# key: @e
+# --
+\begin{enumerate}
+\item $0
+\end{enumerate}

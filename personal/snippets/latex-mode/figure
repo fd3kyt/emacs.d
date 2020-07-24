@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: figure
+# key: @fig
+# --
+如图\ref{$1}所示:
+
+\begin{figure}[H]
+\includegraphics[scale=1]{$1.pdf}
+\caption{$0}
+\label{$1}
+\end{figure}

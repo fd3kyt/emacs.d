@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: gra-note-noexport
+# key: gne
+# --
+note :noexport:

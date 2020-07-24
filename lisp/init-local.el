@@ -398,5 +398,7 @@ state."
     (kbd "C-.")
     'cua-set-mark))
 
+(require 'init-local-graduation)
+
 (provide 'init-local)
 ;;; init-local.el ends here
