@@ -27,7 +27,8 @@
 ;; 默认不显示 menu
 (menu-bar-mode 0)
 
-;; global ispell dictionary
+;; global ispell dictionary. may need to install dictionary
+;; first. "sudo pacman -S hunspell-en_US"
 (ispell-change-dictionary "american" t)
 
 ;; org-mode
