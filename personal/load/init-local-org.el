@@ -429,6 +429,9 @@ space), unset `buffer-modified-p' after changes."
 
 (customize-set-variable 'org-footnote-section nil)
 
+;;; TODO temp fix: when loading session at start up, get paredit error
+(require 'paredit)
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here
