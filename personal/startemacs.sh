@@ -1,5 +1,4 @@
 #!/bin/bash
-#env PATH=~/anaconda3/bin:$PATH LANG="zh_CN.UTF-8" emacs --daemon # --no-desktop # --debug-init
 
 echo "@@@@ Note: if you are debugging emacs,"
 echo "@@@@ run 'emacs' directly instead of using this script."
