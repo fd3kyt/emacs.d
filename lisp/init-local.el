@@ -206,9 +206,8 @@
              (push 'company-shell company-backends)
              (push 'company-files company-backends)))
 
-
 (setq delete-by-moving-to-trash t
-      trash-directory "/home/Storage/.trash")
+      trash-directory "/home/fd3kyt/.local/share/Trash/files/")
 
 (global-auto-revert-mode t)             ; won't revert modified buffers
 
