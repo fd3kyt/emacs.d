@@ -228,8 +228,9 @@ PREFIX: if not nil, do not minimize."
 (setq plantuml-jar-path org-plantuml-jar-path)
 
 
-;; org agenda
-(add-to-list 'org-agenda-files "~/Projects/goldfish/")
+;;; org agenda
+;; add agenda files
+;; (add-to-list 'org-agenda-files "~/Projects/goldfish/")
 
 (setq org-todo-keywords
       '((sequence "INACTIVE(i)" "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
