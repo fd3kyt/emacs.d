@@ -84,17 +84,27 @@ Pass `ARG' and `TRY-VSCROLL' to `previous-line'."
                      buffer-file-name)
     (message "Current buffer is not a file!")))
 
-
-(defun kyt/copy-buffer-file-name (&optional arg)
+;;; TODO make use of C-c l instead
+(defun kyt/copy-buffer-file-name (&optional nondirectory link)
   "Add buffer file name to kill ring.
-With `universal-argument' ARG, only the nondirectory part."
-  (interactive "P")
+With `universal-argument' NONDIRECTORY, only the nondirectory part.
+If LINK is non-nil, add link prefix.
+
+TODO: prefix 1,2,3 for name,dir,path like Total Commander."
+  (interactive "P\ni")
   (if (buffer-file-name)
-      (kill-new (if arg
-                    (file-name-nondirectory (buffer-file-name))
-                  (buffer-file-name)))
+      (let ((stored (s-concat (if link "file:" "")
+                              (if nondirectory
+                                  (file-name-nondirectory (buffer-file-name))
+                                (buffer-file-name)))))
+        (kill-new stored)
+        (message "Copied: %s" stored))
     (message "Current buffer is not a file.")))
 
+(defun kyt/copy-buffer-link ()
+  "Copy file link."
+  (interactive)
+  (kyt/copy-buffer-file-name nil t))
 
 (defun kyt/new-line ()
   "Create a new line under current line and go to it."

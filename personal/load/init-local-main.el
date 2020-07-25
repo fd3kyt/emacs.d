@@ -372,6 +372,8 @@ state."
 
 (require 'init-local-graduation)
 
+(global-set-key (kbd "C-c 3") 'kyt/copy-buffer-link)
+
 (provide 'init-local-main)
 
 ;;; init-local-main.el ends here
