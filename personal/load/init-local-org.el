@@ -70,52 +70,6 @@
 (require-package 'org-download)
 (require 'org-download)
 
-;;; note: for this to work, snipaste need to be already running.
-
-;;; still have problem. do I need to pass win path to snipaste?
-(defvar kyt/org-download-screenshot-snipaste/method
-  "~/Snipaste/Snipaste.exe snip -o")
-(defvar kyt/org-download-screenshot-snipaste/output-file
-  "~/tmp/snipaste.emacs.png")
-
-(defun kyt/org-download-screenshot-snipaste--focus-in ()
-  "Used by `kyt/org-download-screenshot-snipaste', in `focus-in-hook'."
-  ;; remove itself from the hook
-  (remove-hook 'focus-in-hook 'kyt/org-download-screenshot-snipaste--focus-in)
-  (if (with-timeout (1)
-        (while (not (file-exists-p kyt/org-download-screenshot-snipaste/output-file))
-          (sleep-for 0.2))
-        t)
-      (progn
-        (org-download-image org-download-screenshot-file)
-        (message "Captured"))
-    (message "No image captured at %s" org-download-screenshot-file)))
-
-(defun kyt/org-download-screenshot-snipaste ()
-  "In Windows (cygwin), use snipaste to capture screenshot."
-  (interactive)
-  ;; snipaste will do auto-rename when already exists
-  (when (file-exists-p org-download-screenshot-file)
-    (delete-file org-download-screenshot-file))
-  (shell-command (format "%s %s" org-download-screenshot-method
-                         "\"D:/windows/cygwin/home/fd3kyt/tmp/snipaste.emacs.png\""))
-  ;; Problem: snipaste command always returns immediately, and has
-  ;; exit status 0. `shell-command' here doesn't block or provide any
-  ;; useful info.
-  ;;
-  ;; Here, add to the hook after a short interval to avoid the
-  ;; immediate focus-in event that happens sometimes.
-  (run-at-time "1.0 sec" nil
-               (lambda ()
-                 (add-hook 'focus-in-hook
-                           'kyt/org-download-screenshot-snipaste--focus-in))))
-
-(when *is-a-cygwin*
-  ;; need to config snipaste like this first.
-  (setq org-download-screenshot-method kyt/org-download-screenshot-snipaste/method)
-  (setq org-download-screenshot-file kyt/org-download-screenshot-snipaste/output-file)
-  (advice-add 'org-download-screenshot :override 'kyt/org-download-screenshot-snipaste))
-
 (defun kyt/org-screenshot (prefix)
   "Call org-download-screenshot with frame minimized.
 PREFIX: if not nil, do not minimize."
@@ -131,6 +85,55 @@ PREFIX: if not nil, do not minimize."
 (after-load 'org
   (define-key org-mode-map (kbd "C-c M-d")
     'kyt/org-screenshot))
+
+;;; note: for this to work, snipaste need to be already running.
+(when *is-a-cygwin*
+  ;; need to config snipaste like this first.
+  (setq org-download-screenshot-method
+        "~/Snipaste/Snipaste.exe snip -o"
+        org-download-screenshot-file
+        "~/tmp/snipaste.emacs.png"
+        org-download-screenshot-file-win-path
+        "D:/windows/cygwin/home/fd3kyt/tmp/snipaste.emacs.png")
+
+  (defun kyt/org-download-screenshot-snipaste ()
+    "In Windows (cygwin), use snipaste to capture screenshot."
+    (interactive)
+    ;; snipaste will do auto-rename when already exists
+    (when (file-exists-p org-download-screenshot-file)
+      (delete-file org-download-screenshot-file))
+    (shell-command (format "%s %s" org-download-screenshot-method
+                           ;; snipaste need Windows path
+                           (s-concat "\""
+                                     org-download-screenshot-file-win-path
+                                     "\"")))
+    ;; Problem: snipaste command always returns immediately, and has
+    ;; exit status 0. `shell-command' here doesn't block or provide any
+    ;; useful info.
+    ;;
+    ;; Here, add to the hook after a short interval to avoid the
+    ;; immediate focus-in event that happens sometimes.
+    (run-at-time "1.0 sec" nil
+                 (lambda ()
+                   (add-hook 'focus-in-hook
+                             'kyt/org-download-screenshot-snipaste--focus-in))))
+
+  (defun kyt/org-download-screenshot-snipaste--focus-in ()
+    "Used by `kyt/org-download-screenshot-snipaste', in `focus-in-hook'."
+    ;; remove itself from the hook
+    (remove-hook 'focus-in-hook 'kyt/org-download-screenshot-snipaste--focus-in)
+    (if (with-timeout (1)
+          (while (not (file-exists-p org-download-screenshot-file))
+            (sleep-for 0.2))
+          t)
+        (progn
+          (org-download-image org-download-screenshot-file)
+          (message "Captured"))
+      (message "No image captured at %s" org-download-screenshot-file)))
+
+  (advice-add 'org-download-screenshot
+              :override 'kyt/org-download-screenshot-snipaste)
+  )
 
 (require 'kyt-lib)
 
