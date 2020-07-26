@@ -37,7 +37,7 @@
   (add-hook 'anaconda-mode-process-fail-hook 'anaconda-mode-start)
   (add-hook 'anaconda-mode-response-read-fail-hook 'anaconda-mode-start)
   ;; (add-hook 'anaconda-mode-hook 'kyt/register-anaconda-autorestart)
-  (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
+  (define-key anaconda-mode-map (kbd "M-,") 'xref-pop-marker-stack)
   (define-key anaconda-mode-map (kbd "M-*") 'anaconda-mode-find-assignments)
   )
 
