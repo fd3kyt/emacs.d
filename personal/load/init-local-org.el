@@ -86,11 +86,17 @@ PREFIX: if not nil, do not minimize."
   (define-key org-mode-map (kbd "C-c M-d")
     'kyt/org-screenshot))
 
+(when *is-a-linux*
+  (customize-set-variable 'org-download-screenshot-method
+                          "xfce4-screenshooter -r -s %s")
+  (customize-set-variable 'org-download-screenshot-file
+                          "/tmp/emacs.org-download.screenshot.png"))
+
 ;;; note: for this to work, snipaste need to be already running.
 (when *is-a-cygwin*
   ;; need to config snipaste like this first.
   (setq org-download-screenshot-method
-        "~/Snipaste/Snipaste.exe snip -o"
+        "~/Snipaste/Snipaste.exe snip -o %s"
         org-download-screenshot-file
         "~/tmp/snipaste.emacs.png"
         org-download-screenshot-file-win-path
@@ -102,7 +108,7 @@ PREFIX: if not nil, do not minimize."
     ;; snipaste will do auto-rename when already exists
     (when (file-exists-p org-download-screenshot-file)
       (delete-file org-download-screenshot-file))
-    (shell-command (format "%s %s" org-download-screenshot-method
+    (shell-command (format org-download-screenshot-method
                            ;; snipaste need Windows path
                            (s-concat "\""
                                      org-download-screenshot-file-win-path
