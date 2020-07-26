@@ -92,6 +92,21 @@ PREFIX: if not nil, do not minimize."
   (customize-set-variable 'org-download-screenshot-file
                           "/tmp/emacs.org-download.screenshot.png"))
 
+(defcustom kyt/org-annotate-image-method
+  "~/bin/ksnip.AppImage -e %s"
+  "Command line that run the application to annotate the image."
+  :type 'string
+  :group 'kyt/org)
+
+(defun kyt/org-annotate-iamge-at-point ()
+  "Run the extranal application to annotate the image at point."
+  (interactive)
+  (let ((org-file-apps
+         ;; Don't check file type here. Assume that user know what he
+         ;; is doing.
+         (list (cons t kyt/org-annotate-image-method))))
+    (org-open-at-point-global)))
+
 ;;; note: for this to work, snipaste need to be already running.
 (when *is-a-cygwin*
   ;; need to config snipaste like this first.
