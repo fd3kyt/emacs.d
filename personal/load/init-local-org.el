@@ -324,7 +324,8 @@ If buffer name is like ' *temp*' or ' *temp*-123' (mind the
 space), unset `buffer-modified-p' after changes."
   (when (or (s-match "^\\s-+\\*temp\\*" (buffer-name))
             (s-equals? "*Org Table Edit Field*" (buffer-name)))
-    (add-hook 'after-change-functions 'unset-buffer-modified t t)))
+    (add-hook 'after-change-functions 'unset-buffer-modified t t)
+    (unset-buffer-modified)))
 (add-hook 'org-mode-hook 'org-supress-kill-confirmation-for-temp-buffer)
 
 ;; Fix: log note (C-c C-t c), C-c C-c asks for kill confirmation.
