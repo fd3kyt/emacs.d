@@ -56,9 +56,6 @@
             (require 'init-local-font)))
 (set-variable 'kyt/debug-var "after font")
 
-;; fix sudo blocking
-(setq projectile-mode-line " Projectile")
-
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
 (after-load 'cc-mode
@@ -215,7 +212,13 @@ If called with a prefix, use regexp (REGEXP-P will be t)."
   )
 
 (after-load 'projectile
-  (setq projectile-enable-caching t))
+  ;; fix sudo blocking
+  (setq projectile-mode-line " Projectile")
+  ;; only method `native' respects .projectile. `hybrid' respects
+  ;; `projectile-globally-ignored-file-suffixes', ignores
+  ;; .projectile. `alien' respects none.
+  (customize-set-variable 'projectile-indexing-method 'hybrid)
+  (customize-set-variable 'projectile-enable-caching t))
 
 ;; (require-package 'bookmark+)
 ;; (require 'bookmark+)
