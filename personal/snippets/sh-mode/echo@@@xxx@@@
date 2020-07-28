@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: echo@@@xxx@@@
+# key: e@
+# --
+echo "@@@ $0 @@@"
