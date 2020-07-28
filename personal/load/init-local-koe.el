@@ -7,9 +7,7 @@
 
 
 (add-to-list 'load-path
-             (if (eq system-type 'cygwin)
-                 "/home/fd3kyt/Projects/org2anki/anki-org/"
-               "/home/XXD/Projects/org2anki/anki-org/"))
+             "/home/fd3kyt/Projects/org2anki/anki-org/")
 (require 'paredit)
 
 (require 'koe)
@@ -47,15 +45,14 @@ of ANKI_CONTEXT property."
       (unless (-contains-p tags "@ankigroup")
         (push "@ankigroup" tags))
       (org-set-property koe-dict-context-property-name title)
-      (org-set-tags-to tags)
+      (org-set-tags tags)
       (save-restriction
         (org-narrow-to-subtree)
-        (org-align-all-tags))))
+        (org-align-tags t))))
   (save-buffer))
 
-(add-to-list 'koe-anki-exclude-tags org-archive-tag)
-(setq koe-anki-exclude-tags (append org-export-exclude-tags
-                                    koe-anki-exclude-tags))
+(setq koe-anki-exclude-tags
+      (append (list org-archive-tag) org-export-exclude-tags))
 (cl-delete-duplicates koe-anki-exclude-tags)
 
 (add-to-list 'koe-anki-exclude-todo-states "TODO")
