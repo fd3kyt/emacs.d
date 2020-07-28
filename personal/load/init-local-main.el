@@ -254,6 +254,9 @@ state."
 
 ;; (require 'init-local-goldfish)
 
+;;; shellcheck: purcell use it. just install shellcheck and open a .sh
+;;; file
+
 (defun use-bash-when-zsh ()
   "Set shell to 'bash' if is a zsh file.  Why: shellcheck doesn't support zsh."
   (if (and buffer-file-name
