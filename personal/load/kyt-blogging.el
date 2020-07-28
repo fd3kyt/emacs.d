@@ -7,12 +7,12 @@
 
 (declare-function require-package "init-elpa")
 
-(require 'init-local-koe)
-(require 'koe-util)
+(require 'init-local-akoe)
+(require 'akoe-util)
 
 (defun kyt/org-link-at-point ()
   "Return the link string at point."
-  (file-truename (org-element-property :path (koe-first-of-types 'link))))
+  (file-truename (org-element-property :path (akoe-first-of-types 'link))))
 
 (defun kyt/copy-org-link-at-point ()
   "Copy."

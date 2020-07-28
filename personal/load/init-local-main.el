@@ -346,7 +346,7 @@ state."
 (after-load 'org
   (require-package 'deferred)
   (require-package 'request-deferred)
-  (require 'init-local-koe)
+  (require 'init-local-akoe)
   )
 
 (global-set-key (kbd "C-x R") 'revert-buffer)
