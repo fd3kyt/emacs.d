@@ -256,6 +256,8 @@ PREFIX: if not nil, do not minimize."
 ;; add agenda files
 ;; (add-to-list 'org-agenda-files "~/Projects/goldfish/")
 
+(add-to-list 'org-agenda-files org-directory)
+
 (setq org-todo-keywords
       '((sequence "INACTIVE(i)" "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
         (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")

@@ -58,6 +58,18 @@ of ANKI_CONTEXT property."
 (add-to-list 'akoe-anki-exclude-todo-states "TODO")
 (add-to-list 'akoe-anki-exclude-todo-states "CANCELLED")
 
+;;; when we import notes, add the file into `org-id-extra-files' so
+;;; that `org-id' can search this file (e.g. for `akoe-follow'.)
+(defvar org-id-extra-files)
+(defun akoe--add-file-to-org-id-search-locations ()
+  "Add the file of current buffer to org-id search locations."
+  (unless (org-agenda-file-p)
+    (customize-push-and-save 'org-id-extra-files
+                             (list (file-truename (buffer-file-name))))))
+
+;; (add-hook 'akoe-after-import-success-hook
+;;           'akoe--add-file-to-org-id-search-locations)
+
 (provide 'init-local-akoe)
 
 ;;; init-local-akoe.el ends here
