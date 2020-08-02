@@ -380,6 +380,10 @@ state."
 
 (global-set-key (kbd "C-c 3") 'kyt/copy-buffer-link)
 
+(after-load 'elisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-c C-c")
+    'eval-buffer))
+
 (provide 'init-local-main)
 
 ;;; init-local-main.el ends here
