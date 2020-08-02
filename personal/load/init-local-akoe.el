@@ -67,7 +67,7 @@ of ANKI_CONTEXT property."
     (customize-push-and-save 'org-id-extra-files
                              (list (file-truename (buffer-file-name))))))
 
-;; (add-hook 'akoe-after-import-success-hook
+;; (add-hook "need to add ad new hook: success, in original buffer"
 ;;           'akoe--add-file-to-org-id-search-locations)
 
 (provide 'init-local-akoe)
