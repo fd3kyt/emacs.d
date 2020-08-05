@@ -215,6 +215,11 @@ REPLACE can be a string or a list of two strings."
      (signal (car err) (cdr err)))))
 ;; (kyt/warn-when-error 'signal 'error (list "errbody"))
 
+(defun kyt/display-prefix (arg)
+  "Display the value of the raw prefix ARG."
+  ;; from https://www.gnu.org/software/emacs/manual/html_node/elisp/Prefix-Command-Arguments.html
+  (interactive "P")
+  (message "%s" arg))
 
 (provide 'kyt-lib)
 
