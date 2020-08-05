@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: example code
+# key: 'e
+# --
+'("example: $1"
+$0)
