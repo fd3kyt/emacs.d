@@ -181,11 +181,22 @@
 (global-auto-revert-mode t)             ; won't revert modified buffers
 
 
-;; ;; dired
-;; (add-hook 'dired-mode-hook 'dired-omit-mode)
-;; (setq dired-omit-verbose nil)
-;; (setq dired-omit-extensions (list ))
-;; (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
+;;; dired
+;; https://www.gnu.org/software/emacs/manual/html_node/dired-x/Installation.html#Installation
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired-x")
+            ;; Set dired-x global variables here.  For example:
+            ;; (setq dired-x-hands-off-my-keys nil)
+            ))
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            (dired-omit-mode 1)
+            ))
+(setq dired-omit-verbose nil)
+(setq dired-omit-extensions nil)
+(setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
 
 ;; try annotate
 (require-package 'annotate)
@@ -287,7 +298,7 @@ state."
       ("r" imagex-sticky-rotate-right "rotate right")
       ("l" imagex-sticky-rotate-left "rotate left"))))
 
-(setq flycheck-temp-prefix "flycheck_temp")
+(setq flycheck-temp-prefix ".#flycheck_temp")
 
 ;;It seems that `with-eval-after-load' doesn't work here.
 (require 'ag)
@@ -373,7 +384,7 @@ state."
 (global-set-key (kbd "C-'") 'cua-set-mark)
 (after-load 'org
   (define-key org-mode-map
-    (kbd "C-.")
+    (kbd "C-'")
     'cua-set-mark))
 
 (require 'init-local-graduation)
