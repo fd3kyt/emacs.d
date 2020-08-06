@@ -4,18 +4,23 @@
 ;;
 
 ;;; Code:
+(declare-function require-package 'init-elpa)
+
 (prefer-coding-system 'utf-8)
 (setq coding-system-for-read 'utf-8)
 (setq coding-system-for-write 'utf-8)
 
 (require 'kyt-lib)
 
+(defvar *is-a-cygwin*)
 (when *is-a-cygwin*
   (require 'init-local-cygwin))
 
+(defvar *is-a-windows*)
 (when *is-a-windows*
   (require 'init-local-windows))
 
+(defvar desktop-save)
 (setq desktop-save nil)
 
 ;; install packages
@@ -183,17 +188,10 @@
 
 ;;; dired
 ;; https://www.gnu.org/software/emacs/manual/html_node/dired-x/Installation.html#Installation
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired-x")
-            ;; Set dired-x global variables here.  For example:
-            ;; (setq dired-x-hands-off-my-keys nil)
-            ))
 (add-hook 'dired-mode-hook
           (lambda ()
-            ;; Set dired-x buffer-local variables here.  For example:
-            (dired-omit-mode 1)
-            ))
+            (require 'dired-x)
+            (dired-omit-mode 1)))
 (setq dired-omit-verbose nil)
 (setq dired-omit-extensions nil)
 (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$")
