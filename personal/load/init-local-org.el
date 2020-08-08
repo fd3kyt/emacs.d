@@ -460,6 +460,19 @@ space), unset `buffer-modified-p' after changes."
 ;;; TODO temp fix: when loading session at start up, get paredit error
 (require 'paredit)
 
+;;; enable "<q" template insertion
+;; (require 'org-tempo)
+;;; or use `org-insert-structure-template' instead
+
+;;; don't auto-pair "<" in org-mode
+(add-hook
+ 'org-mode-hook
+ (lambda ()
+   (setq-local electric-pair-inhibit-predicate
+               `(lambda (c)
+                  (or (char-equal c ?<)
+                      (,electric-pair-inhibit-predicate c))))))
+
 (provide 'init-local-org)
 
 ;;; init-local-org.el ends here

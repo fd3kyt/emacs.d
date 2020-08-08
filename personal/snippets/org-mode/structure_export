@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: structure export
+# key: ;E
+# --
+#+BEGIN_EXPORT ${1:html}
+$0
+#+END_EXPORT
