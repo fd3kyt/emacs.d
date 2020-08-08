@@ -398,6 +398,11 @@ state."
   (define-key emacs-lisp-mode-map (kbd "C-c C-c")
     'eval-buffer))
 
+;;; init.el set `debug-on-error' to t to get backtraces during
+;;; initialization.  After initialization, set it to nil for daily
+;;; usage.
+(add-hook 'after-init-hook (lambda () (setq debug-on-error nil)) 'append)
+
 (provide 'init-local-main)
 
 ;;; init-local-main.el ends here
