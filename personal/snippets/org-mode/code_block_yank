@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: code block yank
+# key: ;sy
+# --
+#+BEGIN_SRC $1
+`(current-kill 0)`
+#+END_SRC
+$0

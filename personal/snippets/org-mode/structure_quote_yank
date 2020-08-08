@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: structure quote yank
+# key: ;qy
+# --
+#+BEGIN_QUOTE
+`(s-trim (current-kill 0))`$0
+#+END_QUOTE
