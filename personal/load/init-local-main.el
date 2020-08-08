@@ -55,11 +55,9 @@
 (require 'graphviz-dot-mode)
 
 ;; 解决 daemon 中设置 font 的问题
-(set-variable 'kyt/debug-var "before font")
 (add-hook 'after-make-window-system-frame-hooks
           (lambda ()
             (require 'init-local-font)))
-(set-variable 'kyt/debug-var "after font")
 
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
