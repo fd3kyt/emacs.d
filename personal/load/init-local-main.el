@@ -294,7 +294,9 @@ state."
       ("r" imagex-sticky-rotate-right "rotate right")
       ("l" imagex-sticky-rotate-left "rotate left"))))
 
-(setq flycheck-temp-prefix ".#flycheck_temp")
+;;; if I use ".#flycheck", pylint will complain about file naming
+;;; style
+(setq flycheck-temp-prefix "flychecktmp")
 
 ;;It seems that `with-eval-after-load' doesn't work here.
 (require 'ag)
