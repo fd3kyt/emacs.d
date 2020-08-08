@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: R-code-block
-# key: <sr
+# key: ;sr
 # --
 #+BEGIN_SRC R
 $0

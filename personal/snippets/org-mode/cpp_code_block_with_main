@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: cpp code block with main
-# key: <sC
+# key: ;sC
 # --
 #+BEGIN_SRC cpp :results drawer
   #include <stdio.h>

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: xml code block
-# key: <sx
+# key: ;sx
 # --
 #+BEGIN_SRC xml
 $0

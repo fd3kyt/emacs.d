@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: plantuml block
-# key: <sus
+# key: ;sus
 # --
 #+BEGIN_SRC plantuml :file $1.png
 @startuml

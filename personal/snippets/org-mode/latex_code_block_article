@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex code block article
-# key: <sla
+# key: ;sla
 # --
 #+BEGIN_SRC latex
 \documentclass{article}

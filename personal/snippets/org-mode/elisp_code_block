@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: elisp code block
-# key: <se
+# key: ;se
 # --
 #+BEGIN_SRC elisp
 $0

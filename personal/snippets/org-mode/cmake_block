@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: cmake block
-# key: <scm
+# key: ;scm
 # --
 #+BEGIN_SRC cmake
 $0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: python code block
-# key: <sp
+# key: ;sp
 # --
 #+BEGIN_SRC python :results output drawer
 $0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: cpp code block
-# key: <sc
+# key: ;sc
 # --
 #+BEGIN_SRC cpp :results drawer
 $0
