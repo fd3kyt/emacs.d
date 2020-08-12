@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: print long string
+# key: c<e
+# --
+cat <<EOF
+$0
+EOF

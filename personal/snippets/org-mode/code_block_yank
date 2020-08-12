@@ -3,6 +3,6 @@
 # key: ;sy
 # --
 #+BEGIN_SRC $1
-`(current-kill 0)`
+`(s-trim (current-kill 0))`
 #+END_SRC
 $0
