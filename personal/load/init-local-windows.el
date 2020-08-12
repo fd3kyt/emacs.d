@@ -11,6 +11,13 @@
 ;;; doesn't work?
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;;; use a ls ported to Windows
+;; (setq ls-lisp-use-insert-directory-program t)
+;; (setq insert-directory-program "a-ls-ported-to-windows")
+
+(setq ls-lisp-dirs-first t)
+(setq dired-listing-switches "-al")
+
 (provide 'init-local-windows)
 
 ;;; init-local-windows.el ends here

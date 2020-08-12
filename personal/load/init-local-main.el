@@ -64,7 +64,8 @@
           (lambda ()
             (require 'init-local-font)))
 
-(setq dired-listing-switches "-aBhl  --group-directories-first")
+(unless *is-a-windows*
+  (setq dired-listing-switches "-aBhl  --group-directories-first"))
 
 (after-load 'cc-mode
   (require 'init-local-cpp)
