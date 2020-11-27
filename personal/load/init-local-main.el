@@ -21,7 +21,8 @@
   (require 'init-local-windows))
 
 (defvar desktop-save)
-(setq desktop-save nil)
+(customize-set-variable 'desktop-save 'if-exists)
+(customize-set-variable 'desktop-restore-eager 0)
 
 ;; install packages
 (require-package 'realgud)

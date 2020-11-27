@@ -21,8 +21,8 @@
   (set-face-background 'org-hide (face-background 'default));hide stars
   (set-face-foreground 'org-hide (face-background 'default)))
 
-(defvar org-startup-indented)
-(setq org-startup-indented t)              ;indent
+(customize-set-variable 'org-startup-indented t)
+(customize-set-variable 'org-startup-folded 'fold)
 
 (defun org-save-all-org-buffers-no-message ()
   "Call `org-save-all-org-buffers', clear echo area if in minibuffer."
