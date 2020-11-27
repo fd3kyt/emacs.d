@@ -1,10 +1,6 @@
 ;;; init-local-scheme.el --- scheme
 ;;; Code:
 
-
-;; 否则, 好像这个文件执行之后才进load-path
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
-
 ;;Quack for racket
 
 ;;; Commentary:
