@@ -6,43 +6,69 @@
 ;;; Code:
 
 (declare-function require-package "init-elpa")
-(require-package 'cnfonts)
-(require 'cnfonts)          ;still need to require
 
-(defun cnfonts-refresh-profile-list ()
-  "Set `cnfonts-profiles' by finding files under the profile directory."
-  (interactive)
-  (let* ((profile-directory (expand-file-name "v4" cnfonts-directory))
-         (profile-names
-          (mapcar (lambda (file) (s-chop-suffix ".el" file))
-                  (directory-files profile-directory
-                                   nil ".el$"))))
-    (when (not profile-names)
-      (error (format "No profiles found in %d" profile-directory)))
-    (setq cnfonts-profiles profile-names)))
+;; (require-package 'cnfonts)
+;; (require 'cnfonts)          ;still need to require
 
-;; adding fonts
-(setq cnfonts-personal-fontnames
-      '(("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
-        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
-        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")))
+;; (defun cnfonts-refresh-profile-list ()
+;;   "Set `cnfonts-profiles' by finding files under the profile directory."
+;;   (interactive)
+;;   (let* ((profile-directory (expand-file-name "v4" cnfonts-directory))
+;;          (profile-names
+;;           (mapcar (lambda (file) (s-chop-suffix ".el" file))
+;;                   (directory-files profile-directory
+;;                                    nil ".el$"))))
+;;     (when (not profile-names)
+;;       (error (format "No profiles found in %d" profile-directory)))
+;;     (setq cnfonts-profiles profile-names)))
 
-(cnfonts-refresh-profile-list)
-(cnfonts-enable)
+;; ;; adding fonts
+;; (setq cnfonts-personal-fontnames
+;;       '(("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
+;;         ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
+;;         ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")))
 
-(defvar *is-a-cygwin*)
-(defvar *is-a-windows*)
-(cnfonts--select-profile (cond (*is-a-cygwin* "cygwin")
-                               (*is-a-windows* "windows")
-                               (t "sarasa")))
+;; (cnfonts-refresh-profile-list)
+;; (cnfonts-enable)
 
-;; (when *is-a-cygwin*
-;;   (set-frame-font "DejaVuSansMono YaHei NF"))
+;; (defvar *is-a-cygwin*)
+;; (defvar *is-a-windows*)
+;; (cnfonts--select-profile (cond (*is-a-cygwin* "cygwin")
+;;                                (*is-a-windows* "windows")
+;;                                (t "sarasa")))
 
-(global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
-(global-set-key (kbd "C-M-=") 'cnfonts-increase-fontsize)
-;;; turn off `default-text-scale-mode' used by purcell
-(remove-hook 'after-init-hook 'default-text-scale-mode)
+;; ;; (when *is-a-cygwin*
+;; ;;   (set-frame-font "DejaVuSansMono YaHei NF"))
+
+;; (global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
+;; (global-set-key (kbd "C-M-=") 'cnfonts-increase-fontsize)
+;; ;;; turn off `default-text-scale-mode' used by purcell
+;; (remove-hook 'after-init-hook 'default-text-scale-mode)
+
+
+;; (cnfonts-disable)
+;; (cl-prettyprint (x-list-fonts "Monaco"))
+
+
+
+
+(defvar sarasa-font-name "Sarasa Fixed SC")
+
+;;; set english chars
+(set-frame-font "Sarasa Fixed SC 14" nil t)
+;;; set chinese chars
+(set-fontset-font t 'han "Sarasa Fixed SC 14")
+
+(defun kyt/set-font-size (size)
+  "Set font size to SIZE."
+  (interactive "nFont size? ")
+  (let ((font-string (format "%s %d" sarasa-font-name size)))
+    (set-frame-font font-string nil t)
+    (set-fontset-font t 'han font-string)))
+
+;; ;; (text-scale-increase)
+
+;; ;; (default-text-scale-mode 1)
 
 (provide 'init-local-font)
 
