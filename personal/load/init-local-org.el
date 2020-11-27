@@ -44,6 +44,10 @@
   (kbd "M-S-<return>")
   'org-insert-subheading)
 
+(define-key org-mode-map
+  (kbd "C-<tab>")
+  'org-force-cycle-archived)
+
 ;; macro for note
 (define-key org-mode-map
   (kbd "C-c z") [?\C-c ?\C-z ?< ?q tab ?\C-y ?\M-q ?\M-> return return])
