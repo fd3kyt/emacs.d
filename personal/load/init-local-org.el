@@ -87,8 +87,10 @@ PREFIX: if not nil, do not minimize."
     'kyt/org-screenshot))
 
 (when *is-a-linux*
+  ;; (customize-set-variable 'org-download-screenshot-method
+  ;;                         "xfce4-screenshooter -r -s %s")
   (customize-set-variable 'org-download-screenshot-method
-                          "xfce4-screenshooter -r -s %s")
+                          "gnome-screenshot -a -f %s")
   (customize-set-variable 'org-download-screenshot-file
                           "/tmp/emacs.org-download.screenshot.png"))
 
