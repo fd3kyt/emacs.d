@@ -44,7 +44,7 @@ of ANKI_CONTEXT property."
                                        (org-element-at-point))))
       (unless (-contains-p tags "@ankigroup")
         (push "@ankigroup" tags))
-      (org-set-property akoe-dict-context-property-name title)
+      (org-set-property akoe-default-dict-context-property-name title)
       (org-set-tags tags)
       (save-restriction
         (org-narrow-to-subtree)
