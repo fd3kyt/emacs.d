@@ -23,9 +23,9 @@
 
 ;; adding fonts
 (setq cnfonts-personal-fontnames
-      '(("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")
-        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")
-        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF")))
+      '(("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
+        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")
+        ("DejaVu Sans Mono" "DejaVuSansMono YaHei NF" "Sarasa Fixed SC")))
 
 (cnfonts-refresh-profile-list)
 (cnfonts-enable)
@@ -34,14 +34,15 @@
 (defvar *is-a-windows*)
 (cnfonts--select-profile (cond (*is-a-cygwin* "cygwin")
                                (*is-a-windows* "windows")
-                               (t "dejavu")))
-
+                               (t "sarasa")))
 
 ;; (when *is-a-cygwin*
 ;;   (set-frame-font "DejaVuSansMono YaHei NF"))
 
 (global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
 (global-set-key (kbd "C-M-=") 'cnfonts-increase-fontsize)
+;;; turn off `default-text-scale-mode' used by purcell
+(remove-hook 'after-init-hook 'default-text-scale-mode)
 
 (provide 'init-local-font)
 
