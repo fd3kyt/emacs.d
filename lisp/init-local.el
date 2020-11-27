@@ -15,8 +15,8 @@
 ;;; .emacs.d/personal/packages
 (defvar kyt/package-dir (expand-file-name "packages" kyt/personal-dir)
   "My packages.")
-;;; .emacs.d/personal/load
-(defvar kyt/init-dir (expand-file-name "load" kyt/personal-dir)
+;;; .emacs.d/personal/init
+(defvar kyt/init-dir (expand-file-name "init" kyt/personal-dir)
   "Path to local init dir.")
 
 (add-to-list 'load-path kyt/init-dir)
