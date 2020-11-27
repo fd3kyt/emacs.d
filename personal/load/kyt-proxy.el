@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(declare-function require-package "init-elpa")
+(declare-function require-package 'init-elpa)
 
 (require-package 'request)
 (require 'request)
