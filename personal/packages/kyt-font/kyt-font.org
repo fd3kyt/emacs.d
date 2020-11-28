@@ -45,7 +45,12 @@ CLOSED: [2020-11-28 Sat 17:52]
 - if want to have different font size in a frame
   - use =C-x C--= (text-scale-adjust)
 * plan
-** set all frames
+** DONE set all frames
+CLOSED: [2020-11-28 Sat 23:04]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 23:04]
+:END:
+** set font for new frame: =after-make-frame-functions=
 * why so many code?
 ** the simple way
 When using fonts like "更纱黑体", this should do most of the works:
