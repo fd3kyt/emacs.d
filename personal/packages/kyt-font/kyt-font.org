@@ -1,0 +1,25 @@
+#+TITLE:kyt-font
+#+OPTIONS: ^:nil toc:nil
+
+* write a kyt-font myself, instead of using cnfonts
+** why
+- I know the related functions now
+- when using cnfonts, /chinese italic/ shown as regular
+* kyt-font
+** cons: do not allow frames have different font size
+- options
+  - change font in one frame
+  - change font in all frame
+** plan
+- options
+  - support both setting one frame and all frames ?
+  - only support to set all frames?
+    - same as default-text-scale-mode
+    - cnfonts works like this, too.
+  - only support to set one frame
+    - +cnfonts seems to work like this.+
+*** support both setting one frame and all frames
+- vars
+  - initial font size
+  - global font size
+  - frame local font sizes

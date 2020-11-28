@@ -51,8 +51,7 @@
 If PIXEL is non-nil, the unit of FONT-SIZE is pixel (px) instead
 of point (pt)."
   (if (display-graphic-p)
-      (let ((font-string (format (if pixel "%s:pixelsize=%d" "%s %d")
-                                 font-name font-size)))
+      (let ((font-string font-name))
         (when (and pixel (cl-oddp font-size))
           (warn "%sUsing ODD pixel font size: %d (EVEN pixel size is recommended)"
                 kyt-font--message-prefix font-size))
@@ -118,6 +117,14 @@ of point (pt)."
       ;; TODO
       (add-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)
     (remove-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)))
+
+(defun get-default-face-height-and-pixel-size ()
+  "Same as name."
+  (interactive)
+  (message "%s"
+           (list :point-height (face-attribute 'default :height)
+                 :pixel-width (window-font-width)
+                 :pixel-height (window-font-height))))
 
 (provide 'kyt-font)
 
