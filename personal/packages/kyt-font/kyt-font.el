@@ -124,6 +124,7 @@ size as initial font size afterwards."
                       kyt-font/use-pixel-size-p
                       (list frame) 'suppress-message))
 
+(defvar default-text-scale-mode)        ;for warning
 (define-minor-mode kyt-font/global-font-mode
   "Set font in every frame."
   :global t
@@ -135,6 +136,13 @@ size as initial font size afterwards."
             map)
   (if kyt-font/global-font-mode
       (progn
+        (when default-text-scale-mode
+          (warn "%s%s%s"
+                kyt-font--message-prefix
+                "Using together with purcell's default-text-scale-mode, "
+                ;; e.g. font size of new frames may not be set
+                ;; correctly
+                "may not work correctly."))
         (unless (kyt-font--initialized-p)
           (kyt-font/initialize))
         (add-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame))
