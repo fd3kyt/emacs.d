@@ -48,21 +48,25 @@
   "Prefix of messages from this package.")
 
 (defun kyt-font--set-font (font-name font-size pixel)
-  "Set font with FONT-NAME and FONT-SIZE.
+  "Set font with FONT-NAME and FONT-SIZE in all (graphic) frames.
 If PIXEL is non-nil, the unit of FONT-SIZE is pixel (px) instead
 of point (pt)."
-  (if (display-graphic-p)
-      (let ((font-name-and-size (format (if pixel "%s:pixelsize=%d" "%s %d")
-                                        font-name font-size)))
-        (when (and pixel (cl-oddp font-size))
-          (warn "%sUsing ODD pixel font size: %d (EVEN pixel size is recommended)"
-                kyt-font--message-prefix font-size))
-        (set-frame-font font-name-and-size 'keep-size t)
-        (dolist (charset (append kyt-font/chinese-charsets kyt-font/symbol-charsets))
-          (set-fontset-font t charset font-name))
-        (message "%sSet Font: [ %s ]  Size: [ %d %s ]"
-                 kyt-font--message-prefix font-name font-size (if pixel "px" "pt")))
-    (message "%sDo not support terminal. Do nothing." kyt-font--message-prefix)))
+  (let ((font-name-and-size (format (if pixel "%s:pixelsize=%d" "%s %d")
+                                    font-name font-size))
+        (charsets (append kyt-font/chinese-charsets kyt-font/symbol-charsets)))
+    (when (and pixel (cl-oddp font-size))
+      (warn "%sUsing ODD pixel font size: %d (EVEN pixel size is recommended)"
+            kyt-font--message-prefix font-size))
+    (dolist (frame (frame-list))
+      (when (display-graphic-p frame)
+        (set-frame-font font-name-and-size 'keep-size (list frame))
+        (dolist (charset charsets)
+          (set-fontset-font t charset font-name frame))))
+    (message "%sSet Font: [ %s ]  Size: [ %d %s ]%s"
+             kyt-font--message-prefix font-name font-size (if pixel "px" "pt")
+             (if (display-graphic-p)
+                 ""
+               "  (NO effect in terminal)"))))
 ;; (kyt-font--set-font kyt-font/basic-font-name 24 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 60 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 16 nil)
