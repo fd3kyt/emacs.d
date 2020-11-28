@@ -42,33 +42,19 @@
 
 ;; (global-set-key (kbd "C-M--") 'cnfonts-decrease-fontsize)
 ;; (global-set-key (kbd "C-M-=") 'cnfonts-increase-fontsize)
-;; ;;; turn off `default-text-scale-mode' used by purcell
-;; (remove-hook 'after-init-hook 'default-text-scale-mode)
+
+;; ;; (cnfonts-disable)
+;; ;; (cl-prettyprint (x-list-fonts "Monaco"))
+
+;; settings for cnfonts END
 
 
-;; (cnfonts-disable)
-;; (cl-prettyprint (x-list-fonts "Monaco"))
-
-
-
-
-(defvar sarasa-font-name "Sarasa Fixed SC")
-
-;;; set english chars
-(set-frame-font "Sarasa Fixed SC 14" nil t)
-;;; set chinese chars
-(set-fontset-font t 'han "Sarasa Fixed SC 14")
-
-(defun kyt/set-font-size (size)
-  "Set font size to SIZE."
-  (interactive "nFont size? ")
-  (let ((font-string (format "%s %d" sarasa-font-name size)))
-    (set-frame-font font-string nil t)
-    (set-fontset-font t 'han font-string)))
-
-;; ;; (text-scale-increase)
-
-;; ;; (default-text-scale-mode 1)
+(require 'kyt-font)
+(add-hook 'after-init-hook
+          (lambda () ;; used by purcell, conflict with mine
+            (default-text-scale-mode -1) ;
+            (kyt-font/global-font-mode 1))
+          95)
 
 (provide 'init-local-font)
 
