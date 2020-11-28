@@ -5,12 +5,13 @@
 ;; 中英文, 且中英混排时宽度高度对齐的字体, 例如"更纱黑体"
 ;; (https://github.com/be5invis/Sarasa-Gothic)
 
-;; 注意: 更纱黑体, 需要 pixel size 为偶数, 才能保证中英混排宽度对齐
+;; 注意: 就算字体保证2英与1中等宽, 也需要emacs里中文字符的像素宽度为偶
+;; 数, 才能保证中英混排宽度对齐
 
 ;; ;;; set english chars
-;; (set-frame-font "Sarasa Fixed SC 14" nil t)
+;; (set-frame-font "Sarasa Fixed SC:pixelsize=16" nil t)
 ;; ;;; set chinese chars
-;; (set-fontset-font t 'han "Sarasa Fixed SC 14")
+;; (set-fontset-font t 'han "Sarasa Fixed SC")
 
 ;;; Code:
 
@@ -51,17 +52,19 @@
 If PIXEL is non-nil, the unit of FONT-SIZE is pixel (px) instead
 of point (pt)."
   (if (display-graphic-p)
-      (let ((font-string font-name))
+      (let ((font-name-and-size (format (if pixel "%s:pixelsize=%d" "%s %d")
+                                        font-name font-size)))
         (when (and pixel (cl-oddp font-size))
           (warn "%sUsing ODD pixel font size: %d (EVEN pixel size is recommended)"
                 kyt-font--message-prefix font-size))
-        (set-frame-font font-string 'keep-size t)
+        (set-frame-font font-name-and-size 'keep-size t)
         (dolist (charset (append kyt-font/chinese-charsets kyt-font/symbol-charsets))
-          (set-fontset-font t charset font-string))
+          (set-fontset-font t charset font-name))
         (message "%sSet Font: [ %s ]  Size: [ %d %s ]"
                  kyt-font--message-prefix font-name font-size (if pixel "px" "pt")))
     (message "%sDo not support terminal. Do nothing." kyt-font--message-prefix)))
 ;; (kyt-font--set-font kyt-font/basic-font-name 24 'pixel)
+;; (kyt-font--set-font kyt-font/basic-font-name 60 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 16 nil)
 
 (defun kyt-font/initialize-font ()
