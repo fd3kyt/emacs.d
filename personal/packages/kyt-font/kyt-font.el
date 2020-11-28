@@ -129,6 +129,37 @@ of point (pt)."
                  :pixel-width (window-font-width)
                  :pixel-height (window-font-height))))
 
+(defun set-default-face-height (height)
+  "Set the HEIGHT of default face.
+Unit of height: 1/10 point."
+  (face-spec-set 'default `((t (:height ,height)))))
+;; (set-default-face-height 160)
+
+(defun get-chinese-pixel-width ()
+  "As name."
+  (save-excursion
+    (with-temp-buffer
+      (set-window-buffer (selected-window) (current-buffer))
+      (insert "中")
+      (aref (aref (font-get-glyphs (font-at 1) 1 2) 0) 4))))
+;; (get-chinese-pixel-width)
+
+(defun test-face-height-with-even-pixel-width (start end)
+  "Find all height values between START, END with even pixel width."
+  (let ((previous-height (face-attribute 'default :height)))
+    (unwind-protect
+        (-filter (lambda (arg) (and (cl-evenp (nth 3 arg))
+                               (cl-evenp (nth 3 arg))))
+                 (mapcar (lambda (height)
+                           (set-default-face-height height)
+                           (list (face-attribute 'default :height)
+                                 (frame-char-width)
+                                 (frame-char-height)
+                                 (get-chinese-pixel-width)))
+                         (number-sequence start end 5)))
+      (set-default-face-height previous-height))))
+;; (test-face-height-with-even-pixel-width 5 200)
+
 (provide 'kyt-font)
 
 ;;; kyt-font.el ends here
