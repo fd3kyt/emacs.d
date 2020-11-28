@@ -20,53 +20,54 @@
 (defvar kyt-font/basic-font-name "Sarasa Fixed SC"
   "The font used for both chinese and english.")
 
-(defvar kyt-font/default-font-size 24
-  "Default font size.")
-
-(defvar kyt-font/max-font-size 100
-  "Max allowed font size.  If nil, not limited.")
-
-(defvar kyt-font/min-font-size 2
-  "Min allowed font size.  If nil, use 0.")
-
 (defvar kyt-font/use-pixel-size-p t
   "If non-nil, use pixel font size instead of point(磅) by default.")
+(defvar kyt-font/default-font-size 24
+  "Default font size.")
+(defvar kyt-font/max-font-size 100
+  "Max allowed font size.  If nil, not limited.")
+(defvar kyt-font/min-font-size 2
+  "Min allowed font size.  If nil, use 0.")
+(defvar kyt-font/font-size-step 2
+  "Increment by which to adjust font size.")
 
 (defvar kyt-font/chinese-charsets '(kana han cjk-misc bopomofo gb18030)
   "Chinese charsets to be set.")
-
 (defvar kyt-font/symbol-charsets '(symbol)
   "Symbol charsets to be set.")
 
 (defvar kyt-font--current-font-size nil
   "Current font size.")
-
-(defvar kyt-font/font-size-step 2
-  "Increment by which to adjust font size.")
-
 (defvar kyt-font--message-prefix "[kyt-font] "
   "Prefix of messages from this package.")
 
-(defun kyt-font--set-font (font-name font-size pixel)
+(defun kyt-font--set-font (font-name font-size pixel
+                                     &optional frames suppress-message)
   "Set font with FONT-NAME and FONT-SIZE in all (graphic) frames.
 If PIXEL is non-nil, the unit of FONT-SIZE is pixel (px) instead
-of point (pt)."
+of point (pt).
+
+If FRAMES is not nil, set only frames in this list instead of all
+frames.
+
+If SUPPRESS-MESSAGE is non-nil, don't show the success message."
   (let ((font-name-and-size (format (if pixel "%s:pixelsize=%d" "%s %d")
                                     font-name font-size))
         (charsets (append kyt-font/chinese-charsets kyt-font/symbol-charsets)))
     (when (and pixel (cl-oddp font-size))
       (warn "%sUsing ODD pixel font size: %d (EVEN pixel size is recommended)"
             kyt-font--message-prefix font-size))
-    (dolist (frame (frame-list))
+    (dolist (frame (or frames (frame-list)))
       (when (display-graphic-p frame)
         (set-frame-font font-name-and-size 'keep-size (list frame))
         (dolist (charset charsets)
           (set-fontset-font t charset font-name frame))))
-    (message "%sSet Font: [ %s ]  Size: [ %d %s ]%s"
-             kyt-font--message-prefix font-name font-size (if pixel "px" "pt")
-             (if (display-graphic-p)
-                 ""
-               "  (NO effect in terminal)"))))
+    (unless suppress-message
+      (message "%sSet Font: [ %s ]  Size: [ %d %s ]%s"
+               kyt-font--message-prefix font-name font-size (if pixel "px" "pt")
+               (if (display-graphic-p)
+                   ""
+                 "  (NO effect in terminal)")))))
 ;; (kyt-font--set-font kyt-font/basic-font-name 24 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 60 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 16 nil)
@@ -86,10 +87,10 @@ of point (pt)."
   (let ((new-size (min (or kyt-font/max-font-size most-positive-fixnum)
                        (max (or kyt-font/min-font-size 0)
                             (+ delta kyt-font--current-font-size)))))
-    (setq kyt-font--current-font-size new-size)
     (kyt-font--set-font kyt-font/basic-font-name
                         new-size
-                        kyt-font/use-pixel-size-p)))
+                        kyt-font/use-pixel-size-p)
+    (setq kyt-font--current-font-size new-size)))
 
 (defun kyt-font/increase-font-size (steps)
   "Increase font size with STEPS."
@@ -101,15 +102,16 @@ of point (pt)."
   (interactive "p")
   (kyt-font--adjust-font-size (- (* steps kyt-font/font-size-step))))
 
-;; (defun kyt/set-font-size (size)
-;;   "Set font size to SIZE."
-;;   (interactive "nFont size? ")
-;;   (let ((font-string (format "%s %d" kyt-font/basic-font-name size)))
-;;     (set-frame-font font-string nil t)
-;;     (set-fontset-font t 'han font-string)))
-
 ;;; if you want to adjust font size based on screen resolution:
-;;; (if (> (x-display-pixel-width) 1600) (use-big-size) (use-small-size))
+;; (if (> (display-pixel-width) 1600) (use-big-size) (use-small-size))
+;;; `display-pixel-width', `display-mm-width'
+
+(defun kyt-font--set-font-for-new-frame (frame)
+  "Set font in new FRAME."
+  (kyt-font--set-font kyt-font/basic-font-name
+                      kyt-font--current-font-size
+                      kyt-font/use-pixel-size-p
+                      (list frame) 'suppress-message))
 
 (define-minor-mode kyt-font/global-set-font-mode
   "Set font in every frame."
@@ -121,9 +123,10 @@ of point (pt)."
             (define-key map (kbd "C-M-0") 'kyt-font/initialize-font)
             map)
   (if kyt-font/global-set-font-mode
-      ;; TODO
-      (add-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)
-    (remove-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)))
+      ;; TODO: initialize?
+      (add-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame)
+    ;; TODO: save current font size?
+    (remove-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame)))
 
 (defun get-default-face-height-and-pixel-size ()
   "Same as name."
