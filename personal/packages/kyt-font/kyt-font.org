@@ -1,25 +1,306 @@
 #+TITLE:kyt-font
 #+OPTIONS: ^:nil toc:nil
 
-* write a kyt-font myself, instead of using cnfonts
-** why
+* why did I start this?
+- cnfonts has some problems,
+  - /chinese italic/ shown as regular
 - I know the related functions now
-- when using cnfonts, /chinese italic/ shown as regular
-* kyt-font
-** cons: do not allow frames have different font size
+* DONE set font size of all frames or one frame?
+CLOSED: [2020-11-28 Sat 17:53]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 17:53]
+:END:
 - options
-  - change font in one frame
-  - change font in all frame
-** plan
-- options
-  - support both setting one frame and all frames ?
-  - only support to set all frames?
+  - support to set all frames?
     - same as default-text-scale-mode
     - cnfonts works like this, too.
-  - only support to set one frame
+  - support to set each frame individually
     - +cnfonts seems to work like this.+
-*** support both setting one frame and all frames
+    - /not necessary/: use =C-x C--= to set font size buffer-wise
+  - support both ?
+
+** CANCELLED support both setting one frame and all frames?
+CLOSED: [2020-11-28 Sat 17:52]
+:LOGBOOK:
+- State "CANCELLED"  from              [2020-11-28 Sat 17:52]
+:END:
 - vars
   - initial font size
   - global font size
   - frame local font sizes
+** use C-x C-- to set font size *buffer-wise*
+- C-x C--
+  - set font size in each *buffer*
+  - this + default-text-scale-mode is good enough
+
+
+- need to make setting face :height work for chinese
+  - solution: don't specify font size when using set-fontset-font
+
+
+[[file:/home/Data/nutstore/Documents/emacs/emacs.org::**DO NOT specify font size when using =set-fontset-font=!*][emacs.org :: **DO NOT specify font size when using =set-fontset-font=!*]]
+** conclusion: change font size in all frames
+- change font size in all frames
+  - similar to default-text-scale-mode
+- if want to have different font size in a frame
+  - use =C-x C--= (text-scale-adjust)
+* plan
+** set all frames
+* why so many code?
+** the simple way
+When using fonts like "更纱黑体", this should do most of the works:
+#+BEGIN_SRC elisp
+  (defvar kyt-font/basic-font-name "Sarasa Fixed SC")
+  (defvar kyt-font/chinese-charsets '(kana han cjk-misc bopomofo gb18030))
+  (defvar kyt-font/symbol-charsets '(symbol))
+
+  (set-frame-font kyt-font/basic-font-name 'keep-size t)
+  (dolist (charset (append kyt-font/chinese-charsets kyt-font/symbol-charsets))
+    (set-fontset-font t charset font-name-and-size))
+#+END_SRC
+
+- to change font size
+  - globally: default-text-scale-mode
+  - buffer-wise: C-x C-- (text-scale-adjust)
+** problem of the simple way: chinese pixel width                              :key:
+- 就算字体保证2英与1中等宽, 也需要emacs里中文字符的 *像素宽度* 为偶数, 才
+  能保证中英混排宽度对齐
+
+  - "font-name:pixelsize=N" 这里 N 就是 *中文* 字符的像素宽度(不是ascii
+    字符), 所以只需要确保 N 是偶数
+
+- 上述调整字体大小的方法都是通过设置 default face 的 =:height= 实现的
+  (每次按一个固定量增大或减小 =:height=)
+
+  - =:height= 的单位是 1/10 磅
+
+  - 难以确保对应的中文字符像素宽度为偶数
+
+*** get the pixel width of chinese char
+#+BEGIN_SRC elisp
+  (defun get-chinese-pixel-weight ()
+    "As name."
+    (save-excursion
+      (with-temp-buffer
+        (set-window-buffer (selected-window) (current-buffer))
+        (insert "中")
+        (aref (aref (font-get-glyphs (font-at 1) 1 2) 0) 4))))
+  ;; (get-chinese-pixel-weight)
+#+END_SRC
+
+** solution
+- 使用 =(set-frame-font "font-name:pixelsize=N")=, 直接设置中文像素宽
+  度为偶数, 以保证(大多数场景下)中英混排对齐
+
+  - (所以没法直接用 purcell 的 =default-text-scale-mode=)
+
+- 当需要个别设置字体大小时, 还是使用 =C-x C--= (=text-scale-adjust=)
+
+  - 此时无法保证中英混排对齐
+
+    - 但个别 buffer 设置字体的场景比较少见, 可以接受
+* old note :noexport:
+** CANCELLED try make sure that pixel size is even when setting :height of default face
+CLOSED: [2020-11-28 Sat 21:50]
+:LOGBOOK:
+- State "CANCELLED"  from              [2020-11-28 Sat 21:50]
+:END:
+*** set font size with pixel and keep text-scale-increase works ?             :ARCHIVE:
+:LOGBOOK:
+CLOCK: [2020-11-28 Sat 14:57]--[2020-11-28 Sat 16:57] =>  2:00
+:END:
+- text-scale-increase
+  - change the height in face
+    - [[*describe a face][describe a face]]
+    - unit: 1/10 point
+
+#+BEGIN_QUOTE
+- :height
+  - The height of the font. In the simplest case, this is an integer
+    in units of 1/10 point.
+- :width
+  - one of: ultra-condensed, extra-condensed, condensed,
+    semi-condensed, normal, semi-expanded, expanded, extra-expanded,
+    or ultra-expanded
+#+END_QUOTE
+
+- conclusion
+  - No.
+    - If want to set font size with face,
+      - can only set *height* in *1/10point*
+
+**** DONE can I use set-face-font to set all charset?                        :ARCHIVE:
+CLOSED: [2020-11-28 Sat 16:52]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 16:52]
+:END:
+- when set-face-font with size, text-scale-increase still work with ascii
+
+  not necessary: just don't specify font size when using =set-fontset-font=
+
+[[**DO NOT specify font size when using =set-fontset-font=!*][*DO NOT specify font size when using =set-fontset-font=!*]]
+*** CANCELLED limit font height so that char pixel weight is even
+CLOSED: [2020-11-28 Sat 21:06]
+:LOGBOOK:
+- State "CANCELLED"  from              [2020-11-28 Sat 21:06]
+CLOCK: [2020-11-28 Sat 16:59]--[2020-11-28 Sat 17:23] =>  0:24
+:END:
+**** can I keep pixel even by controlling height?
+:LOGBOOK:
+CLOCK: [2020-11-28 Sat 17:57]--[2020-11-28 Sat 18:21] =>  0:24
+:END:
+[[*get pixel size of char][get pixel size of char]]
+
+***** DONE write a fun to get valid height
+CLOSED: [2020-11-28 Sat 17:57]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 17:57]
+:END:
+****** full code
+#+BEGIN_SRC elisp
+  (defun get-default-face-height-and-pixel-size ()
+    "Same as name."
+    (interactive)
+    (message "%s"
+             (list :point-height (face-attribute 'default :height)
+                   :pixel-width (window-font-width)
+                   :pixel-height (window-font-height))))
+
+  (defun set-default-face-height (height)
+    "Set the HEIGHT of default face.
+  Unit of height: 1/10 point."
+    (face-spec-set 'default `((t (:height ,height)))))
+  ;; (set-default-face-height 160)
+
+  (defun get-chinese-pixel-width ()
+    "As name."
+    (save-excursion
+      (with-temp-buffer
+        (set-window-buffer (selected-window) (current-buffer))
+        (insert "中")
+        (aref (aref (font-get-glyphs (font-at 1) 1 2) 0) 4))))
+  ;; (get-chinese-pixel-width)
+
+  (defun test-face-height-with-even-pixel-width (start end)
+    "Find all height values between START, END with even pixel width."
+    (let ((previous-height (face-attribute 'default :height)))
+      (unwind-protect
+          (-filter (lambda (arg) (and (cl-evenp (nth 3 arg))
+                                 (cl-evenp (nth 3 arg))))
+                   (mapcar (lambda (height)
+                             (set-default-face-height height)
+                             (list (face-attribute 'default :height)
+                                   (frame-char-width)
+                                   (frame-char-height)
+                                   (get-chinese-pixel-width)))
+                           (number-sequence start end 5)))
+        (set-default-face-height previous-height))))
+  ;; (test-face-height-with-even-pixel-width 5 200)
+#+END_SRC
+
+****** even if pixel width is even, not aligned
+****** DONE check also the pixel width of chinese
+CLOSED: [2020-11-28 Sat 18:42]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 18:42]
+CLOCK: [2020-11-28 Sat 18:31]--[2020-11-28 Sat 18:42] =>  0:11
+:END:
+yes, sometimes, width of basic char is even but width of chinese is
+odd
+******* example output
+#+BEGIN_SRC elisp
+  '(
+    (159 14 36 28)
+    (160 14 36 28)
+    (161 14 36 28)
+    (162 14 36 28)
+    (163 14 36 28)
+    (175 16 40 31)
+    (176 16 40 31)
+    (177 16 40 31)
+    (178 16 40 31)
+    (179 16 40 31)
+    (180 16 40 31)
+    (181 16 41 32)
+    (182 16 41 32)
+    (183 16 41 32)
+    (184 16 41 32)
+    )
+#+END_SRC
+****** DONE find height where both widths are even
+CLOSED: [2020-11-28 Sat 18:40]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 18:40]
+:END:
+****** DONE only the width of chinese need to be even
+CLOSED: [2020-11-28 Sat 18:42]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 18:42]
+:END:
+- e.g.
+  - (170 15 39 30)
+    - (height width height chinese-width)
+    - the table is aligned
+***** some (irregular) heights satisfy the requirement                      :conclusion:
+- the numbers seems irregular
+**** can find the correct heights, but hard to limit packages to them        :conclusion:
+[[*write a fun to get valid height][write a fun to get valid height]]
+
+- can get the valid heights where pixel widths of chinese char are
+  even
+- but no easy way to limit default-text-scale, text-scale-increase to
+  these value
+*** DONE set font pixel size, and use text-scale-increase (折衷方案)
+CLOSED: [2020-11-28 Sat 21:05]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2020-11-28 Sat 21:05]
+CLOCK: [2020-11-28 Sat 20:55]--[2020-11-28 Sat 20:58] =>  0:03
+:END:
+- set font with even pixel size
+  - set-frame-font
+- text-scale-increase
+  - when used, table may not aligned
+**** DONE try (set-frame-font font-name-size) (set-fontset-font font-name)
+CLOSED: [2020-11-28 Sat 21:05]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 21:05]
+CLOCK: [2020-11-28 Sat 20:58]--[2020-11-28 Sat 21:05] =>  0:07
+:END:
+- it works!
+- when changing size with default-text-scale-mode and
+  text-scale-increase, both english and chinese change their sizes
+** DONE review code of default-text-scale and text-scale-increase
+CLOSED: [2020-11-28 Sat 19:06]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 19:06]
+CLOCK: [2020-11-28 Sat 17:23]--[2020-11-28 Sat 17:34] =>  0:11
+:END:
+*** default-text-scale: just set :height
+**** DONE how does it set font size
+CLOSED: [2020-11-28 Sat 17:34]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-28 Sat 17:34]
+:END:
+core:
+#+BEGIN_SRC elisp
+  (let* ((cur-height (face-attribute 'default :height))
+         (new-height (+ cur-height delta)))
+    (face-spec-set 'default `((t (:height ,new-height)))))
+#+END_SRC
+
+many code to keep the /frame size/ unchanged
+**** can I control the steps to make pixel even?                             :ARCHIVE:
+:LOGBOOK:
+CLOCK: [2020-11-28 Sat 17:34]--[2020-11-28 Sat 17:57] =>  0:23
+:END:
+*** text-scale-increase
+- text-scale-increase
+  - text-scale-mode
+
+
+#+BEGIN_SRC elisp
+(face-remap-add-relative 'default
+                                          :height
+                                          (expt text-scale-mode-step
+                                                text-scale-mode-amount))
+#+END_SRC
