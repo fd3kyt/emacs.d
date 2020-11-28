@@ -105,6 +105,20 @@ of point (pt)."
 ;;; if you want to adjust font size based on screen resolution:
 ;;; (if (> (x-display-pixel-width) 1600) (use-big-size) (use-small-size))
 
+(define-minor-mode kyt-font/global-set-font-mode
+  "Set font in every frame."
+  :global t
+  :require 'kyt-font
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-M-=") 'kyt-font/increase-font-size)
+            (define-key map (kbd "C-M--") 'kyt-font/decrease-font-size)
+            (define-key map (kbd "C-M-0") 'kyt-font/initialize-font)
+            map)
+  (if kyt-font/global-set-font-mode
+      ;; TODO
+      (add-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)
+    (remove-hook 'after-make-frame-functions #'default-text-scale--update-for-new-frame)))
+
 (provide 'kyt-font)
 
 ;;; kyt-font.el ends here
