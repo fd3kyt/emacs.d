@@ -16,14 +16,15 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'dash)
 
 (defvar kyt-font/basic-font-name "Sarasa Fixed SC"
   "The font used for both chinese and english.")
 
 (defvar kyt-font/use-pixel-size-p t
   "If non-nil, use pixel font size instead of point(磅) by default.")
-(defvar kyt-font/default-font-size 24
-  "Default font size.")
+(defvar kyt-font/initial-font-size 24
+  "Initial font size when initialized.")
 (defvar kyt-font/max-font-size 100
   "Max allowed font size.  If nil, not limited.")
 (defvar kyt-font/min-font-size 2
@@ -72,17 +73,27 @@ If SUPPRESS-MESSAGE is non-nil, don't show the success message."
 ;; (kyt-font--set-font kyt-font/basic-font-name 60 'pixel)
 ;; (kyt-font--set-font kyt-font/basic-font-name 16 nil)
 
-(defun kyt-font/initialize-font ()
-  "Initialize font based on `kyt-font' variables."
-  (interactive)
+(defun kyt-font--initialized-p ()
+  "Return non-nil if `kyt-font' is initialzed."
+  kyt-font--current-font-size)
+
+(defun kyt-font/initialize (&optional save-current)
+  "Initialize font based on `kyt-font' variables.
+With prefix argument SAVE-CURRENT, save current `kyt-font' font
+size as initial font size afterwards."
+  (interactive "P")
+  (when save-current
+    (cl-assert (kyt-font--initialized-p))
+    (cl-assert (numberp kyt-font--current-font-size))
+    (setq kyt-font/initial-font-size kyt-font--current-font-size))
   (kyt-font--set-font kyt-font/basic-font-name
-                      kyt-font/default-font-size
+                      kyt-font/initial-font-size
                       kyt-font/use-pixel-size-p)
-  (setq kyt-font--current-font-size kyt-font/default-font-size))
+  (setq kyt-font--current-font-size kyt-font/initial-font-size))
 
 (defun kyt-font--adjust-font-size (delta)
   "Adjust font size with DELTA."
-  (unless kyt-font--current-font-size
+  (unless (kyt-font--initialized-p)
     (error "%sAdjust font size before initialized" kyt-font--message-prefix))
   (let ((new-size (min (or kyt-font/max-font-size most-positive-fixnum)
                        (max (or kyt-font/min-font-size 0)
@@ -113,20 +124,26 @@ If SUPPRESS-MESSAGE is non-nil, don't show the success message."
                       kyt-font/use-pixel-size-p
                       (list frame) 'suppress-message))
 
-(define-minor-mode kyt-font/global-set-font-mode
+(define-minor-mode kyt-font/global-font-mode
   "Set font in every frame."
   :global t
   :require 'kyt-font
   :keymap (let ((map (make-sparse-keymap)))
             (define-key map (kbd "C-M-=") 'kyt-font/increase-font-size)
             (define-key map (kbd "C-M--") 'kyt-font/decrease-font-size)
-            (define-key map (kbd "C-M-0") 'kyt-font/initialize-font)
+            (define-key map (kbd "C-M-0") 'kyt-font/initialize)
             map)
-  (if kyt-font/global-set-font-mode
-      ;; TODO: initialize?
-      (add-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame)
-    ;; TODO: save current font size?
-    (remove-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame)))
+  (if kyt-font/global-font-mode
+      (progn
+        (unless (kyt-font--initialized-p)
+          (kyt-font/initialize))
+        (add-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame))
+    ;; Consider: when will I turn it off?  Almost only when keys are
+    ;; conflicted. In this case, should not reset font here.
+    (remove-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame)
+    ;; TODO when should we do this? never?
+    ;; (setq kyt-font--current-font-size nil)
+    ))
 
 (defun get-default-face-height-and-pixel-size ()
   "Same as name."
