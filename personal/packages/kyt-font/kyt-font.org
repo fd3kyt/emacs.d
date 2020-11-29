@@ -55,13 +55,12 @@ CLOSED: [2020-11-28 Sat 23:04]
 ** the simple way
 When using fonts like "更纱黑体", this should do most of the works:
 #+BEGIN_SRC elisp
-  (defvar kyt-font/basic-font-name "Sarasa Fixed SC")
-  (defvar kyt-font/chinese-charsets '(kana han cjk-misc bopomofo gb18030))
-  (defvar kyt-font/symbol-charsets '(symbol))
+  (setq FONT-NAME "Sarasa Fixed SC")
+  (setq PIXEL-SIZE 26)
 
-  (set-frame-font kyt-font/basic-font-name 'keep-size t)
-  (dolist (charset (append kyt-font/chinese-charsets kyt-font/symbol-charsets))
-    (set-fontset-font t charset font-name-and-size))
+  (set-frame-font (format "%s:pixelsize=%d" FONT-NAME PIXEL-SIZE) t t)
+  (dolist (charset '(kana han cjk-misc bopomofo gb18030 symbol))
+    (set-fontset-font t charset FONT-NAME)) ;don't specify size here
 #+END_SRC
 
 - to change font size
@@ -170,6 +169,7 @@ CLOSED: [2020-11-28 Sat 17:57]
              (list :point-height (face-attribute 'default :height)
                    :pixel-width (window-font-width)
                    :pixel-height (window-font-height))))
+  ;; (get-default-face-height-and-pixel-size)
 
   (defun set-default-face-height (height)
     "Set the HEIGHT of default face.
@@ -194,11 +194,16 @@ CLOSED: [2020-11-28 Sat 17:57]
                                  (cl-evenp (nth 3 arg))))
                    (mapcar (lambda (height)
                              (set-default-face-height height)
-                             (list (face-attribute 'default :height)
-                                   (frame-char-width)
-                                   (frame-char-height)
-                                   (get-chinese-pixel-width)))
-                           (number-sequence start end 5)))
+                             (list
+                              (face-attribute 'default :height)
+                              (frame-char-width)
+                              (frame-char-height)
+                              (get-chinese-pixel-width)
+                              (/ (float (get-chinese-pixel-width)) (frame-char-height))
+                              (/ (float (face-attribute 'default :height))
+                                 (frame-char-height))
+                              ))
+                           (number-sequence start end 1)))
         (set-default-face-height previous-height))))
   ;; (test-face-height-with-even-pixel-width 5 200)
 #+END_SRC
@@ -308,4 +313,28 @@ CLOCK: [2020-11-28 Sat 17:34]--[2020-11-28 Sat 17:57] =>  0:23
                                           :height
                                           (expt text-scale-mode-step
                                                 text-scale-mode-amount))
+#+END_SRC
+
+* extra features
+
+** TODO fallback fonts
+* another solution:
+** CANCELLED calculate correct height?
+CLOSED: [2020-11-29 Sun 10:12]
+:LOGBOOK:
+- State "CANCELLED"  from              [2020-11-29 Sun 10:12] \\
+  get ratio of char's width and height: the ratio is not fixed
+:END:
+- [X] get dpi
+  - this is easy
+- [-] get ratio of char's width and height
+  - the ratio is not fixed
+
+#+BEGIN_SRC elisp
+  (defvar mm-to-inch 0.0393700787)
+
+  (defun calculate-height ()
+    (let ((dpi (/ (display-pixel-width) (* (display-mm-width) mm-to-inch)))
+          (w-h-ratio ???))                ;no fixed ratio
+      ))
 #+END_SRC

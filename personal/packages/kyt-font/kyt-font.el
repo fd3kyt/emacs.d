@@ -1,24 +1,59 @@
 ;;; kyt-font.el --- Simple chinese config -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; 基本思路: 分别设置中英文字体时, 宽度+高度对齐很麻烦.  直接使用包含
-;; 中英文, 且中英混排时宽度高度对齐的字体, 例如"更纱黑体"
+;; 基本方针: 分别设置中英文字体时, 宽度+高度对齐很麻烦.  解决方案是直
+;; 接使用一个包含中英文, 且中英混排时宽度高度对齐的字体, 如"更纱黑体"
 ;; (https://github.com/be5invis/Sarasa-Gothic)
-
-;; 注意: 就算字体保证2英与1中等宽, 也需要emacs里中文字符的像素宽度为偶
-;; 数, 才能保证中英混排宽度对齐
-
-;; ;;; set english chars
-;; (set-frame-font "Sarasa Fixed SC:pixelsize=16" nil t)
-;; ;;; set chinese chars
-;; (set-fontset-font t 'han "Sarasa Fixed SC")
-
+;;
+;; #################### 简单方案及其问题 ####################
+;;
+;; 使用上述字体时, 这样设置就能基本解决字体问题:
+;; (set-frame-font (format "%s:pixelsize=%d" FONT-NAME PIXEL-SIZE) t t)
+;; (dolist (charset '(kana han cjk-misc bopomofo gb18030 symbol))
+;;   (set-fontset-font t charset FONT-NAME)) ;don't specify size here
+;;
+;; 配合 `default-text-scale-mode' 设置全局的字体, `text-scale-adjust'
+;; 调整单个 buffer 的字体, 即可满足大多数需求.  不需要使用 `cnfonts'.
+;;
+;; 但是上述方案有以下问题: 使用 `default-text-scale-mode' 调整字体大小
+;; 时, 在很多大小下, 中英混排宽度还是无法对齐.  核心问题是: 就算字体满
+;; 足2英与1中等宽, 也需要emacs里中文字符的像素宽度为偶数, 才能保证中英
+;; 混排宽度对齐.  (如果使用过程中很少调整字体大小, 也忽略这个问题...)
+;;
+;; `default-text-scale-mode', `text-scale-adjust' 调整字体大小的方法都
+;; 是通过设置 default face 的 `:height' 实现的, 其单位是 1/10 磅, 难以
+;; 确保对应的中文像素宽度为偶数 (满足条件的 `:height' 值间没有固定的间
+;; 距; 字体不同大小下像素宽高比也不是固定的).
+;;
+;; (`cnfonts'给定了一个 size 列表, 调整大小时只选用这个列表中的值, 因
+;; 此如果根据当前字体小心设置 size 列表, 还是可以解决这个问题的.  但是
+;; 在只需要使用单一字体时, `cnfonts' 太臃肿了, 同时使用中还遇到了别的
+;; 一些问题, 所以这里另起炉灶了.)
+;;
+;; 想要简单直接地解决这个问题, 只需要在设置字体大小时直接指明(中文)像
+;; 素宽度而不是行高磅数: (set-frame-font "font-name:pixelsize=30")
+;;
+;; #################### 简单方案及其问题 END ####################
+;;
+;; `kyt-font' 的主要功能是: 1. 把单个字体(如"更纱黑体")设置为全局的默
+;; 认字体 2. 方便快捷地调整全局字体大小.
+;;
+;; 和 `default-text-scale-mode' 的区别在于: 支持中文字体的设置; 使用像
+;; 素宽度来指定字体大小.
+;;
+;; 如果需要调整单个 buffer 的字体大小, 可以使用 `text-scale-adjust'.
+;; 使用 `kyt-font' 设置字体后, `text-scale-adjust' 可以让中英字符同时
+;; 缩放, 不会出现只有英文字符缩放, 中文字符大小不变的情况(`cnfonts' 目
+;; 前有这个问题).  但是, 不保证缩放后中文字符像素宽度为偶数, 因此此时
+;; 中英混排可能不对齐.  因为单独调整 buffer 字体大小的情况较少, 所以还
+;; 可以接受.
+;;
 ;;; Code:
 
 (require 'cl-lib)
 (require 'dash)
 
-(defvar kyt-font/basic-font-name "Sarasa Fixed SC"
+(defvar kyt-font/font-name "Sarasa Fixed SC"
   "The font used for both chinese and english.")
 
 (defvar kyt-font/use-pixel-size-p t
@@ -60,18 +95,24 @@ If SUPPRESS-MESSAGE is non-nil, don't show the success message."
             kyt-font--message-prefix font-size))
     (dolist (frame (or frames (frame-list)))
       (when (display-graphic-p frame)
+        ;; set font name and size in `set-frame-font'
         (set-frame-font font-name-and-size 'keep-size (list frame))
         (dolist (charset charsets)
+          ;; DONT'T set size in `set-fontset-font', so that when
+          ;; adjusting font size with `:height' in default face
+          ;; (e.g. `text-scale-adjust'), these charsets can change
+          ;; their size together with ascii chars instead of having a
+          ;; fixed size.
           (set-fontset-font t charset font-name frame))))
     (unless suppress-message
       (message "%sSet Font: [ %s ]  Size: [ %d %s ]%s"
                kyt-font--message-prefix font-name font-size (if pixel "px" "pt")
-               (if (display-graphic-p)
+               (if (display-graphic-p (selected-frame))
                    ""
                  "  (NO effect in terminal)")))))
-;; (kyt-font--set-font kyt-font/basic-font-name 24 'pixel)
-;; (kyt-font--set-font kyt-font/basic-font-name 60 'pixel)
-;; (kyt-font--set-font kyt-font/basic-font-name 16 nil)
+;; (kyt-font--set-font kyt-font/font-name 24 'pixel)
+;; (kyt-font--set-font kyt-font/font-name 60 'pixel)
+;; (kyt-font--set-font kyt-font/font-name 16 nil)
 
 (defun kyt-font--initialized-p ()
   "Return non-nil if `kyt-font' is initialzed."
@@ -86,7 +127,7 @@ size as initial font size afterwards."
     (cl-assert (kyt-font--initialized-p))
     (cl-assert (numberp kyt-font--current-font-size))
     (setq kyt-font/initial-font-size kyt-font--current-font-size))
-  (kyt-font--set-font kyt-font/basic-font-name
+  (kyt-font--set-font kyt-font/font-name
                       kyt-font/initial-font-size
                       kyt-font/use-pixel-size-p)
   (setq kyt-font--current-font-size kyt-font/initial-font-size))
@@ -98,7 +139,7 @@ size as initial font size afterwards."
   (let ((new-size (min (or kyt-font/max-font-size most-positive-fixnum)
                        (max (or kyt-font/min-font-size 0)
                             (+ delta kyt-font--current-font-size)))))
-    (kyt-font--set-font kyt-font/basic-font-name
+    (kyt-font--set-font kyt-font/font-name
                         new-size
                         kyt-font/use-pixel-size-p)
     (setq kyt-font--current-font-size new-size)))
@@ -119,7 +160,7 @@ size as initial font size afterwards."
 
 (defun kyt-font--set-font-for-new-frame (frame)
   "Set font in new FRAME."
-  (kyt-font--set-font kyt-font/basic-font-name
+  (kyt-font--set-font kyt-font/font-name
                       kyt-font--current-font-size
                       kyt-font/use-pixel-size-p
                       (list frame) 'suppress-message))
@@ -142,7 +183,7 @@ size as initial font size afterwards."
                 "Using together with purcell's default-text-scale-mode, "
                 ;; e.g. font size of new frames may not be set
                 ;; correctly
-                "may not work correctly."))
+                "may not work correctly"))
         (unless (kyt-font--initialized-p)
           (kyt-font/initialize))
         (add-hook 'after-make-frame-functions 'kyt-font--set-font-for-new-frame))
