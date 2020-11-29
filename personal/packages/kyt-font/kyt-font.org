@@ -317,7 +317,31 @@ CLOCK: [2020-11-28 Sat 17:34]--[2020-11-28 Sat 17:57] =>  0:23
 
 * extra features
 
-** TODO fallback fonts
+** DONE fallback fonts
+CLOSED: [2020-11-29 Sun 13:07]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-11-29 Sun 13:07]
+:END:
+- options and plans
+  - set set-fontset-font fallback font
+    - [X] search glyph only
+  - set kyt-font/font-name
+    - set if not found
+
+*** DONE run (set-fontset-font ... nil 'append) multi times?: no problem
+CLOSED: [2020-11-29 Sun 11:55]
+:LOGBOOK:
+- State "DONE"       from              [2020-11-29 Sun 11:55]
+:END:
+it is ok:
+#+BEGIN_SRC elisp
+  ;;; override existing setting
+  (set-fontset-font t charset font-name frame)
+  ;;; append to new setting
+  (set-fontset-font t charset (font-spec :script charset) nil 'append)
+#+END_SRC
+*** change kyt-font/font-name if it is not found.
+
 * another solution:
 ** CANCELLED calculate correct height?
 CLOSED: [2020-11-29 Sun 10:12]

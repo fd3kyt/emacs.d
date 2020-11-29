@@ -18,7 +18,7 @@
 ;; 但是上述方案有以下问题: 使用 `default-text-scale-mode' 调整字体大小
 ;; 时, 在很多大小下, 中英混排宽度还是无法对齐.  核心问题是: 就算字体满
 ;; 足2英与1中等宽, 也需要emacs里中文字符的像素宽度为偶数, 才能保证中英
-;; 混排宽度对齐.  (如果使用过程中很少调整字体大小, 也忽略这个问题...)
+;; 混排宽度对齐.  (如果使用过程中很少调整字体大小, 也可以忽略这个问题...)
 ;;
 ;; `default-text-scale-mode', `text-scale-adjust' 调整字体大小的方法都
 ;; 是通过设置 default face 的 `:height' 实现的, 其单位是 1/10 磅, 难以
@@ -47,6 +47,11 @@
 ;; 前有这个问题).  但是, 不保证缩放后中文字符像素宽度为偶数, 因此此时
 ;; 中英混排可能不对齐.  因为单独调整 buffer 字体大小的情况较少, 所以还
 ;; 可以接受.
+;;
+;;; #################### How to use ####################
+;;
+;; (kyt-font/maybe-fallback-font)
+;; (kyt-font/global-font-mode 1)
 ;;
 ;;; Code:
 
@@ -103,7 +108,10 @@ If SUPPRESS-MESSAGE is non-nil, don't show the success message."
           ;; (e.g. `text-scale-adjust'), these charsets can change
           ;; their size together with ascii chars instead of having a
           ;; fixed size.
-          (set-fontset-font t charset font-name frame))))
+          (set-fontset-font t charset font-name frame)
+          ;; fallback: if FONT-NAME doesn't exist, search through the
+          ;; existing fonts to find one that contains the glyph
+          (set-fontset-font t charset (font-spec :script charset) nil 'append))))
     (unless suppress-message
       (message "%sSet Font: [ %s ]  Size: [ %d %s ]%s"
                kyt-font--message-prefix font-name font-size (if pixel "px" "pt")
@@ -193,6 +201,44 @@ size as initial font size afterwards."
     ;; TODO when should we do this? never?
     ;; (setq kyt-font--current-font-size nil)
     ))
+
+;;; #################### Extra Features ####################
+
+(defvar kyt-font/fallback-fonts
+  '((windows-nt . ("Microsoft YaHei" "SimSun"))
+    (gnu/linux . ("Noto Sans Mono CJK SC" "Noto Sans Mono"))
+    (darwin . ("Heiti SC"))
+    (cygwin . ("Microsoft YaHei" "SimSun")))
+  "Fallback fonts for different platforms.
+An alist: key is the value of `system-type', value is a list of
+font names.")
+
+(defun kyt-font--font-exists-p (font-name)
+  "Return non-nil if FONT-NAME is found.
+Required to match a found font family name exactly."
+  (member font-name (font-family-list)))
+;; (not (not (kyt-font--font-exists-p kyt-font/font-name)))
+
+(defun kyt-font/maybe-fallback-font ()
+  "If `kyt-font/font-name' is not found, use a fallback font.
+In this case, change `kyt-font/font-name' to the name of the
+fallback font, which is decided based on
+`kyt-font/fallback-fonts' and current `system-type'.
+
+Note: this is not inclued in `kyt-font/global-font-mode' and need
+to be called explicitly.  Should be called before
+`kyt-font/initialize'."
+  (unless (kyt-font--font-exists-p kyt-font/font-name)
+    (if-let ((fallback (-first 'kyt-font--font-exists-p
+                               (alist-get system-type kyt-font/fallback-fonts))))
+        (progn
+          (message "%s\"%s\" not found, set %s to \"%s\""
+                   kyt-font--message-prefix kyt-font/font-name
+                   "kyt-font/font-name" fallback)
+          (setq kyt-font/font-name fallback))
+      (message "%s\"%s\" not found, and no available fallback font. Do nothing..."
+               kyt-font--message-prefix kyt-font/font-name))))
+;; (kyt-font/maybe-fallback-font)
 
 (provide 'kyt-font)
 

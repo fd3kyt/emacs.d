@@ -53,6 +53,7 @@
 (add-hook 'after-init-hook
           (lambda () ;; used by purcell, conflict with mine
             (default-text-scale-mode -1) ;
+            (kyt-font/maybe-fallback-font)
             (kyt-font/global-font-mode 1))
           95)
 
