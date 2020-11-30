@@ -1,12 +1,12 @@
 ;;; init-local-font.el --- Init the font.
 
 ;;; Commentary:
-;;
+;; note: this file is required in `init-local-main' with
+;; `after-make-window-system-frame-hooks'
 
 ;;; Code:
 
-(declare-function require-package "init-elpa")
-
+;; (declare-function require-package "init-elpa")
 ;; (require-package 'cnfonts)
 ;; (require 'cnfonts)          ;still need to require
 
@@ -48,14 +48,11 @@
 
 ;; settings for cnfonts END
 
-
+(when (featurep 'default-text-scale)
+  (default-text-scale-mode -1))
 (require 'kyt-font)
-(add-hook 'after-init-hook
-          (lambda () ;; used by purcell, conflict with mine
-            (default-text-scale-mode -1) ;
-            (kyt-font/maybe-fallback-font)
-            (kyt-font/global-font-mode 1))
-          95)
+(kyt-font/maybe-fallback-font)
+(kyt-font/global-font-mode 1)
 
 (provide 'init-local-font)
 
