@@ -27,13 +27,14 @@
 
 ;;; blink your cursor when you scroll.
 (require-package 'beacon)
-(beacon-mode 1)
-(setq beacon-size 50
+(require 'beacon)
+(setq beacon-size 10
       beacon-color (face-attribute 'cursor :background)
       ;; beacon-push-mark 35
       beacon-blink-duration 0.1
       beacon-blink-delay 0.2
       )
+(beacon-mode 1)
 
 
 (provide 'init-local-simple-util)
