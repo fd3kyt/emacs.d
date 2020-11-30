@@ -15,13 +15,12 @@
 (defvar akoe-anki-deck-alias-under-cs nil)
 (setq akoe-anki-deck-alias-under-cs
       '("cpp" "emacs" "python" "sql" "projects" "leetcode"))
-
 (dolist (name akoe-anki-deck-alias-under-cs)
   (add-to-list 'akoe-anki-deck-alias (cons name (s-concat "cs::" name))))
 
 (setq akoe-anki-model-alias
       `(("basic" . "org:basic")
-        ("basic_r" . "org:basic_with_reverse")
+        ("reversible" . "org:basic_with_reverse")
         ("cloze" . "org:cloze")))
 
 (setq akoe-model-dict-alist
@@ -66,7 +65,7 @@ of ANKI_CONTEXT property."
   (unless (org-agenda-file-p)
     (customize-push-and-save 'org-id-extra-files
                              (list (file-truename (buffer-file-name))))))
-
+;; TODO:
 ;; (add-hook "need to add ad new hook: success, in original buffer"
 ;;           'akoe--add-file-to-org-id-search-locations)
 
