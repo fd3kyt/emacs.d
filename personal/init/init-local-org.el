@@ -184,10 +184,22 @@ PREFIX: if not nil, do not minimize."
 
 (setq org-ellipsis "↓")
 
-;; useful tweak
-
+;; org tags
+(setq org-tags-column 80)
 (setq org-tag-persistent-alist
       '(("workflow" . ?w) ("log" . ?l) ("question" . ?q) ("summary" . ?s)) )
+
+;;; fix: after typing tags at a headline, the tags is not
+;;; automatically aligned
+(defun kyt/org-fix-tags-on-the-fly ()
+  "Align tags in headline at point.
+Like `org-fix-tags-on-the-fly', but align if point is at the end
+of the line when on a tag."
+  (when (and (org-match-line org-tag-line-re)
+             (or (< (point) (match-beginning 1))
+                 (= (point) (line-end-position))))
+    (org-align-tags)))
+(advice-add 'org-fix-tags-on-the-fly :override 'kyt/org-fix-tags-on-the-fly)
 
 (setq org-hide-emphasis-markers nil)
 
