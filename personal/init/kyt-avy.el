@@ -12,19 +12,23 @@
   "Copy a selected line to current position.
 ARG lines can be used."
   (interactive "p")
-  (let ((initial-window (selected-window)))
+  (let ((initial-window (selected-window))) ;mimic `avy-copy-line'
     (avy-with avy-copy-line
       (let* ((start (avy--line))
-             (str (buffer-substring-no-properties
-                   start
-                   (save-excursion
-                     (goto-char start)
-                     (move-end-of-line arg)
-                     (point)))))
+             (end (save-excursion
+                    (goto-char start)
+                    (forward-line (1- arg))
+                    (if (derived-mode-p 'emacs-lisp-mode)
+                        ;; mimic `paredit-copy-as-kill'
+                        (cond
+                         ((paredit-in-string-p) (cdr (paredit-string-start+end-points)))
+                         ((paredit-in-comment-p) (line-end-position))
+                         (t (paredit-forward-sexps-to-kill (point) (line-end-position))
+                            (point)))
+                      (line-end-position))))
+             (str (buffer-substring-no-properties start end )))
         (select-window initial-window)
-        (insert (if (> arg 1)
-                    str
-                  (s-trim str)))))))
+        (insert (if (> arg 1) str (s-trim str)))))))
 
 
 (declare-function org-insert-link 'org)
