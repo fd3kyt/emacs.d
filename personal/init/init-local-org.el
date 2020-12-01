@@ -371,6 +371,10 @@ space), unset `buffer-modified-p' after changes."
 (setq org-archive-default-command 'org-toggle-archive-tag)
 
 ;; #################### `org-refile' ####################
+;;; Purcell set this to `sanityinc/verify-refile-target' to exclude DONE
+;;; tasks from refile targets (2020-11-31), but I don't want it.
+(setq org-refile-target-verify-function nil)
+
 (defun org-refile-goto ()
   "Go to heading using `org-refile'."
   (interactive)
