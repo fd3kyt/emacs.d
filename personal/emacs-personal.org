@@ -1,0 +1,63 @@
+#+TITLE:emacs-personal
+#+OPTIONS: ^:nil toc:nil
+
+* DONE C-\ org refile: with prefix, include archived                            :idea:
+CLOSED: [2020-12-01 Tue 10:39]
+:LOGBOOK:
+- State "DONE"       from              [2020-12-01 Tue 10:39]
+CLOCK: [2020-12-01 Tue 10:13]--[2020-12-01 Tue 10:39] =>  0:26
+:END:
+- archived are already included
+- DONE that are not at top level are not included
+
+** DONE "DONE" that are not at top level are not included
+CLOSED: [2020-12-01 Tue 10:39]
+:LOGBOOK:
+- State "DONE"       from              [2020-12-01 Tue 10:39]
+:END:
+- related
+  - org-done-keywords
+    - org-entry-is-done-p
+  - org-not-done-keywords
+
+
+- file: org-refile.el
+  - org-refile-get-targets
+    - +org-get-agenda-file-buffer+
+    - nothing related
+
+
+- may it is a config in purcell?
+  - ag done in ~/.emacs.d/lisp/ : find it
+
+
+#+BEGIN_SRC elisp
+(setq org-refile-target-verify-function 'sanityinc/verify-refile-target)
+#+END_SRC
+* DONE C-S-y kyt/avy-copy-line-here: if elisp, kill sexp(s) instead of first line :idea:
+CLOSED: [2020-12-01 Tue 12:46]
+:LOGBOOK:
+- State "DONE"       from              [2020-12-01 Tue 12:46]
+CLOCK: [2020-12-01 Tue 12:04]--[2020-12-01 Tue 12:46] =>  0:42
+CLOCK: [2020-12-01 Tue 10:42]--[2020-12-01 Tue 11:31] =>  0:49
+:END:
+- kill sexps until no more (")")
+** fun to use?
+:LOGBOOK:
+CLOCK: [2020-12-01 Tue 11:55]--[2020-12-01 Tue 12:04] =>  0:09
+:END:
+- search: "paredit kill"
+  - paredit-copy-sexps-as-kill
+  - (paredit-kill-sexps-on-line)
+  - paredit-kill
+  - paredit-copy-as-kill
+  - internal: *paredit-forward-sexps-to-kill*
+* DONE desktop name based on system-type                                        :ARCHIVE:
+CLOSED: [2020-12-02 Wed 21:41]
+:LOGBOOK:
+- State "DONE"       from              [2020-12-02 Wed 21:41]
+CLOCK: [2020-12-02 Wed 20:37]--[2020-12-02 Wed 21:41] =>  1:04
+:END:
+- [X] desktop
+  - [X] desktop-base-file-name
+- [X] recent file
