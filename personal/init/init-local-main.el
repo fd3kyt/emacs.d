@@ -389,9 +389,6 @@ state."
       company-dabbrev-downcase nil)
 (setq company-dabbrev-code-everywhere t)
 
-(after-load 'historian
-  (setq historian-history-length 50))
-
 ;; (require 'kyt-blogging)
 
 
