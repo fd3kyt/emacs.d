@@ -46,6 +46,15 @@
   `(unless *is-a-windows*
      ,@body))
 
+(defvar kyt/system-name-alist '((gnu/linux . "linux")
+                                (cygwin . "cygwin")
+                                (windows-nt . "windows"))
+  "Values of `system-type' and their conventional names.")
+
+(defun kyt/get-system-name (&optional type)
+  "Return system name of TYPE.  Default to `system-type'."
+  (alist-get (or type system-type) kyt/system-name-alist "unknown"))
+
 (provide 'init-preload-local)
 
 ;;; init-preload-local.el ends here

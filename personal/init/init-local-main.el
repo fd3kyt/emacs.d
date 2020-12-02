@@ -20,9 +20,20 @@
 (when *is-a-windows*
   (require 'init-local-windows))
 
+;;; desktop
 (defvar desktop-save)
 (customize-set-variable 'desktop-save 'if-exists)
 (customize-set-variable 'desktop-restore-eager 0)
+(defvar desktop-base-file-name)
+(setq desktop-base-file-name (format "~/.emacs.d/.emacs.%s.desktop"
+                                     (kyt/get-system-name)))
+
+;;; recentf
+(defvar recentf-max-saved-items)
+(defvar recentf-save-file)
+(setq recentf-max-saved-items 200
+      recentf-save-file (format "~/.emacs.d/%s.recentf"
+                                (kyt/get-system-name)))
 
 ;; install packages
 (require-package 'realgud)
