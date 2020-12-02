@@ -47,7 +47,8 @@ site-lisp/package/
 /.uptimes.el
 /rake.cache
 /plantuml.jar
-# kyt
+
+## kyt
 flycheck_*
 # personal/packages/fcitx/
 /abbrev_defs
@@ -67,3 +68,5 @@ flycheck_*
 .cache/
 /forge-database.sqlite
 /transient
+/.emacs*.desktop
+/*.recentf
