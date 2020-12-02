@@ -382,7 +382,7 @@ state."
 (global-set-key (kbd "C-x R") 'revert-buffer)
 
 (setq uptimes-keep-count 50)
-(setq uptimes-auto-save-interval (* 60 60))
+(setq uptimes-auto-save-interval (* 60 60)) ;a hour
 (setq uptimes-database "~/.emacs.d/uptimes.uptimes")
 
 (setq company-dabbrev-ignore-case nil
