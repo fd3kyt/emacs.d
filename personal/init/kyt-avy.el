@@ -22,7 +22,12 @@ ARG lines can be used."
                         ;; mimic `paredit-copy-as-kill'
                         (cond
                          ((paredit-in-string-p) (cdr (paredit-string-start+end-points)))
-                         ((paredit-in-comment-p) (line-end-position))
+                         ((save-excursion
+                            (skip-chars-forward " \t")
+                            ;; `paredit-in-comment-p' returns nil at the first ";"
+                            (when (looking-at ";") (forward-char))
+                            (paredit-in-comment-p))
+                          (line-end-position))
                          (t (paredit-forward-sexps-to-kill (point) (line-end-position))
                             (point)))
                       (line-end-position))))
