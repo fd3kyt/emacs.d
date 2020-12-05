@@ -12,15 +12,9 @@
 
 (require 'akoe)
 
-(defvar akoe-anki-deck-alias-under-cs nil)
-(setq akoe-anki-deck-alias-under-cs
-      '("cpp" "emacs" "python" "sql" "projects" "leetcode"))
-(dolist (name akoe-anki-deck-alias-under-cs)
-  (add-to-list 'akoe-anki-deck-alias (cons name (s-concat "cs::" name))))
-
 (setq akoe-anki-model-alias
       `(("basic" . "org:basic")
-        ("reversible" . "org:basic_with_reverse")
+        ("flip" . "org:basic_with_reverse")
         ("cloze" . "org:cloze")))
 
 (setq akoe-model-dict-alist
@@ -29,6 +23,11 @@
             (cons "org:basic_with_reverse" 'akoe-model-dict-basic)
             (cons "org:cloze" 'akoe-model-dict-basic)))
 
+(setq akoe-anki-deck-alias `(("default" . "org::default")))
+(let ((decks-under-cs
+       '("cpp" "emacs" "python" "sql" "projects" "leetcode")))
+  (dolist (name decks-under-cs)
+    (add-to-list 'akoe-anki-deck-alias (cons name (s-concat "cs::" name)))))
 
 (defun akoe-mark-ankigroup-set-context ()
   "Mark as ankigroup and use title as ANKI_CONTEXT.
