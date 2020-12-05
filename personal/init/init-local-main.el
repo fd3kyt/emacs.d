@@ -20,6 +20,8 @@
 (when *is-a-windows*
   (require 'init-local-windows))
 
+(setq source-directory "~/Sources.local/emacs/src")
+
 ;;; desktop
 (defvar desktop-save)
 (customize-set-variable 'desktop-save 'if-exists)
