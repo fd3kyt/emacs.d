@@ -61,3 +61,26 @@ CLOCK: [2020-12-02 Wed 20:37]--[2020-12-02 Wed 21:41] =>  1:04
 - [X] desktop
   - [X] desktop-base-file-name
 - [X] recent file
+* TODO org-clock, show current total time + time of current run
+* DONE jump to elisp definition by name
+CLOSED: [2020-12-06 Sun 12:24]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2020-12-06 Sun 12:24]
+:END:
+- counsel-describe-function
+- *find-function* [fn:1]
+
+#+BEGIN_SRC elisp
+(find-function 'ivy-read)
+#+END_SRC
+
+done:
+#+BEGIN_SRC elisp
+(defun kyt/describe-function-jump-with-prefix (function)
+  "With prefix arg, jump to FUNCTION and return non-nil."
+  (when current-prefix-arg (find-function function) t))
+(advice-add 'describe-function :before-until 'kyt/describe-function-jump-with-prefix)
+#+END_SRC
+
+
+[fn:1]https://stackoverflow.com/questions/4222183/emacs-how-to-jump-to-function-definition-in-el-file

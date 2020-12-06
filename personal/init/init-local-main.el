@@ -410,11 +410,20 @@ state."
   (define-key emacs-lisp-mode-map (kbd "C-c C-c")
     'eval-buffer))
 
+;;; With `C-u', describe-function/variable to definition directly
+(defun kyt/describe-function-jump-with-prefix (function)
+  "With prefix arg, jump to FUNCTION and return non-nil."
+  (when current-prefix-arg (find-function function) t))
+(advice-add 'describe-function :before-until 'kyt/describe-function-jump-with-prefix)
+(defun kyt/describe-variable-jump-with-prefix (variable)
+  "With prefix arg, jump to VARIABLE and return non-nil."
+  (when current-prefix-arg (find-variable variable) t))
+(advice-add 'describe-variable :before-until 'kyt/describe-variable-jump-with-prefix)
+
 ;;; init.el set `debug-on-error' to t to get backtraces during
 ;;; initialization.  After initialization, set it to nil for daily
 ;;; usage.
 (add-hook 'after-init-hook (lambda () (setq debug-on-error nil)) 'append)
-
 (provide 'init-local-main)
 
 ;;; init-local-main.el ends here
