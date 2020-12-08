@@ -5,17 +5,21 @@
 
 ;;; Code:
 
-
+(defvar *is-a-linux*)
 (add-to-list 'load-path
-             "/home/fd3kyt/Projects/org2anki/akoe/")
+             (if *is-a-linux*
+                 "/home/fd3kyt/Projects/org2anki/akoe/"
+               "d:/nutstore/Projects/org2anki/akoe/"))
 (require 'paredit)
 
 (require 'akoe)
 
-(setq akoe-anki-model-alias
-      `(("basic" . "org:basic")
-        ("flip" . "org:basic_with_reverse")
-        ("cloze" . "org:cloze")))
+(setq akoe-anki-model-alias `(("basic" . "org:basic")
+                              ("flip" . "org:basic_with_reverse")
+                              ("cloze" . "org:cloze")))
+(setq akoe-anki-read-model-choices `(("b" . "basic")
+                                     ("fr" . "flip")
+                                     ("cz" . "cloze")))
 
 (setq akoe-model-dict-alist
       (list (cons "org:basic" 'akoe-model-dict-basic)
