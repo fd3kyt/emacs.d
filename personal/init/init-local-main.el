@@ -322,7 +322,7 @@ state."
   (setq ag-arguments
         (append ag-arguments (list "-U" "--ignore" ".git/"
                                    "--ignore"
-                                   (concat "^" flycheck-temp-prefix)
+                                   (format "%s*" flycheck-temp-prefix)
                                    "--ignore" "^#"
                                    "--ignore" "^\\.#"
                                    "--width" "300"
