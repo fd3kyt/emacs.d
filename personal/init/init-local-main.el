@@ -380,6 +380,7 @@ state."
   )
 
 (global-set-key (kbd "C-x R") 'revert-buffer)
+(global-set-key (kbd "<f8>") 'repeat-complex-command)
 
 (setq uptimes-keep-count 50)
 (setq uptimes-auto-save-interval (* 60 60)) ;a hour
