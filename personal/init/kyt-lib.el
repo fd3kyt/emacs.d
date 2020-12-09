@@ -219,7 +219,7 @@ REPLACE can be a string or a list of two strings."
   "Display the value of the raw prefix ARG."
   ;; from https://www.gnu.org/software/emacs/manual/html_node/elisp/Prefix-Command-Arguments.html
   (interactive "P")
-  (message "%s" arg))
+  (message "%s, type: %s" arg (type-of arg)))
 
 (provide 'kyt-lib)
 
