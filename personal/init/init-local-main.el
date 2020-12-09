@@ -81,21 +81,19 @@
 (unless *is-a-windows*
   (setq dired-listing-switches "-aBhl  --group-directories-first"))
 
-(after-load 'cc-mode
-  (require 'init-local-cpp)
-
-  (when *is-a-linux*
-    (require 'init-local-ycmd)
-    (require 'init-local-rtags)
-    ;; make use of the completions from rtags and ycmd at the same time
-    ;; (if (and (-contains-p company-backends 'company-rtags)
-    ;;          (-contains-p company-backends 'company-ycmd))
-    ;;     (let ((new-group (list 'company-rtags 'company-ycmd :separate)))
-    ;;       (push new-group company-backends)))
-
-    ;; only use ycmd for completions. Fast, have fuzzy completions
-    (setq company-backends (remove 'company-rtags company-backends))
-    (setq rtags-completions-enabled nil)))
+;; (after-load 'cc-mode
+;;   (require 'init-local-cpp)
+;;   (when *is-a-linux*
+;;     (require 'init-local-ycmd)
+;;     (require 'init-local-rtags)
+;;     ;; make use of the completions from rtags and ycmd at the same time
+;;     ;; (if (and (-contains-p company-backends 'company-rtags)
+;;     ;;          (-contains-p company-backends 'company-ycmd))
+;;     ;;     (let ((new-group (list 'company-rtags 'company-ycmd :separate)))
+;;     ;;       (push new-group company-backends)))
+;;     ;;; only use ycmd for completions. Fast, have fuzzy completions
+;;     (setq company-backends (remove 'company-rtags company-backends))
+;;     (setq rtags-completions-enabled nil)))
 
 (require 'init-local-python)
 
