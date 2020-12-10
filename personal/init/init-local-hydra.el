@@ -47,32 +47,18 @@
   ("q"  nil "QUIT" :color blue))
 (global-set-key (kbd "C-!") 'hydra-flycheck/body)
 
-
-;; (defhydra hydra-source-insight (:color pink)
-;;   "code inspect"
-;;   ("R" semantic-symref "line reference")
-;;   ("r" semantic-symref-symbol "symbol ref")
-;;   ("g" ycmd-goto "goto")
-;;   ("d" ycmd-goto-definition "definition"))
-
-
-(define-prefix-command 'kyt/source)
-(define-key kyt/source (kbd "R") 'semantic-symref)
-(define-key kyt/source (kbd "r") 'semantic-symref-symbol)
-(define-key kyt/source (kbd "g") 'ycmd-goto)
-(define-key kyt/source (kbd "d") 'ycmd-goto-definition)
-(after-load 'cc-mode
-  (define-key c++-mode-map (kbd "C-c s") 'kyt/source))
-
+;; (define-prefix-command 'kyt/source)
+;; (define-key kyt/source (kbd "R") 'semantic-symref)
+;; (define-key kyt/source (kbd "r") 'semantic-symref-symbol)
+;; (define-key kyt/source (kbd "g") 'ycmd-goto)
+;; (define-key kyt/source (kbd "d") 'ycmd-goto-definition)
+;; (after-load 'cc-mode
+;;   (define-key c++-mode-map (kbd "C-c s") 'kyt/source))
 
 ;; (require-package 'key-chord)
 ;; (key-chord-mode t)
 ;; (key-chord-define-global "as" 'kyt/source)
 ;; (setq key-chord-two-keys-delay 0.05)
-
-;; (after-load 'c++-mode
-;;   ;; (define-key c++-mode-map (kbd "M-M-s") 'hydra-source-insight/body)
-;;   (define-key c++-mode-map (kbd "C-c s") 'kyt/source))
 
 ;; (setq guide-key/guide-key-sequence t)
 ;; (guide-key/key-chord-hack-on)
