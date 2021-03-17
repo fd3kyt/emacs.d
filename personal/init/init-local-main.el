@@ -419,6 +419,8 @@ state."
   (when current-prefix-arg (find-variable variable) t))
 (advice-add 'describe-variable :before-until 'kyt/describe-variable-jump-with-prefix)
 
+(require-package 'ahk-mode)
+
 ;;; init.el set `debug-on-error' to t to get backtraces during
 ;;; initialization.  After initialization, set it to nil for daily
 ;;; usage.
