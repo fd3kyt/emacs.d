@@ -409,6 +409,9 @@ state."
   (define-key emacs-lisp-mode-map (kbd "C-c C-c")
     'eval-buffer))
 
+(after-load 'company
+  (customize-set-variable 'company-show-numbers t))
+
 ;;; With `C-u', describe-function/variable to definition directly
 (defun kyt/describe-function-jump-with-prefix (function)
   "With prefix arg, jump to FUNCTION and return non-nil."
@@ -419,7 +422,13 @@ state."
   (when current-prefix-arg (find-variable variable) t))
 (advice-add 'describe-variable :before-until 'kyt/describe-variable-jump-with-prefix)
 
+(customize-set-variable 'fill-column 90)
+
 (require-package 'ahk-mode)
+(after-load 'ahk-mode
+  (customize-set-variable 'ahk-indentation 4))
+
+;;; #################### post personal init: ####################
 
 ;;; init.el set `debug-on-error' to t to get backtraces during
 ;;; initialization.  After initialization, set it to nil for daily
