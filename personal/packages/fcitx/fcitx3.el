@@ -105,9 +105,11 @@ https://emacs.stackexchange.com/questions/8261/how-to-determine-if-the-current-c
   "if fcitx was active before it becomed not permitted")
 
 (defun fcitx/home-dir-shell-command (command)
+  ; may use `shell-file-name' to change shell
   (let ((default-directory "~/"))
-    (call-process "bash" nil nil nil
-                  "-c" command)))
+    ;; (call-process "bash" nil nil nil "-c" command)
+    (shell-command command)
+    ))
 
 (defcustom fcitx/im-turn-on-command "fcitx-remote -o"
   "Command to acitvate the input method."
