@@ -403,7 +403,8 @@ state."
 
 (require 'init-local-graduation)
 
-(global-set-key (kbd "C-c 3") 'kyt/copy-buffer-link)
+(global-set-key (kbd "C-c 3") 'kyt/copy-buffer-file-name)
+(global-set-key (kbd "C-c C-3") 'kyt/copy-buffer-link)
 
 (after-load 'elisp-mode
   (define-key emacs-lisp-mode-map (kbd "C-c C-c")
@@ -427,6 +428,8 @@ state."
 (require-package 'ahk-mode)
 (after-load 'ahk-mode
   (customize-set-variable 'ahk-indentation 4))
+
+(require-package 'powershell)
 
 ;;; #################### post personal init: ####################
 
