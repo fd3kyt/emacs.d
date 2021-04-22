@@ -395,7 +395,7 @@ state."
 
 ;;; temp setting for graduation design
 ;; C-. doesn't work under sogou input
-(global-set-key (kbd "C-'") 'cua-set-mark)
+(global-set-key (kbd "C-'") 'set-mark-command)
 (after-load 'org
   (define-key org-mode-map
     (kbd "C-'")

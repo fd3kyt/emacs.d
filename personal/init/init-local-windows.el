@@ -25,6 +25,9 @@
 (define-key key-translation-map (kbd "M-<f20>") (kbd "M-SPC"))
 (define-key key-translation-map (kbd "C-<f20>") (kbd "C-SPC"))
 (define-key key-translation-map (kbd "M-C-<f20>") (kbd "M-C-SPC"))
+;;; Fix C-, and C-. in emacs
+(define-key key-translation-map (kbd "C-<f21>") (kbd "C-,"))
+(define-key key-translation-map (kbd "C-<f22>") (kbd "C-."))
 
 ;; ;;; this works but too slow
 ;; (require 'init-local-fcitx)
