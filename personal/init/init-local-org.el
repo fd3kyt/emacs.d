@@ -13,6 +13,7 @@
 (declare-function require-package 'init-elpa)
 
 (require-package 'org)
+(require-package 'org-plus-contrib)
 (require-package 'org-download)
 
 (defun org-hide-starting-star ()

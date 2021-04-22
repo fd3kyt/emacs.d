@@ -7,6 +7,8 @@
 (declare-function 'require-package 'init-elpa)
 (declare-function 'after-load 'subr)
 
+(require-package 'magit)
+
 ;; https://github.com/magit/magit/issues/1275
 (defadvice magit-start-git (around lang-en_US activate)
   "Set LANG to en_US."
