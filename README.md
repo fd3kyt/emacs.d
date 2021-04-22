@@ -5,7 +5,7 @@ Add some customization in:
 * lisp/init-local.el
 * personal/
 =======
-[![Build Status](https://travis-ci.org/purcell/emacs.d.png?branch=master)](https://travis-ci.org/purcell/emacs.d)
+[![Build Status](https://github.com/purcell/emacs.d/workflows/CI/badge.svg)](https://github.com/purcell/emacs.d/actions)
 <a href="https://www.patreon.com/sanityinc"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 =======
 This is my emacs configuration tree, continually used and tweaked
@@ -18,15 +18,16 @@ Emacs itself comes with support for many programming languages. This
 config adds improved defaults and extended support for the following, listed
 in the approximate order of how much I use them, from most to least:
 
-* Haskell / Purescript / Elm
+* Haskell / Purescript / Elm / OCaml
 * Ruby / Ruby on Rails
+* SQL
 * CSS / LESS / SASS / SCSS
 * Javascript / Typescript / Coffeescript
 * HTML / HAML / Markdown / Textile / ERB
-* Rust
-* Python
-* Clojure (with Cider and nRepl)
 * Common Lisp (with Slime)
+* Python
+* Rust
+* Clojure (with Cider and nRepl)
 * PHP
 * Erlang
 
@@ -38,8 +39,8 @@ other languages.
 
 ## Supported Emacs versions
 
-The config should run on Emacs 24.4 or greater and is designed to
-degrade smoothly - see the Travis build - but note that much newer
+The config should run on Emacs 25.1 or greater and is designed to
+degrade smoothly - see the CI build - but note that much newer
 versions are required for an increasing number of key packages, so to
 get full functionality you should use the latest Emacs version
 available to you.

@@ -47,6 +47,9 @@ site-lisp/package/
 /.uptimes.el
 /rake.cache
 /plantuml.jar
+/.lsp-session-v1
+/smex-items
+/eln-cache/
 
 ## kyt
 flycheck_*
