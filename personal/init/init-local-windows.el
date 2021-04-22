@@ -18,10 +18,13 @@
 (setq ls-lisp-dirs-first t)
 (setq dired-listing-switches "-al")
 
-;; ;;; Fix: emacs + sogou input + MyBigCtrlForEmacs.ahk: when ahk send
-;; ;;; space, will sometimes insert two spaces instead of one. See
-;; ;;; MyBigCtrlForEmacs.ahk for details.
-;; (define-key key-translation-map (kbd "<f20>") (kbd "SPC"))
+;;; Fix: emacs + sogou input + MyBigCtrlForEmacs.ahk: when ahk send
+;;; space, will sometimes insert two spaces instead of one. See
+;;; MyBigCtrlForEmacs.ahk for details.
+(define-key key-translation-map (kbd "<f20>") (kbd "SPC"))
+(define-key key-translation-map (kbd "M-<f20>") (kbd "M-SPC"))
+(define-key key-translation-map (kbd "C-<f20>") (kbd "C-SPC"))
+(define-key key-translation-map (kbd "M-C-<f20>") (kbd "M-C-SPC"))
 
 ;; ;;; this works but too slow
 ;; (require 'init-local-fcitx)
